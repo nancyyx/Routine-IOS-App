@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ListView: View {
     
-    let tasks = Task.sampleTask
+    @EnvironmentObject var userViewModel: UserViewModel
+    //let tasks = Task.sampleTask
     
     var body: some View {
         VStack {
@@ -20,12 +21,18 @@ struct ListView: View {
                     .padding()
                 Spacer()
             }
-            List {
-                    ForEach(tasks) { task in
-                        ListWithIcon(task: task)
-                    }
+            if (userViewModel.tasks.isEmpty) {
+                Text("Live your meaningless life today or add some tasks")
             }
-            .listStyle(.plain)
+            else {
+                List {
+                    ForEach(userViewModel.tasks) { task in
+                            ListWithIcon(task: task)
+                        }
+                }
+                .listStyle(.plain)
+            }
+            
         }
         
     }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CurrentView: View {
-    let currentTask = Task.sampleTask[0]
+    @EnvironmentObject var userViewModel: UserViewModel
     
     var body: some View {
         VStack {
@@ -20,8 +20,17 @@ struct CurrentView: View {
                 
                 Spacer()
             }
-            CurrentDynamicButtonView(currentTask: currentTask)
-                .padding(/*@START_MENU_TOKEN@*/[.leading, .bottom, .trailing], 50.0/*@END_MENU_TOKEN@*/)
+            if (userViewModel.tasks.isEmpty) {
+                CurrentAddButtonView()
+                    .padding(/*@START_MENU_TOKEN@*/[.leading, .bottom, .trailing], 50.0/*@END_MENU_TOKEN@*/)
+                //userViewModel.updateTaskNumber(taskNumber: 0)
+                
+            }
+            else {
+                CurrentDynamicButtonView(currentTask: userViewModel.tasks[0])
+                    .padding(/*@START_MENU_TOKEN@*/[.leading, .bottom, .trailing], 50.0/*@END_MENU_TOKEN@*/)
+            }
+            
         }
         //.statusBar(hidden: true)
         //.padding()

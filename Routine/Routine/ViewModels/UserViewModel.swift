@@ -4,24 +4,54 @@
 //
 //  Created by Dajun Xian on 10/2/22.
 //
-/*
+
 import Foundation
 
 class UserViewModel: ObservableObject {
-    @Published var user: UserModel
+    @Published var tasks: [TaskModel] = []
+    @Published var user = UserModel(name: "Dajun", taskNumber: 4)
     
     init() {
-        getItems()
+        testTask()
+        //testUser()
     }
     
-    func getItems() {
-        let newItems = [
+
+
+    func testTask() {
+        let newTasks = [
             TaskModel("Workout", description: "Today is leg day"),
             TaskModel("Drink", description:  "Drink some chicken juice"),
             TaskModel("Smile", description: "Smile to your roommate"),
             TaskModel("Read", description: "Read the alphabet")
         ]
-        items.append(contentsOf: newItems)
+        tasks.append(contentsOf: newTasks)
     }
+
+    func addNewTask(title: String, description: String) {
+        let newTask = TaskModel(title, description: description)
+        tasks.append(newTask)
+    }
+    
+    func completeTask() {
+        tasks.removeFirst()
+    }
+    
+    func updateTaskNumber(taskNumber: Int) {
+        user.taskNumber = taskNumber
+    }
+    
+    func incrementTaskNumber() {
+        user.taskNumber = user.taskNumber + 1
+    }
+    
+    func getTaskNumber() -> Int {
+        return user.taskNumber
+    }
+    /*
+    func decrementTaskNumber() {
+        user.taskNumber = user.taskNumber - 1
+    }
+     */
 }
-*/
+
