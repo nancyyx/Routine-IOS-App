@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ListView: View {
     
-    let tasks = Task.sampleTask
+    @EnvironmentObject var userViewModel: UserViewModel
+    //let tasks = Task.sampleTask
     
     var body: some View {
         VStack {
@@ -21,7 +22,7 @@ struct ListView: View {
                 Spacer()
             }
             List {
-                    ForEach(tasks) { task in
+                ForEach(userViewModel.tasks) { task in
                         ListWithIcon(task: task)
                     }
             }

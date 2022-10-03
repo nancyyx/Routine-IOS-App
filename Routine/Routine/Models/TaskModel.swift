@@ -9,7 +9,7 @@ import Foundation
 
 // properties: 0.taskType  1. starting time 2. duration 3. repeatness 4. description
 
-struct Task: Identifiable {  //easy to use in loop with identifiable
+struct TaskModel: Identifiable {  //easy to use in loop with identifiable
     
     let id = UUID()
     
@@ -30,16 +30,16 @@ struct Task: Identifiable {  //easy to use in loop with identifiable
     
     
 }
-
-extension Task {
+/*
+extension TaskModel {
     
     static let sampleTask = [
         
-        Task("Workout", description: "Today is leg day"),
-        Task("Drink", description:  "Drink some chicken juice"),
-        Task("Smile", description: "Smile to your roommate"),
-        Task("Read", description: "Read the alphabet")
+        TaskModel("Workout", description: "Today is leg day"),
+        TaskModel("Drink", description:  "Drink some chicken juice"),
+        TaskModel("Smile", description: "Smile to your roommate"),
+        TaskModel("Read", description: "Read the alphabet")
         
     ]
 }
-
+*/

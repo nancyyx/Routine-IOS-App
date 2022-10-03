@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct User: Identifiable {
+struct UserModel: Identifiable {
     let id = UUID()
     
     let name: String
-    let tasks: [Task]  //tasklist
+    //let tasks: [TaskModel]  //tasklist
     
     //init function
     

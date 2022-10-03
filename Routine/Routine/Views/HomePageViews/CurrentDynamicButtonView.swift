@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct CurrentDynamicButtonView: View {
-    let currentTask: Task
+    @EnvironmentObject var userViewModel: UserViewModel
+    let currentTask: TaskModel
     var body: some View {
         Button {
             print("Image tapped!")
+            clickIcon()
         } label: {
             Image(currentTask.type)
                 .resizable()
@@ -20,7 +22,7 @@ struct CurrentDynamicButtonView: View {
                // .aspectRatio(0.1, contentMode: .fit)
                 .scaledToFit()
                 .padding()
-                .overlay(Circle().stroke(Color.cyan, lineWidth: 10))
+                .overlay(Circle().stroke(Color.red, lineWidth: 10))
                 .padding()
                 .overlay(Circle().stroke(Color.blue, lineWidth: 10))
         }
@@ -28,11 +30,17 @@ struct CurrentDynamicButtonView: View {
         
     }
     //.statusBar(hidden: true)
+    
+    
+    func clickIcon() {
+        userViewModel.completeTask()
+    }
 }
+
 
 struct CurrentDynamicButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        let currentTask = Task.sampleTask[0]
+        let currentTask = TaskModel("Workout", description: "Today is leg day")
         CurrentDynamicButtonView(currentTask: currentTask)
     }
 }

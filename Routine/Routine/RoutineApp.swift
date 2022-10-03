@@ -9,11 +9,15 @@ import SwiftUI
 
 @main
 struct RoutineApp: App {
+    
+    @StateObject var userViewModel: UserViewModel = UserViewModel()
+    
     var body: some Scene {
         WindowGroup {
             NavigationView {
                 TabBarView()
             }
+            .environmentObject(userViewModel)
 
         }
     }
