@@ -74,7 +74,7 @@ struct CustomTabView: View {
                 .offset(y: -15)
             }
             .sheet(isPresented: $presentSheet) {
-                Text("Detail")
+                AddView(description: "", title: "", tabBarview: self)
             }
             
             Spacer()
