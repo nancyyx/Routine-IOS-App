@@ -11,7 +11,7 @@ struct User: Identifiable {
     let id = UUID()
     
     let name: String
-    let tasks = Task.sampleTask   //tasklist
+    let tasks: [Task]  //tasklist
     
     //init function
     

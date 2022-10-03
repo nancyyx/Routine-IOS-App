@@ -9,11 +9,15 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
+        
         VStack {
             CurrentView()
             ListView()
             Spacer()
         }
+        .padding(.top, 80.0)
+        //.statusBar(hidden: true)  //mindful!!
+        .ignoresSafeArea(edges: .top)   //maybe
     }
 }
 
