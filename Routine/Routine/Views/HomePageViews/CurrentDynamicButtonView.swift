@@ -8,35 +8,110 @@
 import SwiftUI
 
 struct CurrentDynamicButtonView: View {
+    
     @EnvironmentObject var userViewModel: UserViewModel
+    
+    @State var progressValue: Float = 0.0
+    
     let currentTask: TaskModel
+    
     var body: some View {
+        
+        ZStack {
+            ProgressBar(progress: self.$progressValue)
+                .frame(width: 150.0, height: 150.0)
+                .padding(20.0)
+                .onAppear() {
+                    self.progressValue = 0.00
+                }
+            
+            Button {
+                print("Image tapped!")
+                clickIcon()
+            } label: {
+                Image(currentTask.type)
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .clipShape(Circle())
+            }
+        }
+        
+        
+        /*
         Button {
             print("Image tapped!")
             clickIcon()
         } label: {
-            Image(currentTask.type)
-                .resizable()
-                .frame(width: 100, height: 100)
-                .clipShape(Circle())
-               // .aspectRatio(0.1, contentMode: .fit)
-                .scaledToFit()
-                .padding()
-                .overlay(Circle().stroke(Color.red, lineWidth: 10))
-                .padding()
-                .overlay(Circle().stroke(Color.blue, lineWidth: 10))
+            
+            ZStack {
+                Image(currentTask.type)
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .clipShape(Circle())
+                   // .aspectRatio(0.1, contentMode: .fit)
+                    .scaledToFit()
+                    .padding()
+                    .overlay(Circle().stroke(Color.red.opacity(0.4), lineWidth: 10))
+                    .padding()
+                .overlay(Circle().stroke(Color.blue.opacity(0.2), lineWidth: 10))
+                /*
+                Image(currentTask.type)
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .clipShape(Circle())
+                   // .aspectRatio(0.1, contentMode: .fit)
+                    .scaledToFit()
+                    .padding()
+                    .overlay(Circle().stroke(Color.red, lineWidth: 10))
+                    .padding()
+                    .overlay(
+                        Circle()
+                            .trim(from: 0.0, to: <#T##CGFloat#>(min(self.progress, 1.0)))
+                            .stroke(style: StrokeStyle(lineWidth: 12, lineCap: .round, lineJoin: .round))
+                            .foregroundColor(Color.blue)
+                            .rotationEffect(Angle(degrees: 270))
+                            .animation(.easeInOut(duration: 1.5))
+                    )
+                 */
+            }
         }
         .padding()
-        
+        */
     }
     //.statusBar(hidden: true)
     
     
     func clickIcon() {
+        let incrementValue: Float = 1.0 / Float(userViewModel.getTaskNumber())
         userViewModel.completeTask()
+        //if (userViewModel.)
+        print(Float(1/userViewModel.getTaskNumber()))
+        self.progressValue += incrementValue
+        //self.progressValue += 1.0
     }
 }
 
+struct ProgressBar: View {
+    @Binding var progress: Float
+    var color: Color = Color.blue
+    
+    var body: some View {
+        ZStack {
+            Circle()
+                .stroke(lineWidth: 20.0)
+                .opacity(0.20)
+                .foregroundColor(Color.gray)
+            
+            Circle()
+                .trim(from: 0.0, to: CGFloat(min(self.progress, 1.0)))
+                .stroke(style: StrokeStyle(lineWidth: 12, lineCap: .round, lineJoin: .round))
+                .foregroundColor(Color.blue)
+                .rotationEffect(Angle(degrees: 270))
+                .animation(.easeInOut(duration: 1.5))
+        }
+        
+    }
+}
 
 struct CurrentDynamicButtonView_Previews: PreviewProvider {
     static var previews: some View {

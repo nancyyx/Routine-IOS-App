@@ -57,6 +57,7 @@ struct AddView: View {
     
     func clickAdd() {
         userViewModel.addNewTask(title: textFieldTitle, description: textFieldDescription)
+        userViewModel.incrementTaskNumber()
     }
     
     /*
