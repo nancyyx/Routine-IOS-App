@@ -24,6 +24,7 @@
 		DC018EF428EA3F140044ACBE /* UserPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EF328EA3F140044ACBE /* UserPageView.swift */; };
 		DC018EF628EA3F220044ACBE /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EF528EA3F220044ACBE /* SettingView.swift */; };
 		DC018EFC28EA49240044ACBE /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EFB28EA49240044ACBE /* UserViewModel.swift */; };
+		DC018EFE28EAC9850044ACBE /* CurrentAddButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EFD28EAC9850044ACBE /* CurrentAddButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		DC018EF328EA3F140044ACBE /* UserPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageView.swift; sourceTree = "<group>"; };
 		DC018EF528EA3F220044ACBE /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		DC018EFB28EA49240044ACBE /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		DC018EFD28EAC9850044ACBE /* CurrentAddButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentAddButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				DC018EDA28E96BF20044ACBE /* HomeView.swift */,
 				DC018EDD28E96BF40044ACBE /* CurrentView.swift */,
 				DC018ED928E96BF20044ACBE /* CurrentDynamicButtonView.swift */,
+				DC018EFD28EAC9850044ACBE /* CurrentAddButtonView.swift */,
 				DC018EDB28E96BF30044ACBE /* ListView.swift */,
 				DC018ED828E96BF10044ACBE /* ListWithIconView.swift */,
 			);
@@ -240,6 +243,7 @@
 				DC018EE228E96BF40044ACBE /* TabBarView.swift in Sources */,
 				DC018EE128E96BF40044ACBE /* ListView.swift in Sources */,
 				DC018ECA28E96B200044ACBE /* RoutineApp.swift in Sources */,
+				DC018EFE28EAC9850044ACBE /* CurrentAddButtonView.swift in Sources */,
 				DC018EFC28EA49240044ACBE /* UserViewModel.swift in Sources */,
 				DC018EEE28E97EF80044ACBE /* AddView.swift in Sources */,
 				DC018EE028E96BF40044ACBE /* HomeView.swift in Sources */,

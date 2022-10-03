@@ -21,12 +21,18 @@ struct ListView: View {
                     .padding()
                 Spacer()
             }
-            List {
-                ForEach(userViewModel.tasks) { task in
-                        ListWithIcon(task: task)
-                    }
+            if (userViewModel.tasks.isEmpty) {
+                Text("Live your meaningless life today or add some tasks")
             }
-            .listStyle(.plain)
+            else {
+                List {
+                    ForEach(userViewModel.tasks) { task in
+                            ListWithIcon(task: task)
+                        }
+                }
+                .listStyle(.plain)
+            }
+            
         }
         
     }

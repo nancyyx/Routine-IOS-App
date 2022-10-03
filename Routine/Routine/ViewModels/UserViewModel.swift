@@ -8,11 +8,12 @@
 import Foundation
 
 class UserViewModel: ObservableObject {
-    //@Published var user: UserModel
     @Published var tasks: [TaskModel] = []
+    @Published var user = UserModel(name: "Dajun", taskNumber: 4)
     
     init() {
         testTask()
+        //testUser()
     }
     
 
@@ -26,7 +27,7 @@ class UserViewModel: ObservableObject {
         ]
         tasks.append(contentsOf: newTasks)
     }
-    
+
     func addNewTask(title: String, description: String) {
         let newTask = TaskModel(title, description: description)
         tasks.append(newTask)
@@ -35,5 +36,22 @@ class UserViewModel: ObservableObject {
     func completeTask() {
         tasks.removeFirst()
     }
+    
+    func updateTaskNumber(taskNumber: Int) {
+        user.taskNumber = taskNumber
+    }
+    
+    func incrementTaskNumber() {
+        user.taskNumber = user.taskNumber + 1
+    }
+    
+    func getTaskNumber() -> Int {
+        return user.taskNumber
+    }
+    /*
+    func decrementTaskNumber() {
+        user.taskNumber = user.taskNumber - 1
+    }
+     */
 }
 
