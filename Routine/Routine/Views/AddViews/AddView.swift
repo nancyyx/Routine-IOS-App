@@ -8,20 +8,22 @@
 import SwiftUI
 
 struct AddView: View {
-    @State  var description: String
-    @State  var title: String
+    @EnvironmentObject var userViewModel: UserViewModel
+    @State  var textFieldDescription: String
+    @State  var textFieldTitle: String
     var tabBarview: CustomTabView?
+    
     var body: some View {
         NavigationView {
             VStack {
                 Form {
                     Section(header: Text("Task Info")) {
-                        TextField("Title", text: $title)
+                        TextField("Title", text: $textFieldTitle)
                             .padding(.horizontal)
                             .frame(height: 50)
                             .background(Color.white)
                             .cornerRadius(10)
-                        TextField("Description", text: $description)
+                        TextField("Description", text: $textFieldDescription)
                             .padding(.horizontal)
                             .font(.headline)
                             .frame(height: 50)
@@ -34,7 +36,8 @@ struct AddView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        
+                        clickAdd()
+                        tabBarview?.presentSheet = false
                     }, label: {
                         Text("Add")
                     })
@@ -51,6 +54,11 @@ struct AddView: View {
 
         }
     }
+    
+    func clickAdd() {
+        userViewModel.addNewTask(title: textFieldTitle, description: textFieldDescription)
+    }
+    
     /*
     var body: some View {
         NavigationView{
@@ -107,7 +115,9 @@ struct AddView: View {
 
 struct AddView_Previews: PreviewProvider {
     static var previews: some View {
-        AddView(description: "", title : "")
+        AddView(textFieldDescription: "", textFieldTitle: "")
+            .environmentObject(UserViewModel())
     }
+        
 }
 
