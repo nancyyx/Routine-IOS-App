@@ -9,16 +9,13 @@ import Foundation
 
 // properties: 0.taskType  1. starting time 2. duration 3. repeatness 4. description
 
-struct Task: Identifiable {
-    
-    enum taskState {
-        case undone, done
-    }
+struct Task: Identifiable {  //easy to use in loop with identifiable
     
     let id = UUID()
     
     let type: String   //workout, smile, drink
     let description: String
+    let isCompleted: Bool
     //starting time
     //duration
     //repeatness (Every Monday, Friday...)
@@ -28,6 +25,7 @@ struct Task: Identifiable {
     init(_ type: String, description: String) {
         self.type = type
         self.description = description
+        self.isCompleted = false
     }
     
     
@@ -44,3 +42,4 @@ extension Task {
         
     ]
 }
+

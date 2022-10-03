@@ -27,6 +27,7 @@ struct CurrentDynamicButtonView: View {
         .padding()
         
     }
+    //.statusBar(hidden: true)
 }
 
 struct CurrentDynamicButtonView_Previews: PreviewProvider {

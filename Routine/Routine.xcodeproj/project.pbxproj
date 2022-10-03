@@ -11,14 +11,19 @@
 		DC018ECC28E96B200044ACBE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018ECB28E96B200044ACBE /* ContentView.swift */; };
 		DC018ECE28E96B220044ACBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC018ECD28E96B220044ACBE /* Assets.xcassets */; };
 		DC018ED128E96B220044ACBE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC018ED028E96B220044ACBE /* Preview Assets.xcassets */; };
-		DC018EDE28E96BF40044ACBE /* ListWithIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018ED828E96BF10044ACBE /* ListWithIcon.swift */; };
+		DC018EDE28E96BF40044ACBE /* ListWithIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018ED828E96BF10044ACBE /* ListWithIconView.swift */; };
 		DC018EDF28E96BF40044ACBE /* CurrentDynamicButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018ED928E96BF20044ACBE /* CurrentDynamicButtonView.swift */; };
 		DC018EE028E96BF40044ACBE /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EDA28E96BF20044ACBE /* HomeView.swift */; };
 		DC018EE128E96BF40044ACBE /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EDB28E96BF30044ACBE /* ListView.swift */; };
 		DC018EE228E96BF40044ACBE /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EDC28E96BF40044ACBE /* TabBarView.swift */; };
 		DC018EE328E96BF40044ACBE /* CurrentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EDD28E96BF40044ACBE /* CurrentView.swift */; };
-		DC018EE728E96C100044ACBE /* Taskmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EE528E96C100044ACBE /* Taskmodel.swift */; };
+		DC018EE728E96C100044ACBE /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EE528E96C100044ACBE /* TaskModel.swift */; };
 		DC018EE828E96C100044ACBE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EE628E96C100044ACBE /* UserModel.swift */; };
+		DC018EEE28E97EF80044ACBE /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EED28E97EF80044ACBE /* AddView.swift */; };
+		DC018EF128EA3EF80044ACBE /* CalandarPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EF028EA3EF80044ACBE /* CalandarPageView.swift */; };
+		DC018EF428EA3F140044ACBE /* UserPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EF328EA3F140044ACBE /* UserPageView.swift */; };
+		DC018EF628EA3F220044ACBE /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EF528EA3F220044ACBE /* SettingView.swift */; };
+		DC018EFC28EA49240044ACBE /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EFB28EA49240044ACBE /* UserViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,14 +32,19 @@
 		DC018ECB28E96B200044ACBE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DC018ECD28E96B220044ACBE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DC018ED028E96B220044ACBE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		DC018ED828E96BF10044ACBE /* ListWithIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListWithIcon.swift; sourceTree = "<group>"; };
+		DC018ED828E96BF10044ACBE /* ListWithIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListWithIconView.swift; sourceTree = "<group>"; };
 		DC018ED928E96BF20044ACBE /* CurrentDynamicButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentDynamicButtonView.swift; sourceTree = "<group>"; };
 		DC018EDA28E96BF20044ACBE /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		DC018EDB28E96BF30044ACBE /* ListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		DC018EDC28E96BF40044ACBE /* TabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		DC018EDD28E96BF40044ACBE /* CurrentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentView.swift; sourceTree = "<group>"; };
-		DC018EE528E96C100044ACBE /* Taskmodel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Taskmodel.swift; sourceTree = "<group>"; };
+		DC018EE528E96C100044ACBE /* TaskModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		DC018EE628E96C100044ACBE /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		DC018EED28E97EF80044ACBE /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
+		DC018EF028EA3EF80044ACBE /* CalandarPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalandarPageView.swift; sourceTree = "<group>"; };
+		DC018EF328EA3F140044ACBE /* UserPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageView.swift; sourceTree = "<group>"; };
+		DC018EF528EA3F220044ACBE /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		DC018EFB28EA49240044ACBE /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,10 +77,11 @@
 		DC018EC828E96B200044ACBE /* Routine */ = {
 			isa = PBXGroup;
 			children = (
-				DC018EE428E96C030044ACBE /* Models */,
-				DC018ED728E96BC00044ACBE /* Views */,
 				DC018EC928E96B200044ACBE /* RoutineApp.swift */,
 				DC018ECB28E96B200044ACBE /* ContentView.swift */,
+				DC018EEC28E97E940044ACBE /* Views */,
+				DC018EF828EA440F0044ACBE /* ViewModels */,
+				DC018EE428E96C030044ACBE /* Models */,
 				DC018ECD28E96B220044ACBE /* Assets.xcassets */,
 				DC018ECF28E96B220044ACBE /* Preview Content */,
 			);
@@ -85,26 +96,70 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		DC018ED728E96BC00044ACBE /* Views */ = {
+		DC018ED728E96BC00044ACBE /* HomePageViews */ = {
 			isa = PBXGroup;
 			children = (
-				DC018ED928E96BF20044ACBE /* CurrentDynamicButtonView.swift */,
-				DC018EDD28E96BF40044ACBE /* CurrentView.swift */,
-				DC018EDA28E96BF20044ACBE /* HomeView.swift */,
-				DC018EDB28E96BF30044ACBE /* ListView.swift */,
-				DC018ED828E96BF10044ACBE /* ListWithIcon.swift */,
 				DC018EDC28E96BF40044ACBE /* TabBarView.swift */,
+				DC018EDA28E96BF20044ACBE /* HomeView.swift */,
+				DC018EDD28E96BF40044ACBE /* CurrentView.swift */,
+				DC018ED928E96BF20044ACBE /* CurrentDynamicButtonView.swift */,
+				DC018EDB28E96BF30044ACBE /* ListView.swift */,
+				DC018ED828E96BF10044ACBE /* ListWithIconView.swift */,
 			);
-			path = Views;
+			path = HomePageViews;
 			sourceTree = "<group>";
 		};
 		DC018EE428E96C030044ACBE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				DC018EE528E96C100044ACBE /* Taskmodel.swift */,
 				DC018EE628E96C100044ACBE /* UserModel.swift */,
+				DC018EE528E96C100044ACBE /* TaskModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		DC018EE928E97BB90044ACBE /* CalendarPageViews */ = {
+			isa = PBXGroup;
+			children = (
+				DC018EF028EA3EF80044ACBE /* CalandarPageView.swift */,
+			);
+			path = CalendarPageViews;
+			sourceTree = "<group>";
+		};
+		DC018EEA28E97BC80044ACBE /* UserPageViews */ = {
+			isa = PBXGroup;
+			children = (
+				DC018EF328EA3F140044ACBE /* UserPageView.swift */,
+				DC018EF528EA3F220044ACBE /* SettingView.swift */,
+			);
+			path = UserPageViews;
+			sourceTree = "<group>";
+		};
+		DC018EEB28E97E850044ACBE /* AddViews */ = {
+			isa = PBXGroup;
+			children = (
+				DC018EED28E97EF80044ACBE /* AddView.swift */,
+			);
+			path = AddViews;
+			sourceTree = "<group>";
+		};
+		DC018EEC28E97E940044ACBE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DC018ED728E96BC00044ACBE /* HomePageViews */,
+				DC018EEB28E97E850044ACBE /* AddViews */,
+				DC018EE928E97BB90044ACBE /* CalendarPageViews */,
+				DC018EEA28E97BC80044ACBE /* UserPageViews */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DC018EF828EA440F0044ACBE /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				DC018EFB28EA49240044ACBE /* UserViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,15 +233,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC018EDF28E96BF40044ACBE /* CurrentDynamicButtonView.swift in Sources */,
-				DC018EE728E96C100044ACBE /* Taskmodel.swift in Sources */,
+				DC018EE728E96C100044ACBE /* TaskModel.swift in Sources */,
 				DC018ECC28E96B200044ACBE /* ContentView.swift in Sources */,
+				DC018EF628EA3F220044ACBE /* SettingView.swift in Sources */,
 				DC018EE328E96BF40044ACBE /* CurrentView.swift in Sources */,
 				DC018EE228E96BF40044ACBE /* TabBarView.swift in Sources */,
 				DC018EE128E96BF40044ACBE /* ListView.swift in Sources */,
 				DC018ECA28E96B200044ACBE /* RoutineApp.swift in Sources */,
+				DC018EFC28EA49240044ACBE /* UserViewModel.swift in Sources */,
+				DC018EEE28E97EF80044ACBE /* AddView.swift in Sources */,
 				DC018EE028E96BF40044ACBE /* HomeView.swift in Sources */,
 				DC018EE828E96C100044ACBE /* UserModel.swift in Sources */,
-				DC018EDE28E96BF40044ACBE /* ListWithIcon.swift in Sources */,
+				DC018EF428EA3F140044ACBE /* UserPageView.swift in Sources */,
+				DC018EDE28E96BF40044ACBE /* ListWithIconView.swift in Sources */,
+				DC018EF128EA3EF80044ACBE /* CalandarPageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

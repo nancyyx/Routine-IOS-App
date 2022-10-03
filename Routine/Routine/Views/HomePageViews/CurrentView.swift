@@ -17,18 +17,19 @@ struct CurrentView: View {
                     .font(.title)
                     .fontWeight(.semibold)
                     .padding()
+                
                 Spacer()
             }
             CurrentDynamicButtonView(currentTask: currentTask)
                 .padding(/*@START_MENU_TOKEN@*/[.leading, .bottom, .trailing], 50.0/*@END_MENU_TOKEN@*/)
-                
         }
+        //.statusBar(hidden: true)
+        //.padding()
     }
 }
 
 struct CurrentView_Previews: PreviewProvider {
     static var previews: some View {
         CurrentView()
-        
     }
 }

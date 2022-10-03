@@ -14,6 +14,7 @@ struct RoutineApp: App {
             NavigationView {
                 TabBarView()
             }
+
         }
     }
 }
