@@ -9,7 +9,9 @@ import SwiftUI
 
 struct ProfilePicView: View {
     var body: some View{
-        Text("Hello")
+        Image("me")
+            .resizable()
+            .frame(width: 300, height: 300)
     }
 }
 
@@ -17,19 +19,23 @@ struct UserPageView: View {
     var body: some View {
         NavigationView{
             ZStack{
-                Color(red:240 / 255, green: 240 / 255, blue: 240 / 255).edgesIgnoringSafeArea(.all)
-                VStack(spacing: 20) {
+                Color(red:225 / 255, green: 225 / 255, blue: 225 / 255).edgesIgnoringSafeArea(.all)
+                VStack(spacing: 7) {
+                    //My Profile
                     NavigationLink(destination: ProfilePicView()){
                         Image("me")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 100)
+                            .frame(width: 125)
                             .clipShape(Circle())
                             .overlay(Circle().stroke(Color.white, lineWidth: 5))
                         
                     }
                     Text("Name")
-                        .font(.system(size: 20))
+                        .font(.system(size: 30))
+                        .foregroundColor(.black)
+                    Text("Happy life:)")
+                        .font(.system(size:18))
                         .foregroundColor(.black)
                     Text("Edit")
                         .font(.system(size: 14))
