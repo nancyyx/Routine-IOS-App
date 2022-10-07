@@ -17,12 +17,22 @@ struct ProfilePicView: View {
 
 struct UserPageView: View {
     var body: some View {
-        NavigationView{
+        //NavigationView{
             ZStack{
-                Color(red:225 / 255, green: 225 / 255, blue: 225 / 255).edgesIgnoringSafeArea(.all)
+                Color(red:225 / 255, green: 225 / 255, blue: 225 / 255)
+                    .edgesIgnoringSafeArea(.all)
                 VStack(spacing: 7) {
                     //My Profile
-                    NavigationLink(destination: ProfilePicView()){
+                    HStack {
+                        Text("PROFILE")
+                            .font(.title)
+                            .fontWeight(.semibold)
+                            .padding()
+                        
+                        Spacer()
+                    }
+                    
+                    //NavigationLink(destination: ProfilePicView()){
                         Image("me")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -30,7 +40,7 @@ struct UserPageView: View {
                             .clipShape(Circle())
                             .overlay(Circle().stroke(Color.white, lineWidth: 5))
                         
-                    }
+                    //}
                     Text("Name")
                         .font(.system(size: 30))
                         .foregroundColor(.black)
@@ -40,16 +50,24 @@ struct UserPageView: View {
                     Text("Edit")
                         .font(.system(size: 14))
                         .foregroundColor(.gray)
-                    NavigationView{
-                        List{
-                            Text("Points")
-                            Text("Calender")
-                            Text("Achivements")
-                        }
+                    
+                    List{
+                        Text("Points")
+                        Text("Calender")
+                        Text("Achivements")
                     }
-                }.padding(.top, 40)
+                    //.ignoresSafeArea(edges: .bottom)
+                    //NavigationView{
+                        
+                    //}
+                    
+                    Spacer()
+                }
+                .ignoresSafeArea(edges: .bottom)
+                //.padding(.top, 40)
+                
             }
-        }.navigationBarTitle("My Profile", displayMode: .inline)
+        //}.navigationBarTitle("My Profile")
     }
     
     

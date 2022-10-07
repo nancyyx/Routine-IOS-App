@@ -24,9 +24,12 @@ struct TabBarView: View {
                     HomeView()
                 }
             case .second:
-                NavigationView{
+                //NavigationView{
                     UserPageView()
-                }
+                    .padding(.top, 80.0)
+                    //.statusBar(hidden: true)  //mindful!!
+                    .ignoresSafeArea(edges: .top)   //maybe
+                //}
             }
             CustomTabView(selectedTab: $selectedTab)
                 .frame(height: 35)
@@ -167,5 +170,6 @@ struct CustomTabView: View {
 struct TabBarView_Previews: PreviewProvider {
     static var previews: some View {
         TabBarView()
+            .environmentObject(UserViewModel())
     }
 }
