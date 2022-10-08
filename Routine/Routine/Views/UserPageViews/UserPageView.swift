@@ -7,14 +7,6 @@
 
 import SwiftUI
 
-struct ProfilePicView: View {
-    var body: some View{
-        Image("me")
-            .resizable()
-            .frame(width: 300, height: 300)
-    }
-}
-
 struct UserPageView: View {
     var body: some View {
         //NavigationView{
@@ -69,11 +61,10 @@ struct UserPageView: View {
             }
         //}.navigationBarTitle("My Profile")
     }
-    
-    
-    struct UserPageView_Previews: PreviewProvider {
-        static var previews: some View {
-            UserPageView()
-        }
+}
+
+struct UserPageView_Previews: PreviewProvider {
+    static var previews: some View {
+        UserPageView()
     }
 }
