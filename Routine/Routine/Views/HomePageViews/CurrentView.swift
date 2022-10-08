@@ -40,5 +40,6 @@ struct CurrentView: View {
 struct CurrentView_Previews: PreviewProvider {
     static var previews: some View {
         CurrentView()
+            .environmentObject(UserViewModel())
     }
 }
