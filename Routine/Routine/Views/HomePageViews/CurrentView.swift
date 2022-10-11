@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CurrentView: View {
     @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var pomodoroModel: PomodoroModel
     
     var body: some View {
         VStack {
@@ -40,5 +41,7 @@ struct CurrentView: View {
 struct CurrentView_Previews: PreviewProvider {
     static var previews: some View {
         CurrentView()
+            .environmentObject(UserViewModel())
+            .environmentObject(PomodoroModel())
     }
 }

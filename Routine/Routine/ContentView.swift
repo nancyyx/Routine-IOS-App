@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var pomodoroModel: PomodoroModel
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        CurrentView()
+            .environmentObject(pomodoroModel)
+        
     }
 }
 
