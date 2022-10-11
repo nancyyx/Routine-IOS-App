@@ -15,7 +15,7 @@ class PomodoroModel: NSObject, ObservableObject, UNUserNotificationCenterDelegat
     
     @Published var hour: Int = 0
     @Published var minute: Int = 0
-    @Published var second: Int = 0
+    @Published var second: Int = 10
     @Published var totalSeconds: Int = 0
     @Published var staticTotalSeconds: Int = 0
     

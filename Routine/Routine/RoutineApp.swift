@@ -19,8 +19,7 @@ struct RoutineApp: App {
                 TabBarView()
             }
             .environmentObject(userViewModel)
-            ContentView()
-                .environmentObject(pomodoroModel)
+            .environmentObject(pomodoroModel)
         }
     }
 }

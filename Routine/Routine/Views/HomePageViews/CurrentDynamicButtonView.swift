@@ -31,6 +31,8 @@ struct CurrentDynamicButtonView: View {
                 clickIcon()
                 if pomodoroModel.isStarted {
                     pomodoroModel.stopTimer()
+                }else{
+                    pomodoroModel.startTimer()
                 }
             } label: {
                 Image(currentTask.type)
@@ -46,9 +48,9 @@ struct CurrentDynamicButtonView: View {
             Circle()
                 .trim(from: 0, to: pomodoroModel.progress)
                 .stroke(Color.cyan, lineWidth: 10)
+                .rotationEffect(.init(degrees: -90))
             
         }
-        .rotationEffect(.init(degrees: -90))
         .animation(.easeInOut, value: pomodoroModel.progress)
         .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()){
             _ in
