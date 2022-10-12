@@ -20,7 +20,7 @@ struct CurrentDynamicButtonView: View {
         
         ZStack {
             ProgressBar(progress: self.$progressValue)
-                .frame(width: 150.0, height: 150.0)
+                .frame(width: 235, height: 235)
                 .padding(20.0)
                 .onAppear() {
                     self.progressValue = 0.00
@@ -44,11 +44,16 @@ struct CurrentDynamicButtonView: View {
                 .stroke(lineWidth: 15.0)
                 .opacity(0.20)
                 .foregroundColor(Color.gray)
+                .frame(width: 235, height: 235)
+
             
             Circle()
                 .trim(from: 0, to: pomodoroModel.progress)
-                .stroke(Color.cyan, lineWidth: 10)
+                .stroke(Color.cyan, style: StrokeStyle(lineWidth: 15, lineCap: .round, lineJoin: .round))
+                .padding()
                 .rotationEffect(.init(degrees: -90))
+                .frame(width: 225, height: 225)
+
             
         }
         .animation(.easeInOut, value: pomodoroModel.progress)
@@ -59,14 +64,14 @@ struct CurrentDynamicButtonView: View {
             }
         }
         .alert("Congrats", isPresented: $pomodoroModel.isFinished) {
+            Button("Close", role: .destructive) {
+                pomodoroModel.stopTimer()
+            }
             Button("Start Relax Time", role: .cancel) {
                 pomodoroModel.stopTimer()
                 pomodoroModel.minute = 5
                 pomodoroModel.startTimer()
                 pomodoroModel.addNewTimer = true
-            }
-            Button("Close", role: .destructive) {
-                pomodoroModel.stopTimer()
             }
         }
         
