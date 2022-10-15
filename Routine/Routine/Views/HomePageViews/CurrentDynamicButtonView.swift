@@ -13,7 +13,7 @@ struct CurrentDynamicButtonView: View {
     
     @State var progressValue: Float = 0.0
     
-    let currentTask: TaskModel
+    let currentTask: Task
     
     var body: some View {
         

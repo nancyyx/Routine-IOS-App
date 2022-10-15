@@ -10,7 +10,7 @@ import SwiftUI
 struct ListWithIcon: View {
     
 
-    let task: TaskModel
+    let task: Task
     
     
     var body: some View {
@@ -29,7 +29,7 @@ struct ListWithIcon: View {
                     Spacer()
                 }
                 HStack {
-                    Text(task.description)
+                    Text(task.title)
                         .font(.body)
                     .fontWeight(.light)
                     Spacer()
@@ -46,7 +46,7 @@ struct ListWithIcon: View {
 
 struct ListWithIcon_Previews: PreviewProvider {
     static var previews: some View {
-        let testTask = TaskModel("Workout", description: "Today is leg day")
+        let testTask = Task("Workout",title: "Keto Diet...🍣", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10)
         ListWithIcon(task: testTask )
     }
 }
