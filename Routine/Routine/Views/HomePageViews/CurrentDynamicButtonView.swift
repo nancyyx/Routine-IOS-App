@@ -10,6 +10,7 @@ import SwiftUI
 struct CurrentDynamicButtonView: View {
     
     @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var pomodoroModel: PomodoroModel
     
     @State var progressValue: Float = 0.0
     
@@ -19,7 +20,7 @@ struct CurrentDynamicButtonView: View {
         
         ZStack {
             ProgressBar(progress: self.$progressValue)
-                .frame(width: 150.0, height: 150.0)
+                .frame(width: 235, height: 235)
                 .padding(20.0)
                 .onAppear() {
                     self.progressValue = 0.00
@@ -28,14 +29,51 @@ struct CurrentDynamicButtonView: View {
             Button {
                 print("Image tapped!")
                 clickIcon()
+                if pomodoroModel.isStarted {
+                    pomodoroModel.stopTimer()
+                }else{
+                    pomodoroModel.startTimer()
+                }
             } label: {
                 Image(currentTask.type)
                     .resizable()
                     .frame(width: 100, height: 100)
                     .clipShape(Circle())
             }
+            Circle()
+                .stroke(lineWidth: 15.0)
+                .opacity(0.20)
+                .foregroundColor(Color.gray)
+                .frame(width: 235, height: 235)
+
+            
+            Circle()
+                .trim(from: 0, to: pomodoroModel.progress)
+                .stroke(Color.cyan, style: StrokeStyle(lineWidth: 15, lineCap: .round, lineJoin: .round))
+                .padding()
+                .rotationEffect(.init(degrees: -90))
+                .frame(width: 225, height: 225)
+
+            
         }
-        
+        .animation(.easeInOut, value: pomodoroModel.progress)
+        .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()){
+            _ in
+            if pomodoroModel.isStarted {
+                pomodoroModel.updateTimer()
+            }
+        }
+        .alert("Congrats", isPresented: $pomodoroModel.isFinished) {
+            Button("Close", role: .destructive) {
+                pomodoroModel.stopTimer()
+            }
+            Button("Start Relax Time", role: .cancel) {
+                pomodoroModel.stopTimer()
+                pomodoroModel.minute = 5
+                pomodoroModel.startTimer()
+                pomodoroModel.addNewTimer = true
+            }
+        }
         
         /*
         Button {

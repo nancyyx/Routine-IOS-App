@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1E7781128F528D500026C02 /* PomodoroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E7781028F528D500026C02 /* PomodoroModel.swift */; };
+		A1E7781328F52AE600026C02 /* CurrentAddButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E7781228F52AE500026C02 /* CurrentAddButtonView.swift */; };
 		DC018ECA28E96B200044ACBE /* RoutineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EC928E96B200044ACBE /* RoutineApp.swift */; };
 		DC018ECC28E96B200044ACBE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018ECB28E96B200044ACBE /* ContentView.swift */; };
 		DC018ECE28E96B220044ACBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC018ECD28E96B220044ACBE /* Assets.xcassets */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A1E7781028F528D500026C02 /* PomodoroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroModel.swift; sourceTree = "<group>"; };
+		A1E7781228F52AE500026C02 /* CurrentAddButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentAddButtonView.swift; sourceTree = "<group>"; };
 		DC018EC628E96B200044ACBE /* Routine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC018EC928E96B200044ACBE /* RoutineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineApp.swift; sourceTree = "<group>"; };
 		DC018ECB28E96B200044ACBE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -104,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				DC018EDC28E96BF40044ACBE /* TabBarView.swift */,
+				A1E7781228F52AE500026C02 /* CurrentAddButtonView.swift */,
 				DC018EDA28E96BF20044ACBE /* HomeView.swift */,
 				DC018EDD28E96BF40044ACBE /* CurrentView.swift */,
 				DC3457AF28F7FDA00077359F /* CurrentAddButtonView.swift */,
@@ -117,6 +122,12 @@
 		DC018EE428E96C030044ACBE /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				DC018EE628E96C100044ACBE /* UserModel.swift */,
+				
+        /* DC018EE528E96C100044ACBE /* TaskModel.swift */, */
+        
+        
+				A1E7781028F528D500026C02 /* PomodoroModel.swift */,
 				DC018EFB28EA49240044ACBE /* UserViewModel.swift */,
 				DC3457AB28F7FD8D0077359F /* Task.swift */,
 				DC3457AC28F7FD8D0077359F /* DateValue.swift */,
@@ -239,6 +250,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC018EDF28E96BF40044ACBE /* CurrentDynamicButtonView.swift in Sources */,
+				DC018EE728E96C100044ACBE /* TaskModel.swift in Sources */,
+				A1E7781328F52AE600026C02 /* CurrentAddButtonView.swift in Sources */,
 				DC3457B228F7FDB80077359F /* CustomDatePicker.swift in Sources */,
 				DC018ECC28E96B200044ACBE /* ContentView.swift in Sources */,
 				DC018EF628EA3F220044ACBE /* SettingView.swift in Sources */,
@@ -254,6 +267,7 @@
 				DC018EF428EA3F140044ACBE /* UserPageView.swift in Sources */,
 				DC3457AE28F7FD8D0077359F /* DateValue.swift in Sources */,
 				DC018EDE28E96BF40044ACBE /* ListWithIconView.swift in Sources */,
+				A1E7781128F528D500026C02 /* PomodoroModel.swift in Sources */,
 				DC018EF128EA3EF80044ACBE /* CalandarPageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

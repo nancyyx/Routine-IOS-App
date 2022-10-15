@@ -11,6 +11,7 @@ import SwiftUI
 struct RoutineApp: App {
     
     @StateObject var userViewModel: UserViewModel = UserViewModel()
+    @StateObject var pomodoroModel: PomodoroModel = .init()
     
     var body: some Scene {
         WindowGroup {
@@ -18,7 +19,7 @@ struct RoutineApp: App {
                 TabBarView()
             }
             .environmentObject(userViewModel)
-
+            .environmentObject(pomodoroModel)
         }
     }
 }
