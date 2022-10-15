@@ -43,5 +43,6 @@ struct CurrentView_Previews: PreviewProvider {
         CurrentView()
             .environmentObject(UserViewModel())
             .environmentObject(PomodoroModel())
+
     }
 }

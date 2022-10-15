@@ -17,7 +17,6 @@ class UserViewModel: ObservableObject {
     }
     
 
-
     func testTask() {
         let newTasks = [
             TaskModel("Workout", description: "Today is leg day"),

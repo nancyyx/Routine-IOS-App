@@ -9,26 +9,76 @@ import SwiftUI
 
 struct AddView: View {
     @EnvironmentObject var userViewModel: UserViewModel
-    @State  var textFieldDescription: String
-    @State  var textFieldTitle: String
+    @State var textFieldType: String
+    @State var textFieldTitle: String
+    @State var startingDate = Date()
+    @State var endingDate = Date()
+    @State var durationDate = Date()
+    @State var durationHour = 0
+    @State var durationMin = 0
+    @State var durationSec = 10
+    
+    var selectHour = [Int](0..<24)
+    var selectMin = [Int](0..<60)
+    var selectSec = [Int](0..<60)
+    
+    //var taskDurationRange = Calendar.current.date(byAdding: .hour, value: , to: Date())!
     var tabBarview: CustomTabView?
+    
+    let days: [String] = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
     
     var body: some View {
         NavigationView {
             VStack {
                 Form {
                     Section(header: Text("Task Info")) {
-                        TextField("Title", text: $textFieldTitle)
+                        TextField("Task Type", text: $textFieldType)
                             .padding(.horizontal)
                             .frame(height: 50)
                             .background(Color.white)
                             .cornerRadius(10)
-                        TextField("Description", text: $textFieldDescription)
+                        TextField("Description", text: $textFieldTitle)
                             .padding(.horizontal)
                             .font(.headline)
                             .frame(height: 50)
                             .background(Color.white)
                             .cornerRadius(10)
+                    }
+                    
+                    Section(header: Text("Timing Info")) {
+                        VStack {
+                            DatePicker("Start: ", selection: $startingDate, in: Date()...)
+                            DatePicker("End: ", selection: $endingDate, in: Date()...)
+                            //DatePicker("Duration: ", selection: $durationDate, displayedComponents: [.hourAndMinute])
+                        }
+                    }
+                    
+                    Section(header: Text("Duration")) {
+                        HStack {
+                            Picker(selection: self.$durationHour, label: Text("")){
+                                ForEach(0 ..< 24) { index in
+                                    Text("\(self.selectHour[index]) h").tag(index)
+                                }
+                            }
+                            .frame(width: 70, height: 100, alignment: .center)
+                            .pickerStyle(.wheel)
+                            
+                            Picker(selection: self.$durationMin, label: Text("")){
+                                ForEach(0 ..< 60) { index in
+                                    Text("\(self.selectMin[index]) h").tag(index)
+                                }
+                            }
+                            .frame(width: 70, height: 100, alignment: .center)
+                            .pickerStyle(.wheel)
+                            
+                            Picker(selection: self.$durationSec, label: Text("")){
+                                ForEach(0 ..< 60) { index in
+                                    Text("\(self.selectSec[index]) h").tag(index)
+                                }
+                            }
+                            .frame(width: 70, height: 100, alignment: .center)
+                            .pickerStyle(.wheel)
+                        }
                     }
                 }
             }
@@ -56,8 +106,13 @@ struct AddView: View {
     }
     
     func clickAdd() {
-        userViewModel.addNewTask(title: textFieldTitle, description: textFieldDescription)
-        userViewModel.incrementTaskNumber()
+        userViewModel.addTaskToOneDate(
+            type: textFieldType,
+            title: textFieldTitle,
+            inputDate: startingDate,
+            hour: durationHour,
+            min: durationMin,
+            second: durationSec)
     }
     
     /*
@@ -116,7 +171,7 @@ struct AddView: View {
 
 struct AddView_Previews: PreviewProvider {
     static var previews: some View {
-        AddView(textFieldDescription: "", textFieldTitle: "")
+        AddView(textFieldType: "", textFieldTitle: "")
             .environmentObject(UserViewModel())
     }
         

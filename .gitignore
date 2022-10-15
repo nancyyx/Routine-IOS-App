@@ -1,3 +1,7 @@
 Routine/DerivedData/*
 RoutineApp/*
 **/.DS_STORE
+Routine/Routine/ViewModels/UserViewModel.swift
+Routine/Routine.xcodeproj/project.xcworkspace/xcuserdata/dajunxian.xcuserdatad/UserInterfaceState.xcuserstate
+*.xcuserstate
+*.xcuserstate

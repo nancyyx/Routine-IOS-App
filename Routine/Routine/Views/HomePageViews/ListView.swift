@@ -26,7 +26,7 @@ struct ListView: View {
             }
             else {
                 List {
-                    ForEach(userViewModel.tasks) { task in
+                    ForEach(userViewModel.getTodaysTasks()) { task in
                             ListWithIcon(task: task)
                         }
                 }
@@ -47,6 +47,7 @@ struct ListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView{
             ListView()
+                .environmentObject(UserViewModel())
         }
 
     }
