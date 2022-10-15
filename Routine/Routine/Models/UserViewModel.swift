@@ -11,7 +11,7 @@ import SwiftUI
 class UserViewModel: ObservableObject {
    // @Published var tasks: [TaskModel] = []
     @State var today: Date = Date()
-    @Published var user = UserModel(name: "Dajun", taskNumber: 4)
+    @Published var userName: String = "Dajun"
     @Published var tasks: [TaskMetaData] = [
         
         TaskMetaData(task: [
@@ -47,16 +47,27 @@ class UserViewModel: ObservableObject {
         ], taskDate: getSampleDate(offset: -20)),
     ]
     
-    func addTaskToDate(
+    func addTaskToOneDate(
         type: String,
         title: String,
         inputDate: Date,
-        startingHour: Int,
-        startingMin: Int,
         hour: Int,
         min: Int,
         second: Int) {
-        let newTask = Task(type, title: title, startingHour: startingHour, startingMin: startingMin, hour: hour, min: min, second: second)
+            
+        let components = Calendar.current.dateComponents([.hour, .minute], from: inputDate)
+        let startingHour = components.hour ?? 0
+        let startingMinute = components.minute ?? 0
+            
+        let newTask = Task(
+            type,
+            title: title,
+            startingHour: startingHour,
+            startingMin: startingMinute,
+            hour: hour,
+            min: min,
+            second: second)
+            
         //if there's same date
         tasks.forEach{ taskOfTheDay in
             if (taskOfTheDay.taskDate == inputDate) {
@@ -64,6 +75,7 @@ class UserViewModel: ObservableObject {
                 return
             }
         }
+            
         //if no same date
         let newTaskMetaData = TaskMetaData(task: [newTask], taskDate: inputDate)
         tasks.append(newTaskMetaData)

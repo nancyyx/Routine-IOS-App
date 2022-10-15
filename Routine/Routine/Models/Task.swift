@@ -9,6 +9,7 @@ import SwiftUI
 // Task Model and Sample Tasks...
 // Array of Tasks...
 class Task: Identifiable, Comparable {
+    
     static func == (lhs: Task, rhs: Task) -> Bool {
         if lhs.id == rhs.id {
             return true
@@ -17,6 +18,7 @@ class Task: Identifiable, Comparable {
             return false
         }
     }
+
     
     static func < (lhs: Task, rhs: Task) -> Bool {
         if lhs.startingHour < rhs.startingHour {
@@ -97,10 +99,6 @@ class TaskMetaData: Identifiable{
         }
     }
     
-    
-    
-
-    
 }
 
 // sample Date for Testing...
@@ -150,3 +148,29 @@ var tasks: [TaskMetaData] = [
 ]
 */
 
+
+/*
+ - 从以下几个大类寻找相应图标，再在assets里归类存放。命名使用常规变量命名, 如 payBill
+ - 大类可以自由补充，子类别可以根据图库实际情况增添删减
+ - 看到合适的图标，但不方便归类的，可以直接和大类别放在同一层级
+ 
+ 大类别：
+ 
+    经济类： 付账单， 还钱
+ 
+    健康类： 健身，买药，去医院……
+ 
+    家务类： ……
+ 
+    自我提升类： 看教科书，复习，写作业，上网课……
+ 
+    工作类：无小类别。直接一个图标
+ 
+    其他类：一个general 图标
+ 
+ 
+ 
+ 
+ 
+ 
+ */

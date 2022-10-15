@@ -17,8 +17,6 @@
 		DC018EE128E96BF40044ACBE /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EDB28E96BF30044ACBE /* ListView.swift */; };
 		DC018EE228E96BF40044ACBE /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EDC28E96BF40044ACBE /* TabBarView.swift */; };
 		DC018EE328E96BF40044ACBE /* CurrentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EDD28E96BF40044ACBE /* CurrentView.swift */; };
-		DC018EE728E96C100044ACBE /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EE528E96C100044ACBE /* TaskModel.swift */; };
-		DC018EE828E96C100044ACBE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EE628E96C100044ACBE /* UserModel.swift */; };
 		DC018EEE28E97EF80044ACBE /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EED28E97EF80044ACBE /* AddView.swift */; };
 		DC018EF128EA3EF80044ACBE /* CalandarPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EF028EA3EF80044ACBE /* CalandarPageView.swift */; };
 		DC018EF428EA3F140044ACBE /* UserPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EF328EA3F140044ACBE /* UserPageView.swift */; };
@@ -42,8 +40,6 @@
 		DC018EDB28E96BF30044ACBE /* ListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		DC018EDC28E96BF40044ACBE /* TabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		DC018EDD28E96BF40044ACBE /* CurrentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentView.swift; sourceTree = "<group>"; };
-		DC018EE528E96C100044ACBE /* TaskModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
-		DC018EE628E96C100044ACBE /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		DC018EED28E97EF80044ACBE /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		DC018EF028EA3EF80044ACBE /* CalandarPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalandarPageView.swift; sourceTree = "<group>"; };
 		DC018EF328EA3F140044ACBE /* UserPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageView.swift; sourceTree = "<group>"; };
@@ -121,10 +117,9 @@
 		DC018EE428E96C030044ACBE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				DC018EE628E96C100044ACBE /* UserModel.swift */,
-				DC018EE528E96C100044ACBE /* TaskModel.swift */,
-				DC3457AC28F7FD8D0077359F /* DateValue.swift */,
+				DC018EFB28EA49240044ACBE /* UserViewModel.swift */,
 				DC3457AB28F7FD8D0077359F /* Task.swift */,
+				DC3457AC28F7FD8D0077359F /* DateValue.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -169,7 +164,6 @@
 		DC018EF828EA440F0044ACBE /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				DC018EFB28EA49240044ACBE /* UserViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -245,7 +239,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC018EDF28E96BF40044ACBE /* CurrentDynamicButtonView.swift in Sources */,
-				DC018EE728E96C100044ACBE /* TaskModel.swift in Sources */,
 				DC3457B228F7FDB80077359F /* CustomDatePicker.swift in Sources */,
 				DC018ECC28E96B200044ACBE /* ContentView.swift in Sources */,
 				DC018EF628EA3F220044ACBE /* SettingView.swift in Sources */,
@@ -258,7 +251,6 @@
 				DC018EFC28EA49240044ACBE /* UserViewModel.swift in Sources */,
 				DC018EEE28E97EF80044ACBE /* AddView.swift in Sources */,
 				DC018EE028E96BF40044ACBE /* HomeView.swift in Sources */,
-				DC018EE828E96C100044ACBE /* UserModel.swift in Sources */,
 				DC018EF428EA3F140044ACBE /* UserPageView.swift in Sources */,
 				DC3457AE28F7FD8D0077359F /* DateValue.swift in Sources */,
 				DC018EDE28E96BF40044ACBE /* ListWithIconView.swift in Sources */,
