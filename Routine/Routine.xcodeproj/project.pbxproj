@@ -44,7 +44,7 @@
 		DC018EF028EA3EF80044ACBE /* CalandarPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalandarPageView.swift; sourceTree = "<group>"; };
 		DC018EF328EA3F140044ACBE /* UserPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageView.swift; sourceTree = "<group>"; };
 		DC018EF528EA3F220044ACBE /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
-		DC018EFB28EA49240044ACBE /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserViewModel.swift; path = ../Models/UserViewModel.swift; sourceTree = "<group>"; };
+		DC018EFB28EA49240044ACBE /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		DC3457AB28F7FD8D0077359F /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		DC3457AC28F7FD8D0077359F /* DateValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateValue.swift; sourceTree = "<group>"; };
 		DC3457AF28F7FDA00077359F /* CurrentAddButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentAddButtonView.swift; sourceTree = "<group>"; };
@@ -137,6 +137,7 @@
 			children = (
 				DC018EF328EA3F140044ACBE /* UserPageView.swift */,
 				DC018EF528EA3F220044ACBE /* SettingView.swift */,
+				DC018EFB28EA49240044ACBE /* UserViewModel.swift */,
 			);
 			path = UserPageViews;
 			sourceTree = "<group>";
@@ -163,7 +164,6 @@
 		DC018EF828EA440F0044ACBE /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				DC018EFB28EA49240044ACBE /* UserViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
