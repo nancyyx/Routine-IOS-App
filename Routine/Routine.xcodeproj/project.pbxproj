@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA41E0FD28F9F12F00B76AEF /* EditPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA41E0FC28F9F12F00B76AEF /* EditPageView.swift */; };
 		DC018ECA28E96B200044ACBE /* RoutineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EC928E96B200044ACBE /* RoutineApp.swift */; };
 		DC018ECC28E96B200044ACBE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018ECB28E96B200044ACBE /* ContentView.swift */; };
 		DC018ECE28E96B220044ACBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC018ECD28E96B220044ACBE /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CA41E0FC28F9F12F00B76AEF /* EditPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageView.swift; sourceTree = "<group>"; };
 		DC018EC628E96B200044ACBE /* Routine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC018EC928E96B200044ACBE /* RoutineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineApp.swift; sourceTree = "<group>"; };
 		DC018ECB28E96B200044ACBE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				DC018EF328EA3F140044ACBE /* UserPageView.swift */,
+				CA41E0FC28F9F12F00B76AEF /* EditPageView.swift */,
 				DC018EF528EA3F220044ACBE /* SettingView.swift */,
 			);
 			path = UserPageViews;
@@ -237,6 +240,7 @@
 			files = (
 				DC018EDF28E96BF40044ACBE /* CurrentDynamicButtonView.swift in Sources */,
 				DC018EE728E96C100044ACBE /* TaskModel.swift in Sources */,
+				CA41E0FD28F9F12F00B76AEF /* EditPageView.swift in Sources */,
 				DC018ECC28E96B200044ACBE /* ContentView.swift in Sources */,
 				DC018EF628EA3F220044ACBE /* SettingView.swift in Sources */,
 				DC018EE328E96BF40044ACBE /* CurrentView.swift in Sources */,
