@@ -24,11 +24,14 @@ struct ListView: View {
             if (userViewModel.tasks.isEmpty) {
                 Text("Live your meaningless life today or add some tasks")
             }
-            else {
+            else if (userViewModel.number > 0) {
                 List {
                     ForEach(userViewModel.getTodaysTasks()) { task in
+                        if (!task.isCompleted) {
                             ListWithIcon(task: task)
                         }
+                            
+                    }
                 }
                 .listStyle(.plain)
             }

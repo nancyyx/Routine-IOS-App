@@ -12,10 +12,10 @@ class UserViewModel: ObservableObject {
    // @Published var tasks: [TaskModel] = []
     @State var today: Date = Date()
     @Published var userName: String = "Dajun"
+    @Published var number = 0
     @Published var tasks: [TaskMetaData] = [
         
         TaskMetaData(task: [
-        
             Task("Workout",title: "Talk to Dajun🤣",startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10),
             Task("Workout",title: "A Leetcode per day🤖",startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10),
             Task("Workout",title: "Nothing Much Workout !!!🍩",startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10)
@@ -55,9 +55,13 @@ class UserViewModel: ObservableObject {
         min: Int,
         second: Int) {
             
+        number += 1
+            
         let components = Calendar.current.dateComponents([.hour, .minute], from: inputDate)
         let startingHour = components.hour ?? 0
         let startingMinute = components.minute ?? 0
+        
+        var hasTasks: Bool = false
             
         let newTask = Task(
             type,
@@ -70,22 +74,29 @@ class UserViewModel: ObservableObject {
             
         //if there's same date
         tasks.forEach{ taskOfTheDay in
-            if (taskOfTheDay.taskDate == inputDate) {
+            if (taskOfTheDay.taskDate.onlyDate == inputDate.onlyDate) {
+                hasTasks = true
                 taskOfTheDay.addTask(newTask: newTask)
-                return
+                taskOfTheDay.sortTask()
+                print("84")
             }
         }
             
         //if no same date
-        let newTaskMetaData = TaskMetaData(task: [newTask], taskDate: inputDate)
-        tasks.append(newTaskMetaData)
+        if (!hasTasks) {
+            let newTaskMetaData = TaskMetaData(task: [newTask], taskDate: inputDate)
+            tasks.append(newTaskMetaData)
+            print("90")
+        }
+            
+        
     }
     
     func getTodaysTasks() -> [Task] {
         var todaysTasks: [Task] = []
         
         tasks.forEach{ taskOfTheDay in
-            if (taskOfTheDay.taskDate == today) {
+            if (taskOfTheDay.taskDate.onlyDate == today.onlyDate) {
                 todaysTasks = taskOfTheDay.task
             }
         }
@@ -100,6 +111,46 @@ class UserViewModel: ObservableObject {
         }
     }
     
+    func getTaskNumber() -> Int {
+        return getTodaysTasks().count
+    }
+    
+    func getFirstUncompletedTask() -> Task {
+        var tempTask = Task("Default",title: "nothing", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10)
+        tasks.forEach { taskOfTheDay in
+            if (taskOfTheDay.taskDate.onlyDate == today.onlyDate) {
+                taskOfTheDay.task.forEach { task in
+                    if (!task.isCompleted) {
+                        tempTask = task
+                    }
+                }
+            }
+        }
+        return tempTask
+    }
+    
+    func printTaskMetaData() {
+        tasks.forEach { tasks in
+            print("Meta Task List of", tasks.taskDate.formatted()," contains: ")
+            tasks.task.forEach { onetask in
+                print(onetask.type)
+                print(onetask.time)
+            }
+            print(" ")
+        }
+    }
+    
+    func allCompleted() -> Bool {
+        var completed: Bool = true
+        tasks.forEach{ taskOfTheDay in
+            if (taskOfTheDay.taskDate.onlyDate == today.onlyDate) {
+                taskOfTheDay.task.forEach { task in
+                    completed = completed && task.isCompleted
+                }
+            }
+        }
+        return completed
+    }
 /*
  func testTask() {
      let newTasks = [

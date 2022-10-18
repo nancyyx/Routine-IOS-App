@@ -72,7 +72,7 @@ class Task: Identifiable, Comparable {
 class TaskMetaData: Identifiable{
     var id = UUID().uuidString
     var task: [Task]
-    var taskDate: Date
+    var taskDate = Date()
     var completedTasksCounter: Int
     
     

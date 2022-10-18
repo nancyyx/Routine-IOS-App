@@ -121,7 +121,7 @@ struct CurrentDynamicButtonView: View {
     
     func clickIcon() {
         let incrementValue: Float = 1.0 / Float(userViewModel.getTaskNumber())
-        userViewModel.completeTask()
+        userViewModel.completeTask(taskID: currentTask.id)
         //if (userViewModel.)
         print(Float(1/userViewModel.getTaskNumber()))
         self.progressValue += incrementValue
@@ -153,7 +153,8 @@ struct ProgressBar: View {
 
 struct CurrentDynamicButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        let currentTask = TaskModel("Workout", description: "Today is leg day")
+        //let currentTask = TaskModel("Workout", description: "Today is leg day")
+        let currentTask = Task("Workout",title: "Keto Diet...🍣", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10)
         CurrentDynamicButtonView(currentTask: currentTask)
     }
 }
