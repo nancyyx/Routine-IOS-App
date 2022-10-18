@@ -25,7 +25,7 @@ struct TabBarView: View {
                 }
             case .second:
                 //NavigationView{
-                    UserPageView()
+                UserPageView(name: .constant("Name"))
                     .padding(.top, 80.0)
                     //.statusBar(hidden: true)  //mindful!!
                     .ignoresSafeArea(edges: .top)   //maybe

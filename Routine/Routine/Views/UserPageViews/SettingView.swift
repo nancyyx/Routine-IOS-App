@@ -18,6 +18,7 @@ struct SettingView: View {
             Color(red: 246 / 255, green: 246 / 255, blue: 246 / 255).edgesIgnoringSafeArea(.all)
             Form {
                 Section {
+                    /*
                     Toggle(isOn: $notification) {
                         VStack(alignment: .leading, spacing: 5) {
                             Text("Notifications")
@@ -25,6 +26,7 @@ struct SettingView: View {
                                 .foregroundColor(.black)
                         }
                     }
+                     */
                     Toggle(isOn: $darkMode) {
                         VStack(alignment: .leading, spacing: 5) {
                             Text("Dark Mode")
