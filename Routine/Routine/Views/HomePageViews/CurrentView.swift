@@ -21,14 +21,14 @@ struct CurrentView: View {
                 
                 Spacer()
             }
-            if (userViewModel.tasks.isEmpty) {
+            if (userViewModel.getTodaysTasks().isEmpty || userViewModel.allCompleted()) {
                 CurrentAddButtonView()
                     .padding(/*@START_MENU_TOKEN@*/[.leading, .bottom, .trailing], 50.0/*@END_MENU_TOKEN@*/)
                 //userViewModel.updateTaskNumber(taskNumber: 0)
                 
             }
             else {
-                CurrentDynamicButtonView(currentTask: userViewModel.tasks[0])
+                CurrentDynamicButtonView(currentTask: userViewModel.getFirstUncompletedTask())
                     .padding(/*@START_MENU_TOKEN@*/[.leading, .bottom, .trailing], 50.0/*@END_MENU_TOKEN@*/)
             }
             

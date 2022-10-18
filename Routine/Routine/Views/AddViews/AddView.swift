@@ -65,7 +65,7 @@ struct AddView: View {
                             
                             Picker(selection: self.$durationMin, label: Text("")){
                                 ForEach(0 ..< 60) { index in
-                                    Text("\(self.selectMin[index]) h").tag(index)
+                                    Text("\(self.selectMin[index]) m").tag(index)
                                 }
                             }
                             .frame(width: 70, height: 100, alignment: .center)
@@ -73,7 +73,7 @@ struct AddView: View {
                             
                             Picker(selection: self.$durationSec, label: Text("")){
                                 ForEach(0 ..< 60) { index in
-                                    Text("\(self.selectSec[index]) h").tag(index)
+                                    Text("\(self.selectSec[index]) s").tag(index)
                                 }
                             }
                             .frame(width: 70, height: 100, alignment: .center)
@@ -113,6 +113,7 @@ struct AddView: View {
             hour: durationHour,
             min: durationMin,
             second: durationSec)
+        userViewModel.printTaskMetaData()
     }
     
     /*
@@ -175,5 +176,17 @@ struct AddView_Previews: PreviewProvider {
             .environmentObject(UserViewModel())
     }
         
+}
+
+extension Date {
+
+    var onlyDate: Date? {
+        get {
+            let calender = Calendar.current
+            var dateComponents = calender.dateComponents([.year, .month, .day], from: self)
+            return calender.date(from: dateComponents)
+        }
+    }
+
 }
 

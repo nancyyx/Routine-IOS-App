@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CustomDatePicker: View {
     @Binding var currentDate: Date
-    
+    @EnvironmentObject var userViewModel: UserViewModel
     // Month update on arrow button clicks...
     @State var currentMonth: Int = 0
     
@@ -96,7 +96,7 @@ struct CustomDatePicker: View {
                     .frame(maxWidth: .infinity,alignment: .leading)
                     .padding(.vertical,20)
                 
-                if let task = tasks.first(where: { task in
+                if let task = userViewModel.tasks.first(where: { task in
                     return isSameDay(date1: task.taskDate, date2: currentDate)
                 }){
                     
@@ -142,7 +142,7 @@ struct CustomDatePicker: View {
             
             if value.day != -1{
                 
-                if let task = tasks.first(where: { task in
+                if let task = userViewModel.tasks.first(where: { task in
                     
                     return isSameDay(date1: task.taskDate, date2: value.date)
                 }){
@@ -173,7 +173,7 @@ struct CustomDatePicker: View {
     }
     
     // checking dates...
-    func isSameDay(date1: Date,date2: Date)->Bool{
+    func isSameDay(date1: Date, date2: Date)->Bool{
         let calendar = Calendar.current
         
         return calendar.isDate(date1, inSameDayAs: date2)
