@@ -40,7 +40,7 @@ class Task: Identifiable, Comparable {
     let id = UUID()
     let type: String                    //workout, smile, drink
     let title: String                   //description
-    @State var isCompleted: Bool
+    @Published var isCompleted: Bool
     let time: Date = Date()             //task date
 
     var startingHour: Int
@@ -50,7 +50,6 @@ class Task: Identifiable, Comparable {
     var min: Int
     var second: Int
     
-
     
     init(_ type: String, title: String, startingHour: Int, startingMin: Int, hour: Int, min: Int, second: Int) {
         self.type = type
@@ -69,17 +68,18 @@ class Task: Identifiable, Comparable {
 }
 
 // Total Task Meta View...
-class TaskMetaData: Identifiable{
+class TaskMetaData: Identifiable, ObservableObject {
     var id = UUID().uuidString
-    var task: [Task]
-    var taskDate = Date()
-    var completedTasksCounter: Int
-    
+    @Published var task: [Task]
+    @Published var taskDate = Date()
+    @Published var completedTasksCounter: Int = 0
+    @Published var showTodayTasks:Bool = false
     
     init(task: [Task], taskDate: Date) {
         self.task = task
         self.taskDate = taskDate
         completedTasksCounter = 0
+        showTodayTasks = true
     }
     
     func sortTask() {
@@ -89,15 +89,19 @@ class TaskMetaData: Identifiable{
     func addTask(newTask: Task) {
         task.append(newTask)
         sortTask()
+        showTodayTasks = true
     }
     
-    func completeTask(taskID: UUID) {
-        task.forEach { tempTask in
-            if (taskID == tempTask.id) {
+    func completeTask() {
+        for tempTask in task {
+            if (!tempTask.isCompleted) {
                 tempTask.complete()
+                break
             }
         }
+ 
     }
+    
     
 }
 

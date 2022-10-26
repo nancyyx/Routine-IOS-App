@@ -14,7 +14,6 @@
 		DC018EDE28E96BF40044ACBE /* ListWithIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018ED828E96BF10044ACBE /* ListWithIconView.swift */; };
 		DC018EDF28E96BF40044ACBE /* CurrentDynamicButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018ED928E96BF20044ACBE /* CurrentDynamicButtonView.swift */; };
 		DC018EE028E96BF40044ACBE /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EDA28E96BF20044ACBE /* HomeView.swift */; };
-		DC018EE128E96BF40044ACBE /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EDB28E96BF30044ACBE /* ListView.swift */; };
 		DC018EE228E96BF40044ACBE /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EDC28E96BF40044ACBE /* TabBarView.swift */; };
 		DC018EE328E96BF40044ACBE /* CurrentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EDD28E96BF40044ACBE /* CurrentView.swift */; };
 		DC018EEE28E97EF80044ACBE /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EED28E97EF80044ACBE /* AddView.swift */; };
@@ -23,6 +22,7 @@
 		DC018EF628EA3F220044ACBE /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EF528EA3F220044ACBE /* SettingView.swift */; };
 		DC018EFC28EA49240044ACBE /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EFB28EA49240044ACBE /* UserViewModel.swift */; };
 		DC1FF5D328FACDC900E7F52B /* PomodoroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1FF5D228FACDC900E7F52B /* PomodoroModel.swift */; };
+		DC1FF5D428FF976600E7F52B /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EDB28E96BF30044ACBE /* ListView.swift */; };
 		DC3457AD28F7FD8D0077359F /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3457AB28F7FD8D0077359F /* Task.swift */; };
 		DC3457AE28F7FD8D0077359F /* DateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3457AC28F7FD8D0077359F /* DateValue.swift */; };
 		DC3457B028F7FDA00077359F /* CurrentAddButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3457AF28F7FDA00077359F /* CurrentAddButtonView.swift */; };
@@ -38,7 +38,7 @@
 		DC018ED828E96BF10044ACBE /* ListWithIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListWithIconView.swift; sourceTree = "<group>"; };
 		DC018ED928E96BF20044ACBE /* CurrentDynamicButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentDynamicButtonView.swift; sourceTree = "<group>"; };
 		DC018EDA28E96BF20044ACBE /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		DC018EDB28E96BF30044ACBE /* ListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		DC018EDB28E96BF30044ACBE /* ListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; usesTabs = 1; };
 		DC018EDC28E96BF40044ACBE /* TabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		DC018EDD28E96BF40044ACBE /* CurrentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentView.swift; sourceTree = "<group>"; };
 		DC018EED28E97EF80044ACBE /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
@@ -240,8 +240,8 @@
 				DC3457B028F7FDA00077359F /* CurrentAddButtonView.swift in Sources */,
 				DC018EE328E96BF40044ACBE /* CurrentView.swift in Sources */,
 				DC018EE228E96BF40044ACBE /* TabBarView.swift in Sources */,
-				DC018EE128E96BF40044ACBE /* ListView.swift in Sources */,
 				DC018ECA28E96B200044ACBE /* RoutineApp.swift in Sources */,
+				DC1FF5D428FF976600E7F52B /* ListView.swift in Sources */,
 				DC3457AD28F7FD8D0077359F /* Task.swift in Sources */,
 				DC018EFC28EA49240044ACBE /* UserViewModel.swift in Sources */,
 				DC018EEE28E97EF80044ACBE /* AddView.swift in Sources */,
