@@ -64,9 +64,9 @@ struct CurrentDynamicButtonView: View {
                     .onEnded { _ in
                         if pomodoroModel.isStarted {
                             pomodoroModel.stopTimer()
-                            pomodoroModel.hour = currentTask.hour
-                            pomodoroModel.minute = currentTask.min
-                            pomodoroModel.second = currentTask.second
+                            pomodoroModel.hour = userViewModel.currentTask.hour
+                            pomodoroModel.minute = userViewModel.currentTask.min
+                            pomodoroModel.second = userViewModel.currentTask.second
                             print("Break Time!")
                             pomodoroModel.startTimer()
                             pomodoroModel.addNewTimer = true
@@ -81,9 +81,9 @@ struct CurrentDynamicButtonView: View {
                                         clickIcon()
                                         if pomodoroModel.isStarted {
                                             pomodoroModel.stopTimer()
-                                            pomodoroModel.hour = currentTask.hour
-                                            pomodoroModel.minute = currentTask.min
-                                            pomodoroModel.second = currentTask.second
+                                            pomodoroModel.hour = userViewModel.currentTask.hour
+                                            pomodoroModel.minute = userViewModel.currentTask.min
+                                            pomodoroModel.second = userViewModel.currentTask.second
                                             print("Break Time!")
                                             pomodoroModel.startTimer()
                                             pomodoroModel.addNewTimer = true
@@ -109,7 +109,7 @@ struct CurrentDynamicButtonView: View {
         .animation(.easeInOut, value: pomodoroModel.progress)
         .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()){
             _ in
-            if Date() == currentTask.time {
+            if Date() == userViewModel.currentTask.time {
                 
             }
             if pomodoroModel.isStarted {
@@ -123,7 +123,7 @@ struct CurrentDynamicButtonView: View {
                 pomodoroModel.stopTimer()
             }
             Button("Start Relax Time", role: .cancel) {
-                userViewModel.completeTask(taskID: currentTask.id)
+                userViewModel.completeTask()
                 pomodoroModel.stopTimer()
                 pomodoroModel.minute = 5
                 pomodoroModel.startTimer()
