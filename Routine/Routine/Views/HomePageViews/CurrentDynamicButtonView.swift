@@ -24,21 +24,72 @@ struct CurrentDynamicButtonView: View {
                 .onAppear() {
                     self.progressValue = 0.00
                 }
-            
-            Button {
+                        
+            Button{
                 print("Image tapped!")
-                clickIcon()
-                if pomodoroModel.isStarted {
-                    pomodoroModel.stopTimer()
-                }else{
-                    pomodoroModel.startTimer()
-                }
+//                if pomodoroModel.isStarted {
+//                    pomodoroModel.stopTimer()
+////                            if !userViewModel.allCompleted() {
+////                                pomodoroModel.addNewTimer = true
+////                            } else {
+////                                pomodoroModel.addNewTimer = false
+////                            }
+//                    pomodoroModel.minute = 5
+//                    pomodoroModel.startTimer()
+//                    print(pomodoroModel.isStarted)
+//                    pomodoroModel.addNewTimer = true
+//                } else {
+//                    pomodoroModel.startTimer()
+//                }
+            
+//                if pomodoroModel.isStarted {
+//                    pomodoroModel.stopTimer()
+//                    if !userViewModel.allCompleted() {
+//                        pomodoroModel.addNewTimer = true
+//                    } else {
+//                        pomodoroModel.addNewTimer = false
+//                    }
+//                }else{
+//
+//                    pomodoroModel.startTimer()
+//                }
             } label: {
                 Image(userViewModel.currentTask.type)
                     .resizable()
                     .frame(width: 100, height: 100)
                     .clipShape(Circle())
             }
+            .simultaneousGesture(
+                TapGesture()
+                    .onEnded { _ in
+                        if pomodoroModel.isStarted {
+                            pomodoroModel.stopTimer()
+                            pomodoroModel.hour = currentTask.hour
+                            pomodoroModel.minute = currentTask.min
+                            pomodoroModel.second = currentTask.second
+                            print("Break Time!")
+                            pomodoroModel.startTimer()
+                            pomodoroModel.addNewTimer = true
+                        }
+                        else {
+                            pomodoroModel.startTimer()
+                        }
+                    }
+            )
+            .highPriorityGesture(LongPressGesture (minimumDuration: 2)
+                                    .onEnded{ _ in
+                                        clickIcon()
+                                        if pomodoroModel.isStarted {
+                                            pomodoroModel.stopTimer()
+                                            pomodoroModel.hour = currentTask.hour
+                                            pomodoroModel.minute = currentTask.min
+                                            pomodoroModel.second = currentTask.second
+                                            print("Break Time!")
+                                            pomodoroModel.startTimer()
+                                            pomodoroModel.addNewTimer = true
+                                        }
+                                })
+            
             Circle()
                 .stroke(lineWidth: 15.0)
                 .opacity(0.20)
@@ -58,6 +109,9 @@ struct CurrentDynamicButtonView: View {
         .animation(.easeInOut, value: pomodoroModel.progress)
         .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()){
             _ in
+            if Date() == currentTask.time {
+                
+            }
             if pomodoroModel.isStarted {
                 pomodoroModel.updateTimer()
             }
@@ -69,6 +123,7 @@ struct CurrentDynamicButtonView: View {
                 pomodoroModel.stopTimer()
             }
             Button("Start Relax Time", role: .cancel) {
+                userViewModel.completeTask(taskID: currentTask.id)
                 pomodoroModel.stopTimer()
                 pomodoroModel.minute = 5
                 pomodoroModel.startTimer()
