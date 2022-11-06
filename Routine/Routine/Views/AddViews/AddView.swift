@@ -118,8 +118,9 @@ struct AddView: View {
             }
         }
     }
-    
+    /*
     func clickAdd() {
+        
         userViewModel.addTaskToOneDate(
             type: textFieldType,
             title: textFieldTitle,
@@ -127,6 +128,21 @@ struct AddView: View {
             hour: durationHour,
             min: durationMin,
             second: durationSec)
+        userViewModel.printTaskMetaData()
+    }
+    */
+    func clickAdd() {
+        let dayDurationInSeconds: TimeInterval = 60*60*24
+        for date in stride(from: startingDate, to: endingDate, by: dayDurationInSeconds) {
+            userViewModel.addTaskToOneDate(
+                type: textFieldType,
+                title: textFieldTitle,
+                inputDate: date,
+                hour: durationHour,
+                min: durationMin,
+                second: durationSec)
+            
+        }
         userViewModel.printTaskMetaData()
     }
     
@@ -204,4 +220,16 @@ extension Date {
 
 }
 
+extension Date: Strideable {
+    public func distance(to other: Date) -> TimeInterval {
+        return other.timeIntervalSinceReferenceDate - self.timeIntervalSinceReferenceDate
+    }
+
+    public func advanced(by n: TimeInterval) -> Date {
+        return self + n
+    }
+}
+
+
 extension UIPickerView {   open override var intrinsicContentSize: CGSize {     return CGSize(width: UIView.noIntrinsicMetric, height: super.intrinsicContentSize.height)   } }
+
