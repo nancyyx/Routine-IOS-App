@@ -28,6 +28,7 @@
 		DC3457B028F7FDA00077359F /* CurrentAddButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3457AF28F7FDA00077359F /* CurrentAddButtonView.swift */; };
 		DC3457B228F7FDB80077359F /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3457B128F7FDB80077359F /* CustomDatePicker.swift */; };
 		DCB00D5A29186F0900E7C158 /* EditPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA41E0FC28F9F12F00B76AEF /* EditPageView.swift */; };
+		DCB00D5E2918792700E7C158 /* UserCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB00D5D2918792700E7C158 /* UserCalendarViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		DC3457AC28F7FD8D0077359F /* DateValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateValue.swift; sourceTree = "<group>"; };
 		DC3457AF28F7FDA00077359F /* CurrentAddButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentAddButtonView.swift; sourceTree = "<group>"; };
 		DC3457B128F7FDB80077359F /* CustomDatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
+		DCB00D5D2918792700E7C158 /* UserCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCalendarViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				DC3457AB28F7FD8D0077359F /* Task.swift */,
 				DC1FF5D228FACDC900E7F52B /* PomodoroModel.swift */,
 				DC3457AC28F7FD8D0077359F /* DateValue.swift */,
+				DCB00D5D2918792700E7C158 /* UserCalendarViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 				DC018EEE28E97EF80044ACBE /* AddView.swift in Sources */,
 				DC1FF5D328FACDC900E7F52B /* PomodoroModel.swift in Sources */,
 				DC018EE028E96BF40044ACBE /* HomeView.swift in Sources */,
+				DCB00D5E2918792700E7C158 /* UserCalendarViewModel.swift in Sources */,
 				DC018EF428EA3F140044ACBE /* UserPageView.swift in Sources */,
 				DC3457AE28F7FD8D0077359F /* DateValue.swift in Sources */,
 				DC018EDE28E96BF40044ACBE /* ListWithIconView.swift in Sources */,
