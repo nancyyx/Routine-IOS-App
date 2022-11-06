@@ -13,8 +13,7 @@ struct CurrentDynamicButtonView: View {
     @EnvironmentObject var pomodoroModel: PomodoroModel
     
     @State var progressValue: Float = 0.0
-    
-    let currentTask: Task
+    //@State var currentTask: Task
     
     var body: some View {
         
@@ -55,8 +54,7 @@ struct CurrentDynamicButtonView: View {
 //                    pomodoroModel.startTimer()
 //                }
             } label: {
-//                Image(currentTask.type)
-                Image(systemName: "heart")
+                Image(userViewModel.currentTask.type)
                     .resizable()
                     .frame(width: 100, height: 100)
                     .clipShape(Circle())
@@ -121,6 +119,7 @@ struct CurrentDynamicButtonView: View {
         .alert("Congrats", isPresented: $pomodoroModel.isFinished) {
             Button("Close", role: .destructive) {
                 userViewModel.completeTask()
+                userViewModel.printTaskMetaData()
                 pomodoroModel.stopTimer()
             }
             Button("Start Relax Time", role: .cancel) {
@@ -178,11 +177,7 @@ struct CurrentDynamicButtonView: View {
     
     func clickIcon() {
         let incrementValue: Float = 1.0 / Float(userViewModel.getTaskNumber())
-        userViewModel.completeTask(taskID: currentTask.id)
-        //if (userViewModel.)
-        print(Float(1/userViewModel.getTaskNumber()))
         self.progressValue += incrementValue
-        //self.progressValue += 1.0
     }
 }
 
@@ -212,6 +207,6 @@ struct CurrentDynamicButtonView_Previews: PreviewProvider {
     static var previews: some View {
         //let currentTask = TaskModel("Workout", description: "Today is leg day")
         let currentTask = Task("Workout",title: "Keto Diet...🍣", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10)
-        CurrentDynamicButtonView(currentTask: currentTask)
+        CurrentDynamicButtonView()
     }
 }

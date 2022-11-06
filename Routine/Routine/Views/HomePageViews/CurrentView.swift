@@ -7,9 +7,12 @@
 
 import SwiftUI
 
+
 struct CurrentView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject var pomodoroModel: PomodoroModel
+    //@EnvironmentObject var todaysTasks: TaskMetaData
+    //@State private var flag = false
     
     var body: some View {
         VStack {
@@ -21,14 +24,14 @@ struct CurrentView: View {
                 
                 Spacer()
             }
-            if (userViewModel.getTodaysTasks().isEmpty || userViewModel.allCompleted()) {
+            if (userViewModel.noTasksToday) {
                 CurrentAddButtonView()
                     .padding(/*@START_MENU_TOKEN@*/[.leading, .bottom, .trailing], 50.0/*@END_MENU_TOKEN@*/)
                 //userViewModel.updateTaskNumber(taskNumber: 0)
                 
             }
             else {
-                CurrentDynamicButtonView(currentTask: userViewModel.getFirstUncompletedTask())
+                CurrentDynamicButtonView()
                     .padding(/*@START_MENU_TOKEN@*/[.leading, .bottom, .trailing], 50.0/*@END_MENU_TOKEN@*/)
             }
             
