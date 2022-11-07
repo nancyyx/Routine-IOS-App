@@ -11,7 +11,7 @@ struct ProfilePicView: View {
     var body: some View {
         Image("me")
             .resizable()
-            .frame(width: 300, height: 300)
+            .frame(width: 200, height: 200)
     }
 }
 
@@ -25,7 +25,7 @@ struct UserPageView: View {
         //NavigationView{
         VStack{
             ScrollView {
-                VStack(spacing: 7) {
+                VStack() {
                     //My Profile
                     HStack {
                         Text("PROFILE")
@@ -51,7 +51,7 @@ struct UserPageView: View {
                             .clipShape(Circle())
                             .overlay(Circle().stroke(Color.white, lineWidth: 5))
                     }
-                    
+                    /*
                     Text("Name")
                         .font(.system(size: 30))
                         .foregroundColor(.black)
@@ -63,8 +63,22 @@ struct UserPageView: View {
                             .font(.system(size: 14))
                             .foregroundColor(.blue)
                     }
+                     */
+                    NavigationLink(destination: EditPageView()){
+                        VStack {
+                            Text("Name")
+                                .font(.system(size: 30))
+                                .foregroundColor(.black)
+                            Text("Happy life:)")
+                                .font(.system(size:18))
+                                .foregroundColor(.black)
+                        }
+                        
+                    }
+                    
                     
                     VStack(spacing: 0){
+                        /*
                         Section {
                             Text("Points")
                                 .padding()
@@ -81,6 +95,7 @@ struct UserPageView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             Divider()
                         }
+                         */
                         
                         VStack {
                             HStack {
@@ -100,6 +115,7 @@ struct UserPageView: View {
                                 dateEventsList
                             }
                         }
+                        
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                     .background {
@@ -113,6 +129,7 @@ struct UserPageView: View {
         }
         .background {
             Color(red:225 / 255, green: 225 / 255, blue: 225 / 255)
+                .opacity(0.5)
                 .edgesIgnoringSafeArea(.all)
         }
         .overlay {

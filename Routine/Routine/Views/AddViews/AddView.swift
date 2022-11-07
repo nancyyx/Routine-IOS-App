@@ -133,7 +133,7 @@ struct AddView: View {
     */
     func clickAdd() {
         let dayDurationInSeconds: TimeInterval = 60*60*24
-        for date in stride(from: startingDate, to: endingDate, by: dayDurationInSeconds) {
+        for date in stride(from: startingDate, to: endingDate.addingTimeInterval(3600), by: dayDurationInSeconds) {
             userViewModel.addTaskToOneDate(
                 type: textFieldType,
                 title: textFieldTitle,
