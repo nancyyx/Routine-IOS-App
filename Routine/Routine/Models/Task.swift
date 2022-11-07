@@ -41,7 +41,7 @@ class Task: Identifiable, Comparable {
     let type: String                    //workout, smile, drink
     let title: String                   //description
     @Published var isCompleted: Bool
-    let time: Date = Date()             //task date
+    var time: Date = Date()             //task date
 
     var startingHour: Int
     var startingMin: Int
@@ -51,7 +51,8 @@ class Task: Identifiable, Comparable {
     var second: Int
     
     
-    init(_ type: String, title: String, startingHour: Int, startingMin: Int, hour: Int, min: Int, second: Int) {
+    init(_ type: String, title: String, startingHour: Int, startingMin: Int, hour: Int, min: Int, second: Int, time: Date) {
+        self.time = time
         self.type = type
         self.title = title
         self.isCompleted = false
@@ -178,3 +179,5 @@ var tasks: [TaskMetaData] = [
  
  
  */
+
+

@@ -46,7 +46,7 @@ struct ListWithIcon: View {
 
 struct ListWithIcon_Previews: PreviewProvider {
     static var previews: some View {
-        let testTask = Task("Workout",title: "Keto Diet...🍣", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10)
+        let testTask = Task("Workout",title: "Keto Diet...🍣", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10, time: Date())
         ListWithIcon(task: testTask )
     }
 }

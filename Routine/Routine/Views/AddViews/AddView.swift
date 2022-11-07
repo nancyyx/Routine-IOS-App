@@ -51,7 +51,7 @@ struct AddView: View {
                             VStack {
                                 
                                 DatePicker("Starts ", selection: $startingDate, in: Date()...)
-                                DatePicker("Ends ", selection: $endingDate, in: Date()..., displayedComponents: [.date])
+                                DatePicker("End Date ", selection: $endingDate, in: Date()..., displayedComponents: [.date])
                                 //DatePicker("Duration: ", selection: $durationDate, displayedComponents: [.hourAndMinute])
                             }
                         }
