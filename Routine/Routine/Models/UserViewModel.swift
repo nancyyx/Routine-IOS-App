@@ -9,43 +9,16 @@ import Foundation
 import SwiftUI
 
 class UserViewModel: ObservableObject {
+
    // @Published var tasks: [TaskModel] = []
-    @State var today: Date = Date()
+    @Published var today: Date = Date()
     @Published var userName: String = "Dajun"
+    @Published var noTasksToday: Bool = true
     @Published var number = 0
-    @Published var tasks: [TaskMetaData] = [
-        
-        TaskMetaData(task: [
-            Task("Workout",title: "Talk to Dajun🤣",startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10),
-            Task("Workout",title: "A Leetcode per day🤖",startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10),
-            Task("Workout",title: "Nothing Much Workout !!!🍩",startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10)
-        ], taskDate: getSampleDate(offset: 1)),
-        
-        TaskMetaData(task: [
-            
-            Task("Workout",title: "CSCI 198 Assignment👩‍💻",startingHour: 8, startingMin: 0, hour:0,  min: 0, second: 10)
-        ], taskDate: getSampleDate(offset: -3)),
-        TaskMetaData(task: [
-            
-            Task("Workout",title: "Meeting with Tim Cook",startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10)
-        ], taskDate: getSampleDate(offset: -8)),
-        TaskMetaData(task: [
-            
-            Task("Workout",title: "Next Version of SwiftUI📲", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10)
-        ], taskDate: getSampleDate(offset: 10)),
-        TaskMetaData(task: [
-            
-            Task("Workout",title: "Nothing Much Workout !!!", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10)
-        ], taskDate: getSampleDate(offset: -22)),
-        TaskMetaData(task: [
-            
-            Task("Workout",title: "Meet with Navid📆",startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10)
-        ], taskDate: getSampleDate(offset: 15)),
-        TaskMetaData(task: [
-            
-            Task("Workout",title: "Keto Diet...🍣", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10)
-        ], taskDate: getSampleDate(offset: -20)),
-    ]
+    @Published var currentTask: Task = Task("", title: "", startingHour: 0, startingMin: 0, hour: 0, min: 0, second: 1)
+    @Published var todaysTasks: [Task] = [Task("", title: "", startingHour: 0, startingMin: 0, hour: 0, min: 0, second: 1)]
+    
+    @Published var tasks: [TaskMetaData] = []
     
     func addTaskToOneDate(
         type: String,
@@ -78,7 +51,6 @@ class UserViewModel: ObservableObject {
                 hasTasks = true
                 taskOfTheDay.addTask(newTask: newTask)
                 taskOfTheDay.sortTask()
-                print("84")
             }
         }
             
@@ -86,10 +58,12 @@ class UserViewModel: ObservableObject {
         if (!hasTasks) {
             let newTaskMetaData = TaskMetaData(task: [newTask], taskDate: inputDate)
             tasks.append(newTaskMetaData)
-            print("90")
         }
-            
         
+        if (!allCompleted()) {
+            noTasksToday = false
+            updateCurrentTask()
+        }
     }
     
     func getTodaysTasks() -> [Task] {
@@ -103,11 +77,19 @@ class UserViewModel: ObservableObject {
         return todaysTasks
     }
     
-    func completeTask(taskID: UUID) {
+    func completeTask() {
         tasks.forEach{ taskOfTheDay in
-            if (taskOfTheDay.taskDate == today) {
-                taskOfTheDay.completeTask(taskID: taskID)
+            if (taskOfTheDay.taskDate.onlyDate == today.onlyDate) {
+                taskOfTheDay.completeTask()
             }
+        }
+        
+        if (allCompleted()) {
+            noTasksToday = true
+        }
+        else {
+            noTasksToday = false
+            updateCurrentTask()
         }
     }
     
@@ -116,27 +98,65 @@ class UserViewModel: ObservableObject {
     }
     
     func getFirstUncompletedTask() -> Task {
-        var tempTask = Task("Default",title: "nothing", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10)
-        tasks.forEach { taskOfTheDay in
+        let tempTask = Task("Default",title: "nothing", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10)
+        for taskOfTheDay in tasks {
             if (taskOfTheDay.taskDate.onlyDate == today.onlyDate) {
-                taskOfTheDay.task.forEach { task in
+                taskOfTheDay.sortTask()
+                for task in taskOfTheDay.task.reversed() {
                     if (!task.isCompleted) {
-                        tempTask = task
+                        currentTask = task
+                        return currentTask
                     }
                 }
             }
         }
+        
         return tempTask
+    }
+    
+    func updateCurrentTask() {
+        for taskOfTheDay in tasks {
+            if (taskOfTheDay.taskDate.onlyDate == today.onlyDate) {
+                taskOfTheDay.sortTask()
+                //todaysTasks = taskOfTheDay.task
+                for task in taskOfTheDay.task {
+                    if (!task.isCompleted) {
+                        currentTask = task
+                        break
+                    }
+                }
+            }
+        }
+        updateTodaysUncompletedTasks()
+    }
+    
+    func updateTodaysUncompletedTasks() {
+        for taskOfTheDay in tasks {
+            var tempTasks: [Task] = [Task("", title: "", startingHour: 0, startingMin: 0, hour: 0, min: 0, second: 1)]
+            if (taskOfTheDay.taskDate.onlyDate == today.onlyDate) {
+                taskOfTheDay.sortTask()
+                tempTasks.removeAll()
+                for task in taskOfTheDay.task {
+                    if (!task.isCompleted) {
+                        tempTasks.append(task)
+                    }
+                }
+                todaysTasks = tempTasks
+            }
+        }
     }
     
     func printTaskMetaData() {
         tasks.forEach { tasks in
+            print()
+            print()
+            print("--------------------------------------------------")
             print("Meta Task List of", tasks.taskDate.formatted()," contains: ")
+            print("--------------------------------------------------")
             tasks.task.forEach { onetask in
-                print(onetask.type)
-                print(onetask.time)
+                print(onetask.type, " starting at", onetask.startingHour, ":", onetask.startingMin, "   ","Completed?  ",String(onetask.isCompleted))
             }
-            print(" ")
+            print("--------------------------------------------------")
         }
     }
     
@@ -151,46 +171,5 @@ class UserViewModel: ObservableObject {
         }
         return completed
     }
-/*
- func testTask() {
-     let newTasks = [
-         TaskModel("Workout", description: "Today is leg day"),
-         TaskModel("Drink", description:  "Drink some chicken juice"),
-         TaskModel("Smile", description: "Smile to your roommate"),
-         TaskModel("Read", description: "Read the alphabet")
-     ]
-     tasks.append(contentsOf: newTasks)
- }
-
-
-
-    func addNewTask(type: String, title: String, taskDate: Date) {
-        let newTask = Task(type, title: title)
-        tasks.append(newTask)
-    }
-
-    
-    func completeTask() {
-        tasks.removeFirst()
-    }
-
-    func updateTaskNumber(taskNumber: Int) {
-        user.taskNumber = taskNumber
-    }
-    
-    func incrementTaskNumber() {
-        user.taskNumber = user.taskNumber + 1
-    }
-    
-    func getTaskNumber() -> Int {
-        return user.taskNumber
-    }
-    /*
-    func decrementTaskNumber() {
-        user.taskNumber = user.taskNumber - 1
-    }
-     */
- 
- */
 }
 

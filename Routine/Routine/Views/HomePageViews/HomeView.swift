@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @EnvironmentObject var userViewModel: UserViewModel
     var body: some View {
         
         VStack {
