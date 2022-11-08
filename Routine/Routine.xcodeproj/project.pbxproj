@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		CA41E0FD28F9F12F00B76AEF /* EditPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA41E0FC28F9F12F00B76AEF /* EditPageView.swift */; };
 		CA41E0FF28FDF3EB00B76AEF /* CurrentAddButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA41E0FE28FDF3EB00B76AEF /* CurrentAddButtonView.swift */; };
-		CA41E10128FE339D00B76AEF /* info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CA41E10028FE339D00B76AEF /* info.plist */; };
+		CA534D42290C9B7C00A4B55B /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA534D41290C9B7C00A4B55B /* ImagePickerView.swift */; };
 		DC018ECA28E96B200044ACBE /* RoutineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018EC928E96B200044ACBE /* RoutineApp.swift */; };
 		DC018ECC28E96B200044ACBE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC018ECB28E96B200044ACBE /* ContentView.swift */; };
 		DC018ECE28E96B220044ACBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC018ECD28E96B220044ACBE /* Assets.xcassets */; };
@@ -32,7 +32,7 @@
 /* Begin PBXFileReference section */
 		CA41E0FC28F9F12F00B76AEF /* EditPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageView.swift; sourceTree = "<group>"; };
 		CA41E0FE28FDF3EB00B76AEF /* CurrentAddButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentAddButtonView.swift; sourceTree = "<group>"; };
-		CA41E10028FE339D00B76AEF /* info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = info.plist; sourceTree = "<group>"; };
+		CA534D41290C9B7C00A4B55B /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		DC018EC628E96B200044ACBE /* Routine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC018EC928E96B200044ACBE /* RoutineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineApp.swift; sourceTree = "<group>"; };
 		DC018ECB28E96B200044ACBE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -67,7 +67,6 @@
 		DC018EBD28E96B200044ACBE = {
 			isa = PBXGroup;
 			children = (
-				CA41E10028FE339D00B76AEF /* info.plist */,
 				DC018EC828E96B200044ACBE /* Routine */,
 				DC018EC728E96B200044ACBE /* Products */,
 			);
@@ -140,6 +139,7 @@
 				DC018EF328EA3F140044ACBE /* UserPageView.swift */,
 				CA41E0FC28F9F12F00B76AEF /* EditPageView.swift */,
 				DC018EF528EA3F220044ACBE /* SettingView.swift */,
+				CA534D41290C9B7C00A4B55B /* ImagePickerView.swift */,
 			);
 			path = UserPageViews;
 			sourceTree = "<group>";
@@ -231,7 +231,6 @@
 			files = (
 				DC018ED128E96B220044ACBE /* Preview Assets.xcassets in Resources */,
 				DC018ECE28E96B220044ACBE /* Assets.xcassets in Resources */,
-				CA41E10128FE339D00B76AEF /* info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +245,7 @@
 				DC018EE728E96C100044ACBE /* TaskModel.swift in Sources */,
 				CA41E0FF28FDF3EB00B76AEF /* CurrentAddButtonView.swift in Sources */,
 				CA41E0FD28F9F12F00B76AEF /* EditPageView.swift in Sources */,
+				CA534D42290C9B7C00A4B55B /* ImagePickerView.swift in Sources */,
 				DC018ECC28E96B200044ACBE /* ContentView.swift in Sources */,
 				DC018EF628EA3F220044ACBE /* SettingView.swift in Sources */,
 				DC018EE328E96BF40044ACBE /* CurrentView.swift in Sources */,
@@ -315,7 +315,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -369,7 +369,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -389,6 +389,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Routine/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need the camera permission";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -418,6 +419,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Routine/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need the camera permission";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

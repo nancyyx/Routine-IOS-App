@@ -40,7 +40,7 @@ struct UserPageView: View {
                 }
                 
                 NavigationLink(destination: ProfilePicView()){
-                    Image("me")
+                    Image("default")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 125)
