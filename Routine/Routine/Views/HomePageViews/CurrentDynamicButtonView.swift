@@ -27,32 +27,6 @@ struct CurrentDynamicButtonView: View {
 
             Button{
                 print("Image tapped!")
-//                if pomodoroModel.isStarted {
-//                    pomodoroModel.stopTimer()
-////                            if !userViewModel.allCompleted() {
-////                                pomodoroModel.addNewTimer = true
-////                            } else {
-////                                pomodoroModel.addNewTimer = false
-////                            }
-//                    pomodoroModel.minute = 5
-//                    pomodoroModel.startTimer()
-//                    print(pomodoroModel.isStarted)
-//                    pomodoroModel.addNewTimer = true
-//                } else {
-//                    pomodoroModel.startTimer()
-//                }
-
-//                if pomodoroModel.isStarted {
-//                    pomodoroModel.stopTimer()
-//                    if !userViewModel.allCompleted() {
-//                        pomodoroModel.addNewTimer = true
-//                    } else {
-//                        pomodoroModel.addNewTimer = false
-//                    }
-//                }else{
-//
-//                    pomodoroModel.startTimer()
-//                }
             } label: {
                 Image(userViewModel.currentTask.type)
                     .resizable()
@@ -64,9 +38,9 @@ struct CurrentDynamicButtonView: View {
                     .onEnded { _ in
                         if pomodoroModel.isStarted {
                             pomodoroModel.stopTimer()
-                            pomodoroModel.hour = userViewModel.currentTask.hour
-                            pomodoroModel.minute = userViewModel.currentTask.min
-                            pomodoroModel.second = userViewModel.currentTask.second
+//                            pomodoroModel.hour = userViewModel.currentTask.hour
+//                            pomodoroModel.minute = userViewModel.currentTask.min
+//                            pomodoroModel.second = userViewModel.currentTask.second
                             print("Break Time!")
                             pomodoroModel.startTimer()
                             pomodoroModel.addNewTimer = true
@@ -78,9 +52,7 @@ struct CurrentDynamicButtonView: View {
                                         clickIcon()
                                         if pomodoroModel.isStarted {
                                             pomodoroModel.stopTimer()
-                                            pomodoroModel.hour = userViewModel.currentTask.hour
-                                            pomodoroModel.minute = userViewModel.currentTask.min
-                                            pomodoroModel.second = userViewModel.currentTask.second
+                                            pomodoroModel.minute = 5
                                             print("Break Time!")
                                             pomodoroModel.startTimer()
                                             pomodoroModel.addNewTimer = true
@@ -106,17 +78,27 @@ struct CurrentDynamicButtonView: View {
         .animation(.easeInOut, value: pomodoroModel.progress)
         .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()){
             _ in
-            if Date() == userViewModel.currentTask.time {
+            
+            if (!userViewModel.allCompleted()) {
+                
+                if (!pomodoroModel.isStarted) {
+                    let calendar = Calendar.current
+                    let date = Date()
+                    let hour = calendar.component(.hour, from: date)
+                    let minute = calendar.component(.minute, from: date)
+                    if hour == userViewModel.currentTask.startingHour && (minute == userViewModel.currentTask.startingMin || minute == userViewModel.currentTask.startingMin + 1) && pomodoroModel.isStarted == false {
+                        pomodoroModel.startTimer()
+                    }
+                } else {
+                    pomodoroModel.updateTimer()
 
-            }
-            if pomodoroModel.isStarted {
-                pomodoroModel.updateTimer()
+                }
+        
             }
         }
         .alert("Congrats", isPresented: $pomodoroModel.isFinished) {
             Button("Close", role: .destructive) {
                 userViewModel.completeTask()
-                userViewModel.printTaskMetaData()
                 pomodoroModel.stopTimer()
             }
             Button("Start Relax Time", role: .cancel) {
@@ -127,49 +109,7 @@ struct CurrentDynamicButtonView: View {
                 pomodoroModel.addNewTimer = true
             }
         }
-
-        /*
-        Button {
-            print("Image tapped!")
-            clickIcon()
-        } label: {
-
-            ZStack {
-                Image(currentTask.type)
-                    .resizable()
-                    .frame(width: 100, height: 100)
-                    .clipShape(Circle())
-                   // .aspectRatio(0.1, contentMode: .fit)
-                    .scaledToFit()
-                    .padding()
-                    .overlay(Circle().stroke(Color.red.opacity(0.4), lineWidth: 10))
-                    .padding()
-                .overlay(Circle().stroke(Color.blue.opacity(0.2), lineWidth: 10))
-                /*
-                Image(currentTask.type)
-                    .resizable()
-                    .frame(width: 100, height: 100)
-                    .clipShape(Circle())
-                   // .aspectRatio(0.1, contentMode: .fit)
-                    .scaledToFit()
-                    .padding()
-                    .overlay(Circle().stroke(Color.red, lineWidth: 10))
-                    .padding()
-                    .overlay(
-                        Circle()
-                            .trim(from: 0.0, to: <#T##CGFloat#>(min(self.progress, 1.0)))
-                            .stroke(style: StrokeStyle(lineWidth: 12, lineCap: .round, lineJoin: .round))
-                            .foregroundColor(Color.blue)
-                            .rotationEffect(Angle(degrees: 270))
-                            .animation(.easeInOut(duration: 1.5))
-                    )
-                 */
-            }
-        }
-        .padding()
-        */
     }
-    //.statusBar(hidden: true)
 
 
     func clickIcon() {
