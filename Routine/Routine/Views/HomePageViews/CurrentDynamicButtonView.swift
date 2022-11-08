@@ -38,12 +38,15 @@ struct CurrentDynamicButtonView: View {
                     .onEnded { _ in
                         if pomodoroModel.isStarted {
                             pomodoroModel.stopTimer()
-//                            pomodoroModel.hour = userViewModel.currentTask.hour
-//                            pomodoroModel.minute = userViewModel.currentTask.min
-//                            pomodoroModel.second = userViewModel.currentTask.second
-                            print("Break Time!")
+                            pomodoroModel.hour = userViewModel.currentTask.hour
+                            pomodoroModel.minute = userViewModel.currentTask.min
+                            pomodoroModel.second = userViewModel.currentTask.second
+//                            print("Break Time!")
                             pomodoroModel.startTimer()
                             pomodoroModel.addNewTimer = true
+                        }else {
+                            print("tapped")
+                            pomodoroModel.startTimer()
                         }
                     }
             )
@@ -56,6 +59,7 @@ struct CurrentDynamicButtonView: View {
                                             print("Break Time!")
                                             pomodoroModel.startTimer()
                                             pomodoroModel.addNewTimer = true
+                                            userViewModel.completeTask()
                                         }
                                 })
 
@@ -78,23 +82,38 @@ struct CurrentDynamicButtonView: View {
         .animation(.easeInOut, value: pomodoroModel.progress)
         .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()){
             _ in
-            
             if (!userViewModel.allCompleted()) {
+                let calendar = Calendar.current
+                let date = Date()
+                let hour = calendar.component(.hour, from: date)
+                let minute = calendar.component(.minute, from: date)
+                pomodoroModel.hour = userViewModel.currentTask.hour
+                pomodoroModel.minute = userViewModel.currentTask.min
+                pomodoroModel.second = userViewModel.currentTask.second
                 
-                if (!pomodoroModel.isStarted) {
-                    let calendar = Calendar.current
-                    let date = Date()
-                    let hour = calendar.component(.hour, from: date)
-                    let minute = calendar.component(.minute, from: date)
-                    if hour == userViewModel.currentTask.startingHour && (minute == userViewModel.currentTask.startingMin || minute == userViewModel.currentTask.startingMin + 1) && pomodoroModel.isStarted == false {
-                        pomodoroModel.startTimer()
-                    }
-                } else {
-                    pomodoroModel.updateTimer()
-
+                if hour == userViewModel.currentTask.startingHour && (minute == userViewModel.currentTask.startingMin || minute == userViewModel.currentTask.startingMin + 1) && pomodoroModel.isStarted == false && pomodoroModel.staticTotalSeconds == 0 {
+                    print("start")
+                    pomodoroModel.startTimer()
                 }
-        
             }
+            if (pomodoroModel.isStarted) {
+                pomodoroModel.updateTimer()
+            }
+//                            if (!pomodoroModel.isStarted) {
+//                                let calendar = Calendar.current
+//                                let date = Date()
+//                                let hour = calendar.component(.hour, from: date)
+//                                let minute = calendar.component(.minute, from: date)
+//                                if hour == userViewModel.currentTask.startingHour && (minute == userViewModel.currentTask.startingMin || minute == userViewModel.currentTask.startingMin + 1) && pomodoroModel.isStarted == false {
+//                                    pomodoroModel.startTimer()
+//                                }
+//                            } else {
+//                                pomodoroModel.updateTimer()
+//
+//                            }
+//
+//                        }
+
         }
         .alert("Congrats", isPresented: $pomodoroModel.isFinished) {
             Button("Close", role: .destructive) {
