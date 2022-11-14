@@ -13,26 +13,30 @@ enum Tab {
 }
 
 struct TabBarView: View {
-    @State private var selectedTab: Tab = .first
+    @State private var selectedTab: Tab = .second
     
     
     var body: some View {
-        VStack {
-            switch selectedTab {
-            case .first:
-                NavigationView {
-                    HomeView()
-                }
-            case .second:
-                //NavigationView{
-                UserPageView()
-                    .padding(.top, 80.0)
+        VStack (spacing: 0){
+            VStack {
+                switch selectedTab {
+                case .first:
+                    NavigationView {
+                        HomeView()
+                    }
+                case .second:
+                    //NavigationView{
+                    UserPageView()
+                        .padding(.top, 80.0)
                     //.statusBar(hidden: true)  //mindful!!
-                    .ignoresSafeArea(edges: .top)   //maybe
-                //}
+                       .ignoresSafeArea()   //maybe
+                    //}
+                }
             }
+           
+            Divider().background(.gray.opacity(0.5))
             CustomTabView(selectedTab: $selectedTab)
-                .frame(height: 35)
+                .frame(height: 60)
                 
         }
     }
@@ -43,7 +47,6 @@ struct CustomTabView: View {
     @State var presentSheet = false
     var body: some View {
         HStack {
-            
             Spacer()
             
             Button {
@@ -94,6 +97,7 @@ struct CustomTabView: View {
             
             Spacer()
         }
+        
     }
 }
     
