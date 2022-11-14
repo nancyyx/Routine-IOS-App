@@ -17,12 +17,18 @@ struct ListView: View {
             HStack {
                 Text("TODO LIST")
                     .font(.title)
-                    .fontWeight(.bold)
+                    .fontWeight(.semibold)
                     .padding()
                 Spacer()
             }
             if (userViewModel.noTasksToday) {
-                Text("Live your meaningless life today or add some tasks")
+				Section {
+					Text("Live your meaningless life today or add some tasks")
+				}
+				.padding()
+				.background(.gray.opacity(0.1))
+				
+				.cornerRadius(15)
             }
             else {
                 List {

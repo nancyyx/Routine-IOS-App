@@ -12,13 +12,19 @@ class UserViewModel: ObservableObject {
 
    // @Published var tasks: [TaskModel] = []
     @Published var today: Date = Date()
-    @Published var userName: String = "Dajun"
+    @Published var userName: String = "Remy"
+    @Published var sup: String = "I love 996"
     @Published var noTasksToday: Bool = true
     @Published var number = 0
     @Published var currentTask: Task = Task("", title: "", startingHour: 0, startingMin: 0, hour: 0, min: 0, second: 1, time: Date())
     @Published var todaysTasks: [Task] = [Task("", title: "", startingHour: 0, startingMin: 0, hour: 0, min: 0, second: 1, time: Date())]
     
     @Published var tasks: [TaskMetaData] = []
+    
+    func setInfo(name: String, wasup: String) {
+        userName = name
+        sup = wasup
+    }
     
     func addTaskToOneDate(
         type: String,

@@ -18,14 +18,12 @@ struct HomeView: View {
         }
         .padding(.top, 80.0)
         //.statusBar(hidden: true)  //mindful!!
-        .ignoresSafeArea(edges: .top)   //maybe
+        .ignoresSafeArea()   //maybe
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-            .environmentObject(PomodoroModel())
         HomeView()
             .environmentObject(UserViewModel())
     }

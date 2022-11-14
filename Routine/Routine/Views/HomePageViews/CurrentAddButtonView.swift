@@ -14,10 +14,7 @@ struct CurrentAddButtonView: View {
     var body: some View {
         ZStack {
             outerCircle()
-                .frame(width: 150.0, height: 150.0)
-                .padding(20.0)
             
-         
             Image(systemName: "checkmark.circle.fill")
                 .resizable()
                 .frame(width: 100, height: 100)
@@ -36,16 +33,23 @@ struct outerCircle: View {
     var body: some View {
         ZStack {
             Circle()
-                .stroke(lineWidth: 20.0)
+                .stroke(lineWidth: 15)
                 .opacity(0.20)
                 .foregroundColor(Color.gray)
+                .frame(width: 235, height: 235)
             
             Circle()
-                //.trim(from: 0.0, to: CGFloat(min(self.progress, 1.0)))
-                .stroke(style: StrokeStyle(lineWidth: 12, lineCap: .round, lineJoin: .round))
-                .foregroundColor(Color.blue)
-                //.rotationEffect(Angle(degrees: 270))
-                //.animation(.easeInOut(duration: 1.5))
+                .stroke(Color.blue, style: StrokeStyle(lineWidth: 15, lineCap: .round, lineJoin: .round))
+                .padding()
+                .frame(width: 225, height: 225)
+            
+            
+            Circle()
+                .stroke(Color.blue, style: StrokeStyle(lineWidth: 15, lineCap: .round, lineJoin: .round))
+                .padding()
+                .frame(width: 255, height: 225)
+            
+            
             
         }
     }
