@@ -13,40 +13,54 @@ enum Tab {
 }
 
 struct TabBarView: View {
-    @State private var selectedTab: Tab = .second
-    
+    @State private var selectedTab: Tab = .first
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack (spacing: 0){
-            VStack {
+            VStack(spacing: 0) {
                 switch selectedTab {
                 case .first:
-                    NavigationView {
-                        HomeView()
-                    }
+                    HomeView()
+                        //.ignoresSafeArea()
                 case .second:
-                    //NavigationView{
                     UserPageView()
-                        .padding(.top, 80.0)
-                    //.statusBar(hidden: true)  //mindful!!
-                       .ignoresSafeArea()   //maybe
-                    //}
+                        //.ignoresSafeArea()
                 }
+                   
+                
             }
-           
-            Divider().background(.gray.opacity(0.5))
+            .padding(.top, 60)
+            .background(colorScheme == .dark ? Color.black : Color.gray.opacity(0.03))
+
+            Divider()
             CustomTabView(selectedTab: $selectedTab)
-                .frame(height: 60)
                 
         }
+        
+        .ignoresSafeArea()
+    }
+}
+
+struct CustomButtonStyle: ButtonStyle {
+    @Environment(\.colorScheme) var colorScheme
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .shadow(
+                color: configuration.isPressed ?
+                (colorScheme == .dark ? Color.white : Color.gray.opacity(0.5)) : Color.clear,
+                radius: 4, x: 0, y: 0
+            )
     }
 }
 
 struct CustomTabView: View {
     @Binding var selectedTab : Tab
     @State var presentSheet = false
+    @Environment(\.colorScheme) var colorScheme
     var body: some View {
-        HStack {
+        HStack(spacing: 0) {
             Spacer()
             
             Button {
@@ -66,21 +80,25 @@ struct CustomTabView: View {
                 presentSheet = true
             } label: {
                 ZStack {
-                    
                     Circle()
+                        //.stroke(lineWidth: 3)
                         .foregroundColor(.white)
-                        .frame(width: 70, height: 70)
-                        .shadow(radius: 2)
+                    
+                        .frame(width: 60, height: 60)
+                        .shadow(color: colorScheme == .dark ? Color.white : Color.gray.opacity(0.5), radius: 3)
                     
                     Image(systemName: "plus.circle.fill")
                         .resizable()
-                        .frame(width: 60, height: 60, alignment: .center)
+                        .renderingMode(.template)
+                        .foregroundColor(colorScheme == .dark ? Color.black : Color.blue)
+                        .frame(maxWidth: 55, maxHeight: 55, alignment: .center)
                     .aspectRatio(contentMode: .fit)
                 }
                 .offset(y: -15)
             }
+            .buttonStyle(CustomButtonStyle())
             .sheet(isPresented: $presentSheet) {
-                AddView(textFieldType: "", textFieldTitle: "", tabBarview: self)
+                AddView(textFieldTitle: "", tabBarview: self)
             }
             
             Spacer()
@@ -95,8 +113,10 @@ struct CustomTabView: View {
                     .foregroundColor(selectedTab == .second ? .blue : .primary)
             }
             
+            
             Spacer()
         }
+        .padding(.bottom, 15.0)
         
     }
 }

@@ -25,7 +25,6 @@ struct EditPageView: View {
                         TextField("", text: $name)
                             .padding(.horizontal)
                             .frame(height: 50)
-                            .background(Color.white)
                             .cornerRadius(10)
                             .disableAutocorrection(true)
                     }
@@ -34,8 +33,8 @@ struct EditPageView: View {
                         TextField("", text: $text)
                             .padding(.horizontal)
                             .frame(height: 50)
-                            .background(Color.white)
                             .cornerRadius(10)
+                            .disableAutocorrection(true)
                     }
                     
                 }

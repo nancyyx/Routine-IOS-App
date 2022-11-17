@@ -27,6 +27,8 @@
 		DC3457AE28F7FD8D0077359F /* DateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3457AC28F7FD8D0077359F /* DateValue.swift */; };
 		DC3457B028F7FDA00077359F /* CurrentAddButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3457AF28F7FDA00077359F /* CurrentAddButtonView.swift */; };
 		DC3457B228F7FDB80077359F /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3457B128F7FDB80077359F /* CustomDatePicker.swift */; };
+		DC7BF09A29248F1200FF9E07 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7BF09929248F1200FF9E07 /* LaunchScreenView.swift */; };
+		DC7BF09C2924952300FF9E07 /* CircleAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7BF09B2924952300FF9E07 /* CircleAnimation.swift */; };
 		DCB00D5A29186F0900E7C158 /* EditPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA41E0FC28F9F12F00B76AEF /* EditPageView.swift */; };
 		DCB00D5E2918792700E7C158 /* UserCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB00D5D2918792700E7C158 /* UserCalendarViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -54,6 +56,8 @@
 		DC3457AC28F7FD8D0077359F /* DateValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateValue.swift; sourceTree = "<group>"; };
 		DC3457AF28F7FDA00077359F /* CurrentAddButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentAddButtonView.swift; sourceTree = "<group>"; };
 		DC3457B128F7FDB80077359F /* CustomDatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
+		DC7BF09929248F1200FF9E07 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
+		DC7BF09B2924952300FF9E07 /* CircleAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleAnimation.swift; sourceTree = "<group>"; };
 		DCB00D5D2918792700E7C158 /* UserCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCalendarViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,7 +92,9 @@
 			isa = PBXGroup;
 			children = (
 				DC018EC928E96B200044ACBE /* RoutineApp.swift */,
+				DC7BF09929248F1200FF9E07 /* LaunchScreenView.swift */,
 				DC018ECB28E96B200044ACBE /* ContentView.swift */,
+				DC7BF09B2924952300FF9E07 /* CircleAnimation.swift */,
 				DC018EEC28E97E940044ACBE /* Views */,
 				DC018EE428E96C030044ACBE /* Models */,
 				DC018ECD28E96B220044ACBE /* Assets.xcassets */,
@@ -241,7 +247,9 @@
 			files = (
 				DC018EDF28E96BF40044ACBE /* CurrentDynamicButtonView.swift in Sources */,
 				DC3457B228F7FDB80077359F /* CustomDatePicker.swift in Sources */,
+				DC7BF09A29248F1200FF9E07 /* LaunchScreenView.swift in Sources */,
 				DCB00D5A29186F0900E7C158 /* EditPageView.swift in Sources */,
+				DC7BF09C2924952300FF9E07 /* CircleAnimation.swift in Sources */,
 				DC018ECC28E96B200044ACBE /* ContentView.swift in Sources */,
 				DC018EF628EA3F220044ACBE /* SettingView.swift in Sources */,
 				DC3457B028F7FDA00077359F /* CurrentAddButtonView.swift in Sources */,

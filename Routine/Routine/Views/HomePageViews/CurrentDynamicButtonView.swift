@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CurrentDynamicButtonView: View {
-    
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject var pomodoroModel: PomodoroModel
     
@@ -27,35 +27,11 @@ struct CurrentDynamicButtonView: View {
                         
             Button{
                 print("Image tapped!")
-//                if pomodoroModel.isStarted {
-//                    pomodoroModel.stopTimer()
-////                            if !userViewModel.allCompleted() {
-////                                pomodoroModel.addNewTimer = true
-////                            } else {
-////                                pomodoroModel.addNewTimer = false
-////                            }
-//                    pomodoroModel.minute = 5
-//                    pomodoroModel.startTimer()
-//                    print(pomodoroModel.isStarted)
-//                    pomodoroModel.addNewTimer = true
-//                } else {
-//                    pomodoroModel.startTimer()
-//                }
-            
-//                if pomodoroModel.isStarted {
-//                    pomodoroModel.stopTimer()
-//                    if !userViewModel.allCompleted() {
-//                        pomodoroModel.addNewTimer = true
-//                    } else {
-//                        pomodoroModel.addNewTimer = false
-//                    }
-//                }else{
-//
-//                    pomodoroModel.startTimer()
-//                }
             } label: {
                 Image(userViewModel.currentTask.type)
                     .resizable()
+                    .renderingMode(.template)
+                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                     .frame(width: 100, height: 100)
                     .clipShape(Circle())
             }
@@ -90,16 +66,16 @@ struct CurrentDynamicButtonView: View {
                                         }
                                 })
             
+            
             Circle()
-                .stroke(lineWidth: 15.0)
-                .opacity(0.20)
-                .foregroundColor(Color.gray)
-                .frame(width: 235, height: 235)
-
+                .stroke(Color.gray, style: StrokeStyle(lineWidth: 12, lineCap: .round, lineJoin: .round))
+                .padding()
+                .rotationEffect(.init(degrees: -90))
+                .frame(width: 227, height: 227)
             
             Circle()
                 .trim(from: 0, to: pomodoroModel.progress)
-                .stroke(Color.cyan, style: StrokeStyle(lineWidth: 15, lineCap: .round, lineJoin: .round))
+                .stroke(Color.cyan, style: StrokeStyle(lineWidth: 12, lineCap: .round, lineJoin: .round))
                 .padding()
                 .rotationEffect(.init(degrees: -90))
                 .frame(width: 225, height: 225)
@@ -130,47 +106,7 @@ struct CurrentDynamicButtonView: View {
                 pomodoroModel.addNewTimer = true
             }
         }
-        
-        /*
-        Button {
-            print("Image tapped!")
-            clickIcon()
-        } label: {
-            
-            ZStack {
-                Image(currentTask.type)
-                    .resizable()
-                    .frame(width: 100, height: 100)
-                    .clipShape(Circle())
-                   // .aspectRatio(0.1, contentMode: .fit)
-                    .scaledToFit()
-                    .padding()
-                    .overlay(Circle().stroke(Color.red.opacity(0.4), lineWidth: 10))
-                    .padding()
-                .overlay(Circle().stroke(Color.blue.opacity(0.2), lineWidth: 10))
-                /*
-                Image(currentTask.type)
-                    .resizable()
-                    .frame(width: 100, height: 100)
-                    .clipShape(Circle())
-                   // .aspectRatio(0.1, contentMode: .fit)
-                    .scaledToFit()
-                    .padding()
-                    .overlay(Circle().stroke(Color.red, lineWidth: 10))
-                    .padding()
-                    .overlay(
-                        Circle()
-                            .trim(from: 0.0, to: <#T##CGFloat#>(min(self.progress, 1.0)))
-                            .stroke(style: StrokeStyle(lineWidth: 12, lineCap: .round, lineJoin: .round))
-                            .foregroundColor(Color.blue)
-                            .rotationEffect(Angle(degrees: 270))
-                            .animation(.easeInOut(duration: 1.5))
-                    )
-                 */
-            }
-        }
-        .padding()
-        */
+
     }
     //.statusBar(hidden: true)
     
@@ -188,7 +124,7 @@ struct ProgressBar: View {
     var body: some View {
         ZStack {
             Circle()
-                .stroke(lineWidth: 20.0)
+                .stroke(lineWidth: 12.0)
                 .opacity(0.20)
                 .foregroundColor(Color.gray)
             
@@ -208,5 +144,7 @@ struct CurrentDynamicButtonView_Previews: PreviewProvider {
         //let currentTask = TaskModel("Workout", description: "Today is leg day")
         let currentTask = Task("Workout",title: "Keto Diet...🍣", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10, time: Date())
         CurrentDynamicButtonView()
+            .environmentObject(UserViewModel())
+            .environmentObject(PomodoroModel())
     }
 }

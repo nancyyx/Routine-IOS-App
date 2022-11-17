@@ -11,14 +11,15 @@ struct HomeView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     var body: some View {
         
-        VStack {
+        VStack(spacing: 0) {
             CurrentView()
             ListView()
             Spacer()
         }
-        .padding(.top, 80.0)
+        
+        
         //.statusBar(hidden: true)  //mindful!!
-        .ignoresSafeArea()   //maybe
+          //maybe
     }
 }
 

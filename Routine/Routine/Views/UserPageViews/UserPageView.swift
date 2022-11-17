@@ -16,6 +16,7 @@ struct ProfilePicView: View {
 }
 
 struct UserPageView: View {
+    @Environment(\.colorScheme) var colorScheme
     // Start & End date should be configured based on your needs.
     @State private var isShowDatePicker: Bool = false
     @EnvironmentObject var userViewModel: UserViewModel
@@ -32,6 +33,7 @@ struct UserPageView: View {
                             .font(.title)
                             .fontWeight(.semibold)
                             .padding()
+                            .shadow(color: colorScheme == .dark ? Color.white : Color.clear, radius: 1.0)
                         
                         Spacer()
                     }
@@ -51,7 +53,7 @@ struct UserPageView: View {
                             HStack {
                                 Text(userViewModel.userName)
                                     .font(.system(size: 25))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                     .padding(.trailing)
                                 
                                 
@@ -87,18 +89,21 @@ struct UserPageView: View {
                                 isShowDatePicker = true
                             }
                         } label: {
+                            //Spacer()
                             Spacer()
                             Text(calenderVM.date, style: .date)
                                 .font(.title3)
                                 .fontWeight(.medium)
                             Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(Color.gray)
                         }
                         .foregroundColor(.blue)
                         .padding()
                         .frame(height: 40)
                         .cornerRadius(15, corners: [.topLeft, .topRight])
                         
-                        Divider()
+                        Divider().foregroundColor(Color.gray.opacity(0.1))
                         
                         dateBody
                             .padding()
@@ -110,14 +115,12 @@ struct UserPageView: View {
                         
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                    .background {
-                        Color.white
-                    }
+                    .background(colorScheme == .dark ? Color.gray.opacity(0.2) : Color.white)
                     .cornerRadius(15)
                     //.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                     .overlay(
                         RoundedRectangle(cornerRadius: 15)
-                            .stroke(.white)
+                            .stroke(.gray.opacity(0.1))
                             .shadow(radius: 10)
                     )
                     .padding()
@@ -126,11 +129,6 @@ struct UserPageView: View {
             
             //.padding(.top, 40)
             
-        }
-        .background {
-            Color(red:225 / 255, green: 225 / 255, blue: 225 / 255)
-                .opacity(0.5)
-                .edgesIgnoringSafeArea(.all)
         }
         .overlay {
             if isShowDatePicker {
@@ -151,12 +149,16 @@ struct UserPageView: View {
                 Text("F")
                 Text("S")
             }
+            .foregroundColor(colorScheme == .dark ? Color.white : Color.black.opacity(0.8))
             
             LazyVGrid(columns: Array(repeating: GridItem(spacing: 0), count: 7)) {
                 ForEach(calenderVM.days, id: \.id){ item in
                     if item.style == .placeholder {
                         Text(item.day)
+                            .font(.footnote)
+                            .fontWeight(.thin)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .foregroundColor(colorScheme == .dark ? Color.white : Color.black.opacity(0.8))
                     }
                     else {
                         ZStack {
@@ -164,7 +166,7 @@ struct UserPageView: View {
                                 Button(item.day) {
                                     calenderVM.changeEvents(from: item)
                                 }
-                                .accentColor(.black)
+                                .accentColor(colorScheme == .dark ? Color.white : Color.black.opacity(0.7))
                             }
                             .padding(5)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -206,9 +208,7 @@ struct UserPageView: View {
                 .padding()
             }
             .frame(maxWidth: .infinity)
-            .background {
-                Color.white
-            }
+            .background(colorScheme == .dark ? Color.black : Color.white)
             VStack {
                 DatePicker(selection: $calenderVM.pickingDate, displayedComponents: .date) {
                     Text(calenderVM.date, style: .date)
@@ -218,15 +218,10 @@ struct UserPageView: View {
                 .ignoresSafeArea()
             }
             .frame(maxWidth: .infinity, alignment: .bottom)
-            .background {
-                Color.white
-                    .ignoresSafeArea()
-            }
+            .background(colorScheme == .dark ? Color.black : Color.white)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-        .background {
-            Color.black.opacity(0.3).ignoresSafeArea()
-        }
+        .background(colorScheme == .dark ? Color.black : Color.gray.opacity(0.1))
         
     }
     
@@ -270,3 +265,28 @@ struct RoundedCorner: Shape {
         return Path(path.cgPath)
     }
 }
+
+
+extension Date {
+
+    var onlyDate: Date? {
+        get {
+            let calender = Calendar.current
+            let dateComponents = calender.dateComponents([.year, .month, .day], from: self)
+            return calender.date(from: dateComponents)
+        }
+    }
+
+}
+
+
+extension Date: Strideable {
+    public func distance(to other: Date) -> TimeInterval {
+        return other.timeIntervalSinceReferenceDate - self.timeIntervalSinceReferenceDate
+    }
+
+    public func advanced(by n: TimeInterval) -> Date {
+        return self + n
+    }
+}
+
