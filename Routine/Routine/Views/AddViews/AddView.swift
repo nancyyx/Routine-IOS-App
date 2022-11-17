@@ -6,11 +6,20 @@
 //
 
 import SwiftUI
+enum TaskTypes: String, CaseIterable, Identifiable {
+    case Workout
+    case Drink
+    case Smile
+    case Read
+    
+    var id: Self { self }
+}
 
 struct AddView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject var todaysTasks: TaskMetaData
-    @State var textFieldType: String
+    @Environment(\.colorScheme) var colorScheme
+    //@State var textFieldType: String
     @State var textFieldTitle: String
     @State var startingDate = Date()
     @State var endingDate = Date()
@@ -26,25 +35,90 @@ struct AddView: View {
     //var taskDurationRange = Calendar.current.date(byAdding: .hour, value: , to: Date())!
     var tabBarview: CustomTabView?
     
-    let days: [String] = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
+    //let days: [String] = ["Workout","Drink","Smile","Read"]
     
+
+    
+    @State private var selectedType: String = TaskTypes.Workout.rawValue.capitalized
+
     var body: some View {
         GeometryReader { geometry in
             NavigationView {
                 VStack {
+                        
+                    
+                        
+                    
+                    
+                     
+                    
+                    /*
+                    Picker("Type", selection: $selectedType) {
+                        ForEach(TaskTypes.allCases) { task in
+                            Image(task.rawValue.capitalized)
+                                .resizable()
+                                .foregroundColor(Color.white)
+                                .frame(width: 30, height: 30)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    
+                    Picker("Type", selection: $selectedType) {
+                        ForEach(TaskTypes.allCases) { task in
+                            
+                        }
+                    }*/
                     Form {
+                        
+                        
+                        
                         Section(header: Text("Task Info")) {
+                            
+                            
+                            
+                            /*
                             TextField("Task Type", text: $textFieldType)
                                 .padding(.horizontal)
                                 .frame(height: 30)
-                                .background(Color.white)
                                 .cornerRadius(10)
+                             */
+                            
+                            ScrollView(.horizontal) {
+                                LazyHStack {
+                                    
+                                    ForEach(TaskTypes.allCases) { ts in
+                                        Button {
+                                            selectedType = ts.rawValue.capitalized
+                                        } label: {
+                                            Circle()
+                                                .stroke(lineWidth: 3)
+                                                .shadow(color: selectedType == ts.rawValue.capitalized ?  Color.white : Color.clear, radius: 2)
+                                                .foregroundColor(selectedType == ts.rawValue.capitalized ?  (colorScheme == .dark ? Color.white : Color.blue) : Color.black.opacity(0.1))
+                                                .frame(width: 35, height: 35.0)
+                                                .overlay(
+                                                    Image(ts.rawValue.capitalized)
+                                                        .resizable()
+                                                        .renderingMode(.template)
+                                                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                                                        .frame(width: 30, height: 30)
+                                                        .clipShape(Circle())
+                                                
+                                                )
+                                        }
+                                        .padding(3.0)
+                                        
+                                    }
+                                }
+                            }
+                            .frame(height: 40, alignment: .center)
+                            .padding()
+                            
                             TextField("Description", text: $textFieldTitle)
                                 .padding(.horizontal)
-                                .font(.headline)
+                                .font(.body)
                                 .frame(height: 30)
-                                .background(Color.white)
                                 .cornerRadius(10)
+                                .disableAutocorrection(true)
                         }
                         
                         Section(header: Text("Timing Info")) {
@@ -95,6 +169,7 @@ struct AddView: View {
                         }
                     }
                 }
+                
                 .navigationBarTitle("Add Task")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
@@ -114,6 +189,7 @@ struct AddView: View {
                     }
                     
                 }
+                
 
             }
         }
@@ -135,7 +211,7 @@ struct AddView: View {
         let dayDurationInSeconds: TimeInterval = 60*60*24
         for date in stride(from: startingDate, to: endingDate.addingTimeInterval(3600), by: dayDurationInSeconds) {
             userViewModel.addTaskToOneDate(
-                type: textFieldType,
+                type: selectedType,
                 title: textFieldTitle,
                 inputDate: date,
                 hour: durationHour,
@@ -202,32 +278,13 @@ struct AddView: View {
 
 struct AddView_Previews: PreviewProvider {
     static var previews: some View {
-        AddView(textFieldType: "", textFieldTitle: "")
+        let currentTask = Task("Workout",title: "Keto Diet...🍣", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10, time: Date())
+        
+        AddView( textFieldTitle: "foo")
             .environmentObject(UserViewModel())
+            .environmentObject(TaskMetaData(task: [currentTask], taskDate: Date()))
     }
         
-}
-
-extension Date {
-
-    var onlyDate: Date? {
-        get {
-            let calender = Calendar.current
-            let dateComponents = calender.dateComponents([.year, .month, .day], from: self)
-            return calender.date(from: dateComponents)
-        }
-    }
-
-}
-
-extension Date: Strideable {
-    public func distance(to other: Date) -> TimeInterval {
-        return other.timeIntervalSinceReferenceDate - self.timeIntervalSinceReferenceDate
-    }
-
-    public func advanced(by n: TimeInterval) -> Date {
-        return self + n
-    }
 }
 
 

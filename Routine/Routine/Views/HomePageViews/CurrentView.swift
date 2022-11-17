@@ -11,6 +11,7 @@ import SwiftUI
 struct CurrentView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject var pomodoroModel: PomodoroModel
+    @Environment(\.colorScheme) var colorScheme
     //@EnvironmentObject var todaysTasks: TaskMetaData
     //@State private var flag = false
     
@@ -21,6 +22,7 @@ struct CurrentView: View {
                     .font(.title)
                     .fontWeight(.semibold)
                     .padding()
+                    .shadow(color: colorScheme == .dark ? Color.white : Color.clear, radius: 1.0)
                 
                 Spacer()
             }

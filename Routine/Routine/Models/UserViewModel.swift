@@ -53,8 +53,13 @@ class UserViewModel: ObservableObject {
         tasks.forEach{ taskOfTheDay in
             if (taskOfTheDay.taskDate.onlyDate == inputDate.onlyDate) {
                 hasTasks = true
-                taskOfTheDay.addTask(newTask: newTask)
-                taskOfTheDay.sortTask()
+                if (taskOfTheDay.addTask(newTask: newTask)) {
+                    print("57")
+                }
+                else {
+                    print("60")
+                }
+                //taskOfTheDay.sortTask()
             }
         }
             
