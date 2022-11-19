@@ -12,13 +12,19 @@ class UserViewModel: ObservableObject {
 
    // @Published var tasks: [TaskModel] = []
     @Published var today: Date = Date()
-    @Published var userName: String = "Dajun"
+    @Published var userName: String = "Remy"
+    @Published var sup: String = "I love 996"
     @Published var noTasksToday: Bool = true
     @Published var number = 0
-    @Published var currentTask: Task = Task("", title: "", startingHour: 0, startingMin: 0, hour: 0, min: 0, second: 1)
-    @Published var todaysTasks: [Task] = [Task("", title: "", startingHour: 0, startingMin: 0, hour: 0, min: 0, second: 1)]
+    @Published var currentTask: Task = Task("", title: "", startingHour: 0, startingMin: 0, hour: 0, min: 0, second: 1, time: Date())
+    @Published var todaysTasks: [Task] = [Task("", title: "", startingHour: 0, startingMin: 0, hour: 0, min: 0, second: 1, time: Date())]
     
     @Published var tasks: [TaskMetaData] = []
+    
+    func setInfo(name: String, wasup: String) {
+        userName = name
+        sup = wasup
+    }
     
     func addTaskToOneDate(
         type: String,
@@ -27,9 +33,7 @@ class UserViewModel: ObservableObject {
         hour: Int,
         min: Int,
         second: Int) {
-            
         number += 1
-            
         let components = Calendar.current.dateComponents([.hour, .minute], from: inputDate)
         let startingHour = components.hour ?? 0
         let startingMinute = components.minute ?? 0
@@ -43,14 +47,19 @@ class UserViewModel: ObservableObject {
             startingMin: startingMinute,
             hour: hour,
             min: min,
-            second: second)
-            
+            second: second,
+            time: inputDate)
         //if there's same date
         tasks.forEach{ taskOfTheDay in
             if (taskOfTheDay.taskDate.onlyDate == inputDate.onlyDate) {
                 hasTasks = true
-                taskOfTheDay.addTask(newTask: newTask)
-                taskOfTheDay.sortTask()
+                if (taskOfTheDay.addTask(newTask: newTask)) {
+                    print("57")
+                }
+                else {
+                    print("60")
+                }
+                //taskOfTheDay.sortTask()
             }
         }
             
@@ -98,7 +107,7 @@ class UserViewModel: ObservableObject {
     }
     
     func getFirstUncompletedTask() -> Task {
-        let tempTask = Task("Default",title: "nothing", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10)
+        let tempTask = Task("Default",title: "nothing", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10, time: Date())
         for taskOfTheDay in tasks {
             if (taskOfTheDay.taskDate.onlyDate == today.onlyDate) {
                 taskOfTheDay.sortTask()
@@ -132,7 +141,7 @@ class UserViewModel: ObservableObject {
     
     func updateTodaysUncompletedTasks() {
         for taskOfTheDay in tasks {
-            var tempTasks: [Task] = [Task("", title: "", startingHour: 0, startingMin: 0, hour: 0, min: 0, second: 1)]
+            var tempTasks: [Task] = [Task("", title: "", startingHour: 0, startingMin: 0, hour: 0, min: 0, second: 1, time: Date())]
             if (taskOfTheDay.taskDate.onlyDate == today.onlyDate) {
                 taskOfTheDay.sortTask()
                 tempTasks.removeAll()

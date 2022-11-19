@@ -11,21 +11,20 @@ struct HomeView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     var body: some View {
         
-        VStack {
+        VStack(spacing: 0) {
             CurrentView()
             ListView()
             Spacer()
         }
-        .padding(.top, 80.0)
+        
+        
         //.statusBar(hidden: true)  //mindful!!
-        .ignoresSafeArea(edges: .top)   //maybe
+          //maybe
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-            .environmentObject(PomodoroModel())
         HomeView()
             .environmentObject(UserViewModel())
     }

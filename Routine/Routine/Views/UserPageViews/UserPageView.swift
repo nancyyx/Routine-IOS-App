@@ -16,9 +16,11 @@ struct ProfilePicView: View {
 }
 
 struct UserPageView: View {
+    @Environment(\.colorScheme) var colorScheme
     // Start & End date should be configured based on your needs.
     @State private var isShowDatePicker: Bool = false
-    
+    @EnvironmentObject var userViewModel: UserViewModel
+    @State var presentEdit = false
     @StateObject private var calenderVM: UserCalendarViewModel = UserCalendarViewModel()
     
     var body: some View {
@@ -26,111 +28,107 @@ struct UserPageView: View {
         VStack{
             ScrollView {
                 VStack() {
-                    //My Profile
                     HStack {
                         Text("PROFILE")
                             .font(.title)
                             .fontWeight(.semibold)
                             .padding()
+                            .shadow(color: colorScheme == .dark ? Color.white : Color.clear, radius: 1.0)
                         
                         Spacer()
-                        
-                        NavigationLink(destination: SettingView()){
-                            Image("setting")
+                    }
+                    
+                    Button {
+                        print("Update user info")
+                        presentEdit = true
+                    } label: {
+                        VStack {
+                            Image("me")
                                 .resizable()
-                                .frame(width: 45, height: 45)
-                                .padding(.leading, 4.0)
-                        }
-                    }
-                    
-                    NavigationLink(destination: ProfilePicView()){
-                        Image("me")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 125)
-                            .clipShape(Circle())
-                            .overlay(Circle().stroke(Color.white, lineWidth: 5))
-                    }
-                    /*
-                    Text("Name")
-                        .font(.system(size: 30))
-                        .foregroundColor(.black)
-                    Text("Happy life:)")
-                        .font(.system(size:18))
-                        .foregroundColor(.black)
-                    NavigationLink(destination: EditPageView()){
-                        Text("Edit")
-                            .font(.system(size: 14))
-                            .foregroundColor(.blue)
-                    }
-                     */
-                    NavigationLink(destination: EditPageView()){
-                        VStack {
-                            Text("Name")
-                                .font(.system(size: 30))
-                                .foregroundColor(.black)
-                            Text("Happy life:)")
-                                .font(.system(size:18))
-                                .foregroundColor(.black)
-                        }
-                        
-                    }
-                    
-                    
-                    VStack(spacing: 0){
-                        /*
-                        Section {
-                            Text("Points")
-                                .padding()
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            Divider()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 100)
+                                .clipShape(Circle())
+                                .overlay(Circle().stroke(Color.white, lineWidth: 5))
                             
-                            Text("Calender")
-                                .padding()
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            Divider()
-                            
-                            Text("Achivements")
-                                .padding()
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            Divider()
-                        }
-                         */
-                        
-                        VStack {
                             HStack {
-                                Button {
-                                    withAnimation {
-                                        calenderVM.pickingDate = calenderVM.date
-                                        isShowDatePicker = true
-                                    }
-                                } label: {
-                                    Text(calenderVM.date, style: .date)
-                                }
+                                Text(userViewModel.userName)
+                                    .font(.system(size: 25))
+                                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                                    .padding(.trailing)
+                                
+                                
+                                Image(systemName: "suit.diamond.fill")
+                                    .foregroundColor(Color(.systemYellow))
+                                    .shadow(color: Color(.systemYellow), radius: 4)
+                                    
+                                    //.opacity(0.9)
+                                Text("35")
+                                    .foregroundColor(Color(.systemYellow))
+                                    //.shadow(color: Color(.systemYellow), radius: 4)
+                                
                             }
-                            .padding()
                             
-                            dateBody
-                            if !calenderVM.events.isEmpty {
-                                dateEventsList
+                            Text(userViewModel.sup)
+                                .font(.system(size:15))
+                                .foregroundColor(.black)
+                                .opacity(0.7)
+                        }
+                    }
+                    .sheet(isPresented: $presentEdit) {
+                        EditPageView(name: userViewModel.userName, text: userViewModel.sup, userPageView: self)
+                    }
+                    
+                    //Divider()
+                    
+                   
+                    
+                    VStack {
+                        Button {
+                            withAnimation {
+                                calenderVM.pickingDate = calenderVM.date
+                                isShowDatePicker = true
                             }
+                        } label: {
+                            //Spacer()
+                            Spacer()
+                            Text(calenderVM.date, style: .date)
+                                .font(.title3)
+                                .fontWeight(.medium)
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(Color.gray)
+                        }
+                        .foregroundColor(.blue)
+                        .padding()
+                        .frame(height: 40)
+                        .cornerRadius(15, corners: [.topLeft, .topRight])
+                        
+                        Divider().foregroundColor(Color.gray.opacity(0.1))
+                        
+                        dateBody
+                            .padding()
+                        
+                        Divider()
+                        if !calenderVM.events.isEmpty {
+                            dateEventsList
                         }
                         
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                    .background {
-                        Color.white
-                    }
+                    .background(colorScheme == .dark ? Color.gray.opacity(0.2) : Color.white)
+                    .cornerRadius(15)
+                    //.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(.gray.opacity(0.1))
+                            .shadow(radius: 10)
+                    )
+                    .padding()
                 }
             }
             
             //.padding(.top, 40)
             
-        }
-        .background {
-            Color(red:225 / 255, green: 225 / 255, blue: 225 / 255)
-                .opacity(0.5)
-                .edgesIgnoringSafeArea(.all)
         }
         .overlay {
             if isShowDatePicker {
@@ -138,7 +136,6 @@ struct UserPageView: View {
             }
         }
         
-        //}.navigationBarTitle("My Profile")
     }
     
     var dateBody: some View {
@@ -152,15 +149,16 @@ struct UserPageView: View {
                 Text("F")
                 Text("S")
             }
-            .background {
-                Color.gray.opacity(0.3)
-            }
+            .foregroundColor(colorScheme == .dark ? Color.white : Color.black.opacity(0.8))
             
             LazyVGrid(columns: Array(repeating: GridItem(spacing: 0), count: 7)) {
                 ForEach(calenderVM.days, id: \.id){ item in
                     if item.style == .placeholder {
                         Text(item.day)
+                            .font(.footnote)
+                            .fontWeight(.thin)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .foregroundColor(colorScheme == .dark ? Color.white : Color.black.opacity(0.8))
                     }
                     else {
                         ZStack {
@@ -168,9 +166,9 @@ struct UserPageView: View {
                                 Button(item.day) {
                                     calenderVM.changeEvents(from: item)
                                 }
-                                .accentColor(.black)
+                                .accentColor(colorScheme == .dark ? Color.white : Color.black.opacity(0.7))
                             }
-                            .padding(10)
+                            .padding(5)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background {
                                 Circle()
@@ -210,9 +208,7 @@ struct UserPageView: View {
                 .padding()
             }
             .frame(maxWidth: .infinity)
-            .background {
-                Color.white
-            }
+            .background(colorScheme == .dark ? Color.black : Color.white)
             VStack {
                 DatePicker(selection: $calenderVM.pickingDate, displayedComponents: .date) {
                     Text(calenderVM.date, style: .date)
@@ -222,15 +218,10 @@ struct UserPageView: View {
                 .ignoresSafeArea()
             }
             .frame(maxWidth: .infinity, alignment: .bottom)
-            .background {
-                Color.white
-                    .ignoresSafeArea()
-            }
+            .background(colorScheme == .dark ? Color.black : Color.white)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-        .background {
-            Color.black.opacity(0.3).ignoresSafeArea()
-        }
+        .background(colorScheme == .dark ? Color.black : Color.gray.opacity(0.1))
         
     }
     
@@ -254,6 +245,48 @@ struct UserPageView: View {
 
 struct UserPageView_Previews: PreviewProvider {
     static var previews: some View {
-        UserPageView()
+        UserPageView().environmentObject(UserViewModel())
     }
 }
+
+extension View {
+    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape( RoundedCorner(radius: radius, corners: corners) )
+    }
+}
+
+struct RoundedCorner: Shape {
+
+    var radius: CGFloat = .infinity
+    var corners: UIRectCorner = .allCorners
+
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        return Path(path.cgPath)
+    }
+}
+
+
+extension Date {
+
+    var onlyDate: Date? {
+        get {
+            let calender = Calendar.current
+            let dateComponents = calender.dateComponents([.year, .month, .day], from: self)
+            return calender.date(from: dateComponents)
+        }
+    }
+
+}
+
+
+extension Date: Strideable {
+    public func distance(to other: Date) -> TimeInterval {
+        return other.timeIntervalSinceReferenceDate - self.timeIntervalSinceReferenceDate
+    }
+
+    public func advanced(by n: TimeInterval) -> Date {
+        return self + n
+    }
+}
+

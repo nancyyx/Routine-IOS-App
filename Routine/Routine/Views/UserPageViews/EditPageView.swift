@@ -8,71 +8,63 @@
 import SwiftUI
 
 struct EditPageView: View {
-    @State var name: String = ""
-    @State var text: String = ""
+    @EnvironmentObject var userViewModel: UserViewModel
+    @State var name: String
+    @State var text: String
+    var userPageView: UserPageView?
     
    // @State private var text1 = ""
     @AppStorage("STRING_KEY1") var savedText1 = ""
     @AppStorage("STRING_KEY2") var savedText2 = ""
     
     var body: some View {
-        Form {
-            Section {
-                VStack(alignment: .leading, spacing: 7) {
-                    Text("Profile Picture")
-                        .font(.system(size: 20))
-                        .foregroundColor(.black)
-                    Image("me")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 125)
-                        .clipShape(Circle())
-                }
-                
-                VStack(spacing: 7) {
-                 HStack{
-                     Text("Name: ")
-                         .font(.system(size: 20))
-                         .foregroundColor(.black)
-                     TextField("Type your new name here ", text: $name)
-                        .font(.system(size: 20))
-                        .foregroundColor(.black)
-                        .disableAutocorrection(true)
-                        .onChange(of: name) { name in
-                            self.savedText1 = name
-                        }
-                        .onAppear {
-                            self.name = savedText1
-                            name = self.name
-                        }
+        NavigationView{
+            VStack {
+                Form {
+                    Section(header: Text("User name")){
+                        TextField("", text: $name)
+                            .padding(.horizontal)
+                            .frame(height: 50)
+                            .cornerRadius(10)
+                            .disableAutocorrection(true)
                     }
-                }
-                
-                VStack(spacing: 7) {
-                    HStack {
-                        Text("What's Up: ")
-                            .font(.system(size: 20))
-                            .foregroundColor(.black)
-                        TextField("Type your thoughs here ", text: $text)
-                           .font(.system(size: 20))
-                           .foregroundColor(.black)
-                           .disableAutocorrection(true)
-                           .onChange(of: text) { text in
-                               self.savedText2 = text
-                           }
-                           .onAppear {
-                               self.text = savedText2
-                               text = self.text
-                           }
+                    
+                    Section(header: Text("What's on your mind?")){
+                        TextField("", text: $text)
+                            .padding(.horizontal)
+                            .frame(height: 50)
+                            .cornerRadius(10)
+                            .disableAutocorrection(true)
                     }
+                    
                 }
             }
+            .navigationBarTitle("User Info")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        userViewModel.setInfo(name: name, wasup: text)
+                        userPageView?.presentEdit = false
+                    }, label: {
+                        Text("Complete")
+                    })
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        userPageView?.presentEdit = false
+                    }, label: {
+                        Text("Cancel")
+                    })
+                }
+                
+            }
         }
+        
     }
     
     struct EditPageView_Previews: PreviewProvider {
         static var previews: some View {
-            EditPageView()
+            EditPageView(name: "", text: "")
         }
     }
 }

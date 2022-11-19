@@ -41,7 +41,7 @@ class Task: Identifiable, Comparable {
     let type: String                    //workout, smile, drink
     let title: String                   //description
     @Published var isCompleted: Bool
-    let time: Date = Date()             //task date
+    var time: Date = Date()             //task date
 
     var startingHour: Int
     var startingMin: Int
@@ -51,7 +51,8 @@ class Task: Identifiable, Comparable {
     var second: Int
     
     
-    init(_ type: String, title: String, startingHour: Int, startingMin: Int, hour: Int, min: Int, second: Int) {
+    init(_ type: String, title: String, startingHour: Int, startingMin: Int, hour: Int, min: Int, second: Int, time: Date) {
+        self.time = time
         self.type = type
         self.title = title
         self.isCompleted = false
@@ -64,6 +65,27 @@ class Task: Identifiable, Comparable {
     
     func complete(){
         self.isCompleted = true
+    }
+    
+    func getDuration() -> String {
+        var duration = ""
+    
+        duration += String(self.hour)
+        duration += ":"
+        if (self.min < 10) {
+            duration += String("0") + String(self.min)
+        }
+        else {
+            duration += String(self.min)
+        }
+        duration += ":"
+        if (self.second < 10) {
+            duration += String("0") + String(self.second)
+        }
+        else {
+            duration += String(self.second)
+        }
+        return duration
     }
 }
 
@@ -86,10 +108,34 @@ class TaskMetaData: Identifiable, ObservableObject {
         task.sort()
     }
     
+    /*
     func addTask(newTask: Task) {
         task.append(newTask)
         sortTask()
         showTodayTasks = true
+    }
+     */
+    
+    func addTask(newTask: Task)->Bool {
+        for index in task.indices {
+            let endTime = task[index].time.addingTimeInterval(Double(task[index].hour * 3600 + task[index].min * 60 + task[index].second * 1))
+            let newTaskEndTime = newTask.time.addingTimeInterval(Double(newTask.hour * 3600 + newTask.min * 60 + newTask.second * 1))
+            if (newTask.time > endTime) {
+                if (index + 1 < task.count) {   // if there's next task in this day
+                    if (newTaskEndTime < task[index + 1].time) {    // check if the new task's end time is less than the start time of next task
+                        task.insert(newTask, at: index + 1)
+                        showTodayTasks = true
+                        return true
+                    }
+                }
+                else {
+                    task.append(newTask)
+                    showTodayTasks = true
+                    return true
+                }
+            }
+        }
+        return false
     }
     
     func completeTask() {
@@ -178,3 +224,5 @@ var tasks: [TaskMetaData] = [
  
  
  */
+
+

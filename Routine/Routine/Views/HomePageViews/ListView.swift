@@ -10,6 +10,7 @@ import SwiftUI
 struct ListView: View {
     
     @EnvironmentObject var userViewModel: UserViewModel
+	@Environment(\.colorScheme) var colorScheme
     //let tasks = Task.sampleTask
     
     var body: some View {
@@ -17,12 +18,20 @@ struct ListView: View {
             HStack {
                 Text("TODO LIST")
                     .font(.title)
-                    .fontWeight(.bold)
+                    .fontWeight(.semibold)
                     .padding()
+					.shadow(color: colorScheme == .dark ? Color.white : Color.clear, radius: 1.0)
                 Spacer()
             }
             if (userViewModel.noTasksToday) {
-                Text("Live your meaningless life today or add some tasks")
+				Section {
+					Text("Live your meaningless life today or add some tasks")
+						.foregroundColor(colorScheme == .dark ? Color.white : Color.gray)
+						.shadow(color: colorScheme == .dark ? Color.white : Color.clear, radius: 1.0)
+				}
+				.padding()
+				.background(.gray.opacity(0.1))
+				.cornerRadius(15)
             }
             else {
                 List {
