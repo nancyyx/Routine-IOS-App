@@ -9,18 +9,19 @@ import Foundation
 import SwiftUI
 
 class UserViewModel: ObservableObject {
-
-   // @Published var tasks: [TaskModel] = []
+    
+    // @Published var tasks: [TaskModel] = []
     @Published var userAvatar: UIImage?
     @Published var today: Date = Date()
+    @Published var todaysLastTaskEndTime: Date = Date()
     @Published var userName: String = "Remy"
     @Published var sup: String = "I love 996"
-    @Published var noTasksToday: Bool = true
-    @Published var number = 0
-    @Published var currentTask: Task = Task("", title: "", startingHour: 0, startingMin: 0, hour: 0, min: 0, second: 1, time: Date())
-    @Published var todaysTasks: [Task] = [Task("", title: "", startingHour: 0, startingMin: 0, hour: 0, min: 0, second: 1, time: Date())]
+    // @Published var noTasksToday: Bool = true
+    //@Published var number = 0
+    @Published var currentTask: Task = Task("Workout",title: "Keto Diet...🍣", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10, time: Date())
+    @Published var todaysTasks: TaskMetaData = TaskMetaData()
     
-    @Published var tasks: [TaskMetaData] = []
+    @Published var tasksOfYear: [TaskMetaData] = []
     
     func setInfo(name: String, wasup: String) {
         userName = name
@@ -34,152 +35,199 @@ class UserViewModel: ObservableObject {
         hour: Int,
         min: Int,
         second: Int) {
-        number += 1
-        let components = Calendar.current.dateComponents([.hour, .minute], from: inputDate)
-        let startingHour = components.hour ?? 0
-        let startingMinute = components.minute ?? 0
-        
-        var hasTasks: Bool = false
+            // number += 1
+            let components = Calendar.current.dateComponents([.hour, .minute], from: inputDate)
+            let startingHour = components.hour ?? 0
+            let startingMinute = components.minute ?? 0
             
-        let newTask = Task(
-            type,
-            title: title,
-            startingHour: startingHour,
-            startingMin: startingMinute,
-            hour: hour,
-            min: min,
-            second: second,
-            time: inputDate)
-        //if there's same date
-        tasks.forEach{ taskOfTheDay in
-            if (taskOfTheDay.taskDate.onlyDate == inputDate.onlyDate) {
-                hasTasks = true
-                if (taskOfTheDay.addTask(newTask: newTask)) {
-                    print("57")
+            var tasksOfDateExist: Bool = false
+            
+            let newTask = Task(
+                type,
+                title: title,
+                startingHour: startingHour,
+                startingMin: startingMinute,
+                hour: hour,
+                min: min,
+                second: second,
+                time: inputDate)
+            //if there's same date
+            
+            tasksOfYear.forEach{ tasksOfDate in
+                if (tasksOfDate.taskDate.onlyDate == inputDate.onlyDate) {
+                    tasksOfDateExist = true
+                    if (tasksOfDate.addTask(newTask: newTask)) {
+                        print("57")
+                    }
+                    else {
+                        print("60")
+                    }
+                    //tasksOfDate.sortTask()
                 }
-                else {
-                    print("60")
-                }
-                //taskOfTheDay.sortTask()
+            }
+            
+            //if no same date
+            if (!tasksOfDateExist) {
+                let newTaskMetaData = TaskMetaData(tasks: [newTask], taskDate: inputDate)
+                tasksOfYear.append(newTaskMetaData)
+            }
+            
+            
+            
+            /*
+             if (!allCompleted()) {
+             
+             
+             }
+             
+             */
+            
+            if (inputDate.onlyDate == Date().onlyDate) {
+                refreshTodaysTasks()
+                refreshCurrentTask()
+            }
+            
+            
+        }
+    /*
+     func getTodaysTasks() -> [Task] {
+     var todaysTasks: [Task] = []
+     
+     tasksOfYear.forEach{ tasksOfDate in
+     if (tasksOfDate.taskDate.onlyDate == today.onlyDate) {
+     todaysTasks = tasksOfDate.tasks
+     }
+     }
+     return todaysTasks
+     }
+     */
+    
+    
+    
+    func refreshCurrentTask() {
+        for task in todaysTasks.tasks {
+            if (!task.passed) {
+                currentTask = task
+                break
             }
         }
-            
-        //if no same date
-        if (!hasTasks) {
-            let newTaskMetaData = TaskMetaData(task: [newTask], taskDate: inputDate)
-            tasks.append(newTaskMetaData)
-        }
-        
-        if (!allCompleted()) {
-            noTasksToday = false
-            updateCurrentTask()
-        }
+        // updateTodaysUncompletedTasks()
     }
     
-    func getTodaysTasks() -> [Task] {
-        var todaysTasks: [Task] = []
-        
-        tasks.forEach{ taskOfTheDay in
-            if (taskOfTheDay.taskDate.onlyDate == today.onlyDate) {
-                todaysTasks = taskOfTheDay.task
+    func refreshTodaysTasks() {
+        tasksOfYear.forEach{ tasksOfDate in
+            if (tasksOfDate.taskDate.onlyDate == today.onlyDate) {
+                todaysTasks = tasksOfDate
             }
         }
-        return todaysTasks
     }
     
     func completeTask() {
-        tasks.forEach{ taskOfTheDay in
-            if (taskOfTheDay.taskDate.onlyDate == today.onlyDate) {
-                taskOfTheDay.completeTask()
+        tasksOfYear.forEach{ tasksOfDate in
+            if (tasksOfDate.taskDate.onlyDate == today.onlyDate) {
+                tasksOfDate.completeTask()
+                todaysTasks = tasksOfDate
+            }
+        }
+    }
+    
+    func inCompleteTask() {
+        tasksOfYear.forEach{ tasksOfDate in
+            if (tasksOfDate.taskDate.onlyDate == today.onlyDate) {
+                tasksOfDate.inCompleteTask()
+                todaysTasks = tasksOfDate
             }
         }
         
-        if (allCompleted()) {
-            noTasksToday = true
-        }
-        else {
-            noTasksToday = false
-            updateCurrentTask()
-        }
+        //todaysTasks.inCompleteTask()
     }
     
-    func getTaskNumber() -> Int {
-        return getTodaysTasks().count
-    }
+
     
-    func getFirstUncompletedTask() -> Task {
-        let tempTask = Task("Default",title: "nothing", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10, time: Date())
-        for taskOfTheDay in tasks {
-            if (taskOfTheDay.taskDate.onlyDate == today.onlyDate) {
-                taskOfTheDay.sortTask()
-                for task in taskOfTheDay.task.reversed() {
-                    if (!task.isCompleted) {
-                        currentTask = task
-                        return currentTask
-                    }
-                }
-            }
-        }
-        
-        return tempTask
-    }
-    
-    func updateCurrentTask() {
-        for taskOfTheDay in tasks {
-            if (taskOfTheDay.taskDate.onlyDate == today.onlyDate) {
-                taskOfTheDay.sortTask()
-                //todaysTasks = taskOfTheDay.task
-                for task in taskOfTheDay.task {
-                    if (task.time >= today) {
-                        currentTask = task
-                        break
-                    }
-                }
-            }
-        }
-        updateTodaysUncompletedTasks()
-    }
-    
-    func updateTodaysUncompletedTasks() {
-        for taskOfTheDay in tasks {
-            var tempTasks: [Task] = [Task("", title: "", startingHour: 0, startingMin: 0, hour: 0, min: 0, second: 1, time: Date())]
-            if (taskOfTheDay.taskDate.onlyDate == today.onlyDate) {
-                taskOfTheDay.sortTask()
-                tempTasks.removeAll()
-                for task in taskOfTheDay.task {
-                    if (!task.isCompleted) {
-                        tempTasks.append(task)
-                    }
-                }
-                todaysTasks = tempTasks
-            }
+    func printTodaysTasks() {
+        todaysTasks.tasks.forEach { onetask in
+            print(onetask.type, " starting at", onetask.startingHour, ":", onetask.startingMin, "   ","Completed?  ",String(onetask.isCompleted), "Passed?", String(onetask.passed))
         }
     }
+    /*
+     func getTaskNumber() -> Int {
+     return getTodaysTasks().count
+     }
+     */
+    
+    /*
+     func getFirstUncompletedTask() -> Task {
+     let tempTask = Task("Default",title: "nothing", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10, time: Date())
+     for tasksOfDate in tasksOfYear {
+     if (tasksOfDate.taskDate.onlyDate == today.onlyDate) {
+     tasksOfDate.sortTask()
+     for task in tasksOfDate.tasks.reversed() {
+     if (!task.isCompleted) {
+     currentTask = task
+     return currentTask
+     }
+     }
+     }
+     }
+     
+     return tempTask
+     }
+     */
+    
+    
+    /*
+     
+     func updateTodaysUncompletedTasks() {
+     for tasksOfDate in tasksOfYear {
+     var tempTasks: [Task] = [Task("", title: "", startingHour: 0, startingMin: 0, hour: 0, min: 0, second: 1, time: Date())]
+     if (tasksOfDate.taskDate.onlyDate == today.onlyDate) {
+     tasksOfDate.sortTask()
+     tempTasks.removeAll()
+     for task in tasksOfDate.tasks {
+     if (!task.isCompleted) {
+     tempTasks.append(task)
+     }
+     }
+     todaysTasks = tempTasks
+     }
+     }
+     }
+     */
     
     func printTaskMetaData() {
-        tasks.forEach { tasks in
+        tasksOfYear.forEach { tasks in
+            print()
+            print("======================Today's Tasks =======================")
+            print()
+            printTodaysTasks()
+            print()
+            print("============================================================")
+            
+            print()
             print()
             print()
             print("--------------------------------------------------")
             print("Meta Task List of", tasks.taskDate.formatted()," contains: ")
             print("--------------------------------------------------")
-            tasks.task.forEach { onetask in
-                print(onetask.type, " starting at", onetask.startingHour, ":", onetask.startingMin, "   ","Completed?  ",String(onetask.isCompleted))
+            tasks.tasks.forEach { onetask in
+                print(onetask.type, " starting at", onetask.startingHour, ":", onetask.startingMin, "   ","Completed?  ",String(onetask.isCompleted), "Passed?", String(onetask.passed))
             }
             print("--------------------------------------------------")
         }
     }
-    
-    func allCompleted() -> Bool {
-        var completed: Bool = true
-        tasks.forEach{ taskOfTheDay in
-            if (taskOfTheDay.taskDate.onlyDate == today.onlyDate) {
-                taskOfTheDay.task.forEach { task in
-                    completed = completed && task.isCompleted
-                }
-            }
-        }
-        return completed
-    }
+    /*
+     
+     func allPassed() -> Bool {
+     var passed: Bool = true
+     tasksOfYear.forEach{ tasksOfDate in
+     if (tasksOfDate.taskDate.onlyDate == today.onlyDate) {
+     tasksOfDate.tasks.forEach { task in
+     passed = passed && task.isCompleted
+     }
+     }
+     }
+     return passed
+     }
+     */
 }
 

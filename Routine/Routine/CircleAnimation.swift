@@ -164,9 +164,11 @@ struct CircleAnimation: View {
                             c2RotateSpeed = 1.0
                         }
                          */
+                        /*
                         print(" ------ ")
                         print(c1RotateSpeed)
                         print(c2RotateSpeed)
+                         */
                     }
                     else {
                         shadowRadius += shadowIncreaseRate

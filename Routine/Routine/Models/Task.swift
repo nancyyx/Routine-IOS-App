@@ -41,30 +41,37 @@ class Task: Identifiable, Comparable {
     let type: String                    //workout, smile, drink
     let title: String                   //description
     @Published var isCompleted: Bool
+    @Published var passed: Bool
     var time: Date = Date()             //task date
-
+    
     var startingHour: Int
     var startingMin: Int
 
     var hour: Int
     var min: Int
     var second: Int
-    
+    var endTime: Date
     
     init(_ type: String, title: String, startingHour: Int, startingMin: Int, hour: Int, min: Int, second: Int, time: Date) {
         self.time = time
         self.type = type
         self.title = title
         self.isCompleted = false
+        self.passed = false
         self.hour = hour
         self.min = min
         self.second = second
         self.startingHour = startingHour
         self.startingMin = startingMin
+        self.endTime = time.addingTimeInterval(Double(hour * 3600 + min * 60 + second * 1))
     }
     
     func complete(){
         self.isCompleted = true
+    }
+    
+    func pass() {
+        self.passed = true
     }
     
     func getDuration() -> String {
@@ -92,20 +99,33 @@ class Task: Identifiable, Comparable {
 // Total Task Meta View...
 class TaskMetaData: Identifiable, ObservableObject {
     var id = UUID().uuidString
-    @Published var task: [Task]
-    @Published var taskDate = Date()
-    @Published var completedTasksCounter: Int = 0
+    @Published var tasks: [Task]
+    @Published var taskDate: Date
+    @Published var completedTasksCounter : Int
     @Published var showTodayTasks:Bool = false
+    @Published var endTime: Date
+    @Published var completePercentage: Double
     
-    init(task: [Task], taskDate: Date) {
-        self.task = task
+    init() {
+        self.tasks = [ Task("Workout",title: "Keto Diet...🍣", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10, time: Date())]
+        self.taskDate = Date()
+        completedTasksCounter = 0
+        showTodayTasks = false
+        endTime = Date()
+        completePercentage = 0.0
+    }
+    
+    init(tasks: [Task], taskDate: Date) {
+        self.tasks = tasks
         self.taskDate = taskDate
         completedTasksCounter = 0
         showTodayTasks = true
+        endTime = tasks[0].time.addingTimeInterval(Double(tasks[0].hour * 3600 + tasks[0].min * 60 + tasks[0].second * 1))
+        completePercentage = 0.0
     }
     
     func sortTask() {
-        task.sort()
+        tasks.sort()
     }
     
     /*
@@ -117,20 +137,22 @@ class TaskMetaData: Identifiable, ObservableObject {
      */
     
     func addTask(newTask: Task)->Bool {
-        for index in task.indices {
-            let endTime = task[index].time.addingTimeInterval(Double(task[index].hour * 3600 + task[index].min * 60 + task[index].second * 1))
+        for index in tasks.indices {
+            let endTime = tasks[index].time.addingTimeInterval(Double(tasks[index].hour * 3600 + tasks[index].min * 60 + tasks[index].second * 1))
             let newTaskEndTime = newTask.time.addingTimeInterval(Double(newTask.hour * 3600 + newTask.min * 60 + newTask.second * 1))
             if (newTask.time > endTime) {
-                if (index + 1 < task.count) {   // if there's next task in this day
-                    if (newTaskEndTime < task[index + 1].time) {    // check if the new task's end time is less than the start time of next task
-                        task.insert(newTask, at: index + 1)
+                if (index + 1 < tasks.count) {   // if there's next task in this day
+                    if (newTaskEndTime < tasks[index + 1].time) {    // check if the new task's end time is less than the start time of next task
+                        tasks.insert(newTask, at: index + 1)
                         showTodayTasks = true
+                        refreshCompletePercentage()
                         return true
                     }
                 }
                 else {
-                    task.append(newTask)
+                    tasks.append(newTask)
                     showTodayTasks = true
+                    refreshCompletePercentage()
                     return true
                 }
             }
@@ -138,16 +160,58 @@ class TaskMetaData: Identifiable, ObservableObject {
         return false
     }
     
+    
     func completeTask() {
-        for tempTask in task {
-            if (!tempTask.isCompleted) {
+        for tempTask in tasks {
+            if (!tempTask.passed && !tempTask.isCompleted) {
+                tempTask.pass()
                 tempTask.complete()
                 break
             }
         }
+        
+        if (allPassed()) {
+            showTodayTasks = false
+        }
+        
+        refreshCompletePercentage()
  
     }
     
+    func inCompleteTask() {
+        for tempTask in tasks {
+            if (!tempTask.passed && !tempTask.isCompleted) {
+                tempTask.pass()
+                break
+            }
+        }
+        if (allPassed()) {
+            showTodayTasks = false
+        }
+        
+        refreshCompletePercentage()
+ 
+    }
+    
+    
+    func allPassed() -> Bool {
+        var passed: Bool = true
+        tasks.forEach{ task in
+            passed = passed && task.passed
+        }
+        return passed
+        
+    }
+    
+    func refreshCompletePercentage()  {
+        var completed = 0.0
+        for task in tasks {
+            if (task.isCompleted) {
+                completed += 1.0
+            }
+        }
+       completePercentage = completed / Double(tasks.count)
+    }
     
 }
 

@@ -23,7 +23,7 @@ struct ListView: View {
 					.shadow(color: colorScheme == .dark ? Color.white : Color.clear, radius: 1.0)
                 Spacer()
             }
-            if (userViewModel.noTasksToday) {
+			if (!userViewModel.todaysTasks.showTodayTasks) {
 				Section {
 					Text("Live your meaningless life today or add some tasks")
 						.foregroundColor(colorScheme == .dark ? Color.white : Color.gray)
@@ -35,8 +35,8 @@ struct ListView: View {
             }
             else {
                 List {
-                    ForEach(userViewModel.todaysTasks) { task in
-                        if (!task.isCompleted) {
+					ForEach(userViewModel.todaysTasks.tasks) { task in
+						if (!task.passed) {
                             ListWithIcon(task: task)
                         }
                             

@@ -34,15 +34,25 @@ struct Front: View {
     @Environment(\.colorScheme) var colorScheme
     let task: Task
     var body: some View {
-        HStack {
-            Image(task.type)
-                .resizable()
-                .renderingMode(.template)
-                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
-                .clipShape(Circle())
-                .padding(3.0)
-                .scaledToFit()
-                //.foregroundColor(Color.blue)
+        HStack (spacing: 0) {
+            Circle()
+                .frame(maxWidth: 58, maxHeight: 58)
+                .shadow(color: colorScheme == .dark ? Color.white : Color.clear, radius: 2.0)
+                .foregroundColor( colorScheme == .dark ? Color.white : Color.clear)
+                .overlay {
+                    
+                    Image(task.type)
+                        .resizable()
+                        .renderingMode(.template)
+                        .foregroundColor(colorScheme == .dark ? Color.black : Color.black)
+                        .clipShape(Circle())
+                    //.padding(3.0)
+                        .scaledToFit()
+                }
+            
+            
+            //Spacer()
+            //.foregroundColor(Color.blue)
             VStack {
                 HStack {
                     Text(task.type)
@@ -54,9 +64,10 @@ struct Front: View {
                     Text(task.time, style: .time)
                         .foregroundColor(colorScheme == .dark ? Color.white.opacity(0.5) : Color.black.opacity(0.3))
                     
-                        
+                    
                 }
             }
+            
         }
         .frame(height: 60)
         .padding(.horizontal)
@@ -68,16 +79,26 @@ struct Back: View {
     let task: Task
     var body: some View {
         HStack {
-            Image(task.type)
-                .resizable()
-                .renderingMode(.template)
-                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
-                .frame(width: 40, height: 40)
-                .clipShape(Circle())
-                .scaledToFit()
-                
+            Circle()
+                .frame(maxWidth: 40, maxHeight: 40)
+                .shadow(color: colorScheme == .dark ? Color.white : Color.clear, radius: 2.0)
+                .foregroundColor( colorScheme == .dark ? Color.white : Color.clear)
+                .overlay {
+                    Image(task.type)
+                        .resizable()
+                        .renderingMode(.template)
+                        .foregroundColor(colorScheme == .dark ? Color.black : Color.black)
+                        .frame(width: 40, height: 40)
+                        .clipShape(Circle())
+                    //.padding(3.0)
+                        .scaledToFit()
+                }
+                .padding(.trailing, 15)
+            
+            
             VStack {
                 HStack {
+                    
                     Image(systemName: "timer")
                     Text(task.getDuration())
                         .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
@@ -106,41 +127,42 @@ struct Back: View {
 }
 
 struct FlipEffect: GeometryEffect {
-
-      var animatableData: Double {
-            get { angle }
-            set { angle = newValue }
-      }
-
-      @Binding var flipped: Bool
-      var angle: Double
-      let axis: (x: CGFloat, y: CGFloat)
-
-      func effectValue(size: CGSize) -> ProjectionTransform {
-
-            DispatchQueue.main.async {
-                  self.flipped = self.angle >= 90 && self.angle < 270
-            }
-
-            let tweakedAngle = flipped ? -180 + angle : angle
-            let a = CGFloat(Angle(degrees: tweakedAngle).radians)
-
-            var transform3d = CATransform3DIdentity;
-            transform3d.m34 = -1/max(size.width, size.height)
-
-            transform3d = CATransform3DRotate(transform3d, a, axis.x, axis.y, 0)
-            transform3d = CATransform3DTranslate(transform3d, -size.width/2.0, -size.height/2.0, 0)
-
-            let affineTransform = ProjectionTransform(CGAffineTransform(translationX: size.width/2.0, y: size.height / 2.0))
-
-            return ProjectionTransform(transform3d).concatenating(affineTransform)
-      }
+    
+    var animatableData: Double {
+        get { angle }
+        set { angle = newValue }
+    }
+    
+    @Binding var flipped: Bool
+    var angle: Double
+    let axis: (x: CGFloat, y: CGFloat)
+    
+    func effectValue(size: CGSize) -> ProjectionTransform {
+        
+        DispatchQueue.main.async {
+            self.flipped = self.angle >= 90 && self.angle < 270
+        }
+        
+        let tweakedAngle = flipped ? -180 + angle : angle
+        let a = CGFloat(Angle(degrees: tweakedAngle).radians)
+        
+        var transform3d = CATransform3DIdentity;
+        transform3d.m34 = -1/max(size.width, size.height)
+        
+        transform3d = CATransform3DRotate(transform3d, a, axis.x, axis.y, 0)
+        transform3d = CATransform3DTranslate(transform3d, -size.width/2.0, -size.height/2.0, 0)
+        
+        let affineTransform = ProjectionTransform(CGAffineTransform(translationX: size.width/2.0, y: size.height / 2.0))
+        
+        return ProjectionTransform(transform3d).concatenating(affineTransform)
+    }
 }
 
 struct ListWithIcon_Previews: PreviewProvider {
     static var previews: some View {
         let testTask = Task("Workout",title: "Go to the gym with nancy and gloria", startingHour: 8, startingMin: 0, hour: 3, min: 0, second: 10, time: Date())
         ListWithIcon(task: testTask )
+            .preferredColorScheme(.dark)
     }
 }
 

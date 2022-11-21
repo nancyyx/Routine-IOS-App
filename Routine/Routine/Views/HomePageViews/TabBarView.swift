@@ -15,6 +15,7 @@ enum Tab {
 struct TabBarView: View {
     @State private var selectedTab: Tab = .first
     @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var userViewModel: UserViewModel
     
     var body: some View {
         VStack (spacing: 0){
@@ -22,6 +23,9 @@ struct TabBarView: View {
                 switch selectedTab {
                 case .first:
                     HomeView()
+                        .onAppear {
+                            userViewModel.refreshTodaysTasks()
+                        }
                         //.ignoresSafeArea()
                 case .second:
                     UserPageView()
@@ -59,6 +63,7 @@ struct CustomTabView: View {
     @Binding var selectedTab : Tab
     @State var presentSheet = false
     @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var userViewModel: UserViewModel
     var body: some View {
         HStack(spacing: 0) {
             Spacer()

@@ -14,8 +14,6 @@ struct CurrentAddButtonView: View {
     var body: some View {
         ZStack {
             outerCircle()
-            
-                
         }
         .scaledToFit()
        
@@ -50,7 +48,7 @@ struct outerCircle: View {
                 .shadow(color: Color.white, radius: 10)
             */
             
-            
+            // mid button
             Circle()
                 .frame(width: 100, height: 100)
                 .foregroundColor( colorScheme == .dark ? Color.black : Color.clear)
@@ -80,12 +78,15 @@ struct outerCircle: View {
                     
                 )
             
+            
+            //timer track
             Circle()
                 .stroke(Color.gray.opacity(0.2), style: StrokeStyle(lineWidth: 23, lineCap: .round, lineJoin: .round))
                 .frame(maxWidth: 180)
                 .padding()
                 //.shadow(color: colorScheme == .dark ? Color.white.opacity(0.1) : Color.clear, radius: whiteOpacity*15)
             
+            //progress bar track
             Circle()
                 .stroke(lineWidth: 23)
                 .opacity(0.20)
@@ -96,11 +97,13 @@ struct outerCircle: View {
             //colorScheme == .dark ? Color.white : Color.white
         //colorScheme == .dark ? Color.white : Color.white.opacity(whiteOpacity)
             //colorScheme == .dark ? Color.white : Color.white.opacity(whiteOpacity+0.2)
+            
+            //progress bar
             Circle()
                 .stroke(colorScheme == .dark ? Color.white.opacity(whiteOpacity) : Color.blue.opacity(whiteOpacity), style: StrokeStyle(lineWidth: 15, lineCap: .round, lineJoin: .round))
                 .overlay(
                     Circle()
-                        .stroke(lineWidth: 12.0)
+                        .stroke(lineWidth: 15.0)
                         .fill(LinearGradient(gradient: .init(colors: [colorScheme == .dark ? Color.white.opacity(whiteOpacity-0.3) : Color.blue.opacity(whiteOpacity-0.4), .clear, colorScheme == .dark ? Color.white.opacity(0.5) : Color.blue.opacity(0.1)]), startPoint: .top, endPoint: .bottom))
                         .rotationEffect(Angle(degrees: Double(degree)))
                         .shadow(color: colorScheme == .dark ? Color.white.opacity(0.7) : Color.clear, radius: whiteOpacity*10, x: Double(-rotate)*whiteOpacity*10, y: Double(rotate) * whiteOpacity*10)
@@ -109,7 +112,7 @@ struct outerCircle: View {
                 )
                 .overlay(
                     Circle()
-                        .stroke(lineWidth: 12.0)
+                        .stroke(lineWidth: 15.0)
                         .fill(LinearGradient(gradient: .init(colors: [colorScheme == .dark ? Color.white.opacity(0.4) : Color.blue.opacity(0.3), colorScheme == .dark ? Color.clear : Color.blue.opacity(0.3), colorScheme == .dark ? Color.white.opacity(whiteOpacity+0.2) : Color.blue.opacity(whiteOpacity+0.2)]), startPoint: .top, endPoint: .bottom))
                         .rotationEffect(Angle(degrees: Double(degree2)))
                         .shadow(color: colorScheme == .dark ? Color.white.opacity(0.7) : Color.clear, radius: whiteOpacity*10, x: whiteOpacity*10, y: Double(-rotate) * whiteOpacity*10)
@@ -173,7 +176,7 @@ struct outerCircle: View {
                     
                     if (degree == 30 || degree == 45 || degree == 60) {
                         stateValue = stateValue * -1
-                        print("change light")
+                       // print("change light")
                     }
                     
                     if (degree2 <= 130 || degree2 >= 350) {
@@ -185,12 +188,13 @@ struct outerCircle: View {
                     degree += 1 * rotate
                     degree2 += 2 * rotate2
                     t += 0.15
+                    /*
                     print("___________")
                     print(degree)
                     print(degree2)
                     print(whiteOpacity)
                     
-                    
+                    */
                     
                 }
                 
@@ -217,5 +221,6 @@ struct CurrentAddButtonView_Previews: PreviewProvider {
     static var previews: some View {
         //let currentTask = TaskModel("Workout", description: "Today is leg day")
         CurrentAddButtonView()
+            .preferredColorScheme(.dark)
     }
 }

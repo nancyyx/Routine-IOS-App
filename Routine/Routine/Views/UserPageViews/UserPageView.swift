@@ -83,7 +83,7 @@ struct UserPageView: View {
                             
                             Text(userViewModel.sup)
                                 .font(.system(size:15))
-                                .foregroundColor(.black)
+                                .foregroundColor(colorScheme == .dark ? Color.white.opacity(0.7) : Color.black)
                                 .opacity(0.7)
                         }
                     }
@@ -261,6 +261,8 @@ struct UserPageView: View {
 struct UserPageView_Previews: PreviewProvider {
     static var previews: some View {
         UserPageView().environmentObject(UserViewModel())
+        UserPageView().environmentObject(UserViewModel())
+            .preferredColorScheme(.dark)
     }
 }
 

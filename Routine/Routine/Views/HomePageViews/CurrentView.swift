@@ -14,6 +14,7 @@ struct CurrentView: View {
     @Environment(\.colorScheme) var colorScheme
     //@EnvironmentObject var todaysTasks: TaskMetaData
     //@State private var flag = false
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         VStack {
@@ -26,7 +27,7 @@ struct CurrentView: View {
                 
                 Spacer()
             }
-            if (userViewModel.noTasksToday) {
+            if (!userViewModel.todaysTasks.showTodayTasks) {
                 CurrentAddButtonView()
                     .padding(/*@START_MENU_TOKEN@*/[.leading, .bottom, .trailing], 50.0/*@END_MENU_TOKEN@*/)
                 //userViewModel.updateTaskNumber(taskNumber: 0)
@@ -34,13 +35,16 @@ struct CurrentView: View {
             }
             else {
                 /*
-                    CircleSPin()
-                    .frame(width: 300, height: 300)
-                    .padding(/*@START_MENU_TOKEN@*/[.leading, .bottom, .trailing], 50.0/*@END_MENU_TOKEN@*/)
-                    //.colorInvert()
-                */
-               CurrentDynamicButtonView()
-                   
+                 CircleSPin()
+                 .frame(width: 300, height: 300)
+                 .padding(/*@START_MENU_TOKEN@*/[.leading, .bottom, .trailing], 50.0/*@END_MENU_TOKEN@*/)
+                 //.colorInvert()
+                 */
+                CurrentDynamicButtonView()
+                    .onReceive(timer, perform: { _ in
+                        userViewModel.refreshCurrentTask()
+                    })
+                
             }
             
         }
@@ -54,6 +58,6 @@ struct CurrentView_Previews: PreviewProvider {
         CurrentView()
             .environmentObject(UserViewModel())
             .environmentObject(PomodoroModel())
-
+        
     }
 }

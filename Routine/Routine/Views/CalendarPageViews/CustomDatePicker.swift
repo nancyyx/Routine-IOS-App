@@ -96,11 +96,11 @@ struct CustomDatePicker: View {
                     .frame(maxWidth: .infinity,alignment: .leading)
                     .padding(.vertical,20)
                 
-                if let task = userViewModel.tasks.first(where: { task in
+                if let tasksOfDate = userViewModel.tasksOfYear.first(where: { task in
                     return isSameDay(date1: task.taskDate, date2: currentDate)
                 }){
                     
-                    ForEach(task.task){task in
+                    ForEach(tasksOfDate.tasks){ task in
                         
                         VStack(alignment: .leading, spacing: 10) {
                             
@@ -142,19 +142,19 @@ struct CustomDatePicker: View {
             
             if value.day != -1{
                 
-                if let task = userViewModel.tasks.first(where: { task in
+                if let tasksOfDate = userViewModel.tasksOfYear.first(where: { task in
                     
                     return isSameDay(date1: task.taskDate, date2: value.date)
                 }){
                     Text("\(value.day)")
                         .font(.title3.bold())
-                        .foregroundColor(isSameDay(date1: task.taskDate, date2: currentDate) ? .white : .primary)
+                        .foregroundColor(isSameDay(date1: tasksOfDate.taskDate, date2: currentDate) ? .white : .primary)
                         .frame(maxWidth: .infinity)
                     
                     Spacer()
                     
                     Circle()
-                        .fill(isSameDay(date1: task.taskDate, date2: currentDate) ? .white : Color("Pink"))
+                        .fill(isSameDay(date1: tasksOfDate.taskDate, date2: currentDate) ? .white : Color("Pink"))
                         .frame(width: 8,height: 8)
                 }
                 else{

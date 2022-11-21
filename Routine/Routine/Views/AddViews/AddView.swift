@@ -220,7 +220,7 @@ struct AddView: View {
                 second: durationSec)
             
         }
-        userViewModel.printTaskMetaData()
+       // userViewModel.printTaskMetaData()
     }
     
     /*
@@ -283,7 +283,7 @@ struct AddView_Previews: PreviewProvider {
         
         AddView( textFieldTitle: "foo")
             .environmentObject(UserViewModel())
-            .environmentObject(TaskMetaData(task: [currentTask], taskDate: Date()))
+            .environmentObject(TaskMetaData(tasks: [currentTask], taskDate: Date()))
     }
         
 }
