@@ -15,7 +15,7 @@ class PomodoroModel: NSObject, ObservableObject, UNUserNotificationCenterDelegat
     
     @Published var hour: Int = 0
     @Published var minute: Int = 0
-    @Published var second: Int = 10
+    @Published var second: Int = 0
     @Published var totalSeconds: Int = 0
     @Published var staticTotalSeconds: Int = 0
     
@@ -60,11 +60,12 @@ class PomodoroModel: NSObject, ObservableObject, UNUserNotificationCenterDelegat
     func updateTimer(){
         totalSeconds -= 1
         progress = CGFloat(totalSeconds) / CGFloat(staticTotalSeconds)
+        print(staticTotalSeconds)
         progress = (progress < 0 ? 0 : progress)
         hour = totalSeconds / 3600
         minute = (totalSeconds / 60) % 60
         second = (totalSeconds % 60)
-        if totalSeconds == 0 {
+        if totalSeconds <= 0 {
             isStarted = false
             print("Finished")
             isFinished = true
@@ -76,7 +77,7 @@ class PomodoroModel: NSObject, ObservableObject, UNUserNotificationCenterDelegat
         content.title = "Routine"
         content.subtitle = "Congrats!!!"
         content.sound = UNNotificationSound.default
-        
+        print(staticTotalSeconds)
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(staticTotalSeconds), repeats: false))
         UNUserNotificationCenter.current().add(request)
     }
