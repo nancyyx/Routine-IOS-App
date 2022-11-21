@@ -11,6 +11,7 @@ import SwiftUI
 class UserViewModel: ObservableObject {
 
    // @Published var tasks: [TaskModel] = []
+    @Published var userAvatar: UIImage?
     @Published var today: Date = Date()
     @Published var userName: String = "Remy"
     @Published var sup: String = "I love 996"
@@ -129,7 +130,7 @@ class UserViewModel: ObservableObject {
                 taskOfTheDay.sortTask()
                 //todaysTasks = taskOfTheDay.task
                 for task in taskOfTheDay.task {
-                    if (!task.isCompleted) {
+                    if (task.time >= today) {
                         currentTask = task
                         break
                     }

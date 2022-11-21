@@ -29,6 +29,8 @@
 		DC3457B228F7FDB80077359F /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3457B128F7FDB80077359F /* CustomDatePicker.swift */; };
 		DC7BF09A29248F1200FF9E07 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7BF09929248F1200FF9E07 /* LaunchScreenView.swift */; };
 		DC7BF09C2924952300FF9E07 /* CircleAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7BF09B2924952300FF9E07 /* CircleAnimation.swift */; };
+		DC7BF0A029287E6A00FF9E07 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7BF09F29287E6900FF9E07 /* ImagePickerView.swift */; };
+		DC7BF0A62928A58700FF9E07 /* CircleSPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7BF0A52928A58700FF9E07 /* CircleSPin.swift */; };
 		DCB00D5A29186F0900E7C158 /* EditPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA41E0FC28F9F12F00B76AEF /* EditPageView.swift */; };
 		DCB00D5E2918792700E7C158 /* UserCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB00D5D2918792700E7C158 /* UserCalendarViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -58,6 +60,8 @@
 		DC3457B128F7FDB80077359F /* CustomDatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		DC7BF09929248F1200FF9E07 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		DC7BF09B2924952300FF9E07 /* CircleAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleAnimation.swift; sourceTree = "<group>"; };
+		DC7BF09F29287E6900FF9E07 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		DC7BF0A52928A58700FF9E07 /* CircleSPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleSPin.swift; sourceTree = "<group>"; };
 		DCB00D5D2918792700E7C158 /* UserCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCalendarViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,6 +156,8 @@
 				DC018EF328EA3F140044ACBE /* UserPageView.swift */,
 				CA41E0FC28F9F12F00B76AEF /* EditPageView.swift */,
 				DC018EF528EA3F220044ACBE /* SettingView.swift */,
+				DC7BF09F29287E6900FF9E07 /* ImagePickerView.swift */,
+				DC7BF0A52928A58700FF9E07 /* CircleSPin.swift */,
 			);
 			path = UserPageViews;
 			sourceTree = "<group>";
@@ -246,9 +252,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC018EDF28E96BF40044ACBE /* CurrentDynamicButtonView.swift in Sources */,
+				DC7BF0A62928A58700FF9E07 /* CircleSPin.swift in Sources */,
 				DC3457B228F7FDB80077359F /* CustomDatePicker.swift in Sources */,
 				DC7BF09A29248F1200FF9E07 /* LaunchScreenView.swift in Sources */,
 				DCB00D5A29186F0900E7C158 /* EditPageView.swift in Sources */,
+				DC7BF0A029287E6A00FF9E07 /* ImagePickerView.swift in Sources */,
 				DC7BF09C2924952300FF9E07 /* CircleAnimation.swift in Sources */,
 				DC018ECC28E96B200044ACBE /* ContentView.swift in Sources */,
 				DC018EF628EA3F220044ACBE /* SettingView.swift in Sources */,

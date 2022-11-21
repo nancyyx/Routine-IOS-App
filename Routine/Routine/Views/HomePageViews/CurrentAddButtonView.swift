@@ -33,6 +33,7 @@ struct outerCircle: View {
     @State var rotate2 = 5
     @State var degree2 = 150
     @State var presentSheet = false
+    @State var t = 0.0
     @Environment(\.colorScheme) var colorScheme
     
     
@@ -53,7 +54,8 @@ struct outerCircle: View {
             Circle()
                 .frame(width: 100, height: 100)
                 .foregroundColor( colorScheme == .dark ? Color.black : Color.clear)
-                .shadow(color: colorScheme == .dark ? Color.white.opacity(whiteOpacity*5) : Color.clear, radius:  whiteOpacity*30)
+                //.shadow(color: colorScheme == .dark ? Color.white.opacity(whiteOpacity*5) : Color.clear, radius:  whiteOpacity*30)
+                .shadow(color: colorScheme == .dark ? Color.white.opacity(0.7) : Color.clear, radius: 8 + 5 * sin(t), x: sin(t)*2, y: -sin(2*t)*2)
                 .overlay(
                     Button {
                         presentSheet = true
@@ -99,7 +101,7 @@ struct outerCircle: View {
                 .overlay(
                     Circle()
                         .stroke(lineWidth: 12.0)
-                        .fill(LinearGradient(gradient: .init(colors: [colorScheme == .dark ? Color.white.opacity(whiteOpacity) : Color.blue.opacity(whiteOpacity-0.4), .clear, colorScheme == .dark ? Color.white.opacity(0.7) : Color.blue.opacity(0.1)]), startPoint: .top, endPoint: .bottom))
+                        .fill(LinearGradient(gradient: .init(colors: [colorScheme == .dark ? Color.white.opacity(whiteOpacity-0.3) : Color.blue.opacity(whiteOpacity-0.4), .clear, colorScheme == .dark ? Color.white.opacity(0.5) : Color.blue.opacity(0.1)]), startPoint: .top, endPoint: .bottom))
                         .rotationEffect(Angle(degrees: Double(degree)))
                         .shadow(color: colorScheme == .dark ? Color.white.opacity(0.7) : Color.clear, radius: whiteOpacity*10, x: Double(-rotate)*whiteOpacity*10, y: Double(rotate) * whiteOpacity*10)
                         //.offset(x: self.show ? -90 : 270)
@@ -108,7 +110,7 @@ struct outerCircle: View {
                 .overlay(
                     Circle()
                         .stroke(lineWidth: 12.0)
-                        .fill(LinearGradient(gradient: .init(colors: [colorScheme == .dark ? Color.white.opacity(0.7) : Color.blue.opacity(0.3), colorScheme == .dark ? Color.white.opacity(0.3) : Color.blue.opacity(0.3), colorScheme == .dark ? Color.white.opacity(whiteOpacity+0.2) : Color.blue.opacity(whiteOpacity+0.2)]), startPoint: .top, endPoint: .bottom))
+                        .fill(LinearGradient(gradient: .init(colors: [colorScheme == .dark ? Color.white.opacity(0.4) : Color.blue.opacity(0.3), colorScheme == .dark ? Color.clear : Color.blue.opacity(0.3), colorScheme == .dark ? Color.white.opacity(whiteOpacity+0.2) : Color.blue.opacity(whiteOpacity+0.2)]), startPoint: .top, endPoint: .bottom))
                         .rotationEffect(Angle(degrees: Double(degree2)))
                         .shadow(color: colorScheme == .dark ? Color.white.opacity(0.7) : Color.clear, radius: whiteOpacity*10, x: whiteOpacity*10, y: Double(-rotate) * whiteOpacity*10)
                     
@@ -181,7 +183,8 @@ struct outerCircle: View {
                     
                     whiteOpacity += 0.035 * stateValue
                     degree += 1 * rotate
-                    degree2 += 3 * rotate2
+                    degree2 += 2 * rotate2
+                    t += 0.15
                     print("___________")
                     print(degree)
                     print(degree2)

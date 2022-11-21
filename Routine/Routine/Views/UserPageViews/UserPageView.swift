@@ -26,6 +26,8 @@ struct UserPageView: View {
     var body: some View {
         //NavigationView{
         VStack{
+            
+            
             ScrollView {
                 VStack() {
                     HStack {
@@ -43,12 +45,23 @@ struct UserPageView: View {
                         presentEdit = true
                     } label: {
                         VStack {
-                            Image("me")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 100)
-                                .clipShape(Circle())
-                                .overlay(Circle().stroke(Color.white, lineWidth: 5))
+                            
+                            if (userViewModel.userAvatar != nil) {
+                                Image(uiImage: userViewModel.userAvatar!)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 100)
+                                    .clipShape(Circle())
+                                    .overlay(Circle().stroke(Color.white, lineWidth: 5))
+                            } else {
+                                Image("me")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 100)
+                                    .clipShape(Circle())
+                                    .overlay(Circle().stroke(Color.white, lineWidth: 5))
+                            }
+                            
                             
                             HStack {
                                 Text(userViewModel.userName)
@@ -75,6 +88,8 @@ struct UserPageView: View {
                         }
                     }
                     .sheet(isPresented: $presentEdit) {
+                        
+                            //CircleSPin()
                         EditPageView(name: userViewModel.userName, text: userViewModel.sup, userPageView: self)
                     }
                     

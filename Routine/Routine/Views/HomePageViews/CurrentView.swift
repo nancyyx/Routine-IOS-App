@@ -33,8 +33,14 @@ struct CurrentView: View {
                 
             }
             else {
-                CurrentDynamicButtonView()
+                /*
+                    CircleSPin()
+                    .frame(width: 300, height: 300)
                     .padding(/*@START_MENU_TOKEN@*/[.leading, .bottom, .trailing], 50.0/*@END_MENU_TOKEN@*/)
+                    //.colorInvert()
+                */
+               CurrentDynamicButtonView()
+                   
             }
             
         }

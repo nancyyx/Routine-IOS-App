@@ -42,7 +42,7 @@ struct LaunchScreenView: View {
             }*/
             CircleAnimation()
             .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                     withAnimation {
                         self.isActive = true
                     }

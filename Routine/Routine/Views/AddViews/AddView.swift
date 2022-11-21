@@ -176,6 +176,7 @@ struct AddView: View {
                         Button(action: {
                             clickAdd()
                             tabBarview?.presentSheet = false
+                            
                         }, label: {
                             Text("Add")
                         })

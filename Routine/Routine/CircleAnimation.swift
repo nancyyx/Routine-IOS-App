@@ -15,28 +15,27 @@ struct CircleAnimation: View {
      20 * 0.1 = 2s
      360 / 2s
      */
-    
-    
+    @State var t = 0.0
+    @State var k = 0.0 // k -> custom cos function
+    @State var k2 = 0.0
+    @State var iconTimer = 0.0
+    @State var c1Timer = 0.0
+    @State var c2Timer = 0.0
+    @State var iconOpacity = 1.0
+    @State var c1Opacity = 0.0
+    @State var c2Opacity = 0.0
     @State var shadowFirstPhase = false
-    
     @State var circlePerimeter = 0.0
-    
     @State var shadowRadius = 1.0
-    @State var shadowIncreaseRate = 1.5
+    @State var shadowIncreaseRate = 1.8
     let maxShadowRadius = 23.0
-
     @State var lineWidthIndex = 0.0
-    
-
     let c1TrimRate = 0.006
     let c2TrimRate = 0.006
-    
-    
-    @State var c1RotateSpeed = 3.0
-    @State var c2RotateSpeed = 5.5
-    let c1RotateRate = 0.03
-    let c2RotateRate = 0.07
-    
+    @State var c1RotateSpeed = 0.0
+    @State var c2RotateSpeed = 0.0
+    let c1RotateStartSpeed = 10.0
+    let c2RotateStartSpeed = 10.0
     /*
      c2SizeRate, scaling speed rate for c2:
      
@@ -45,7 +44,6 @@ struct CircleAnimation: View {
      
      x = 0.0345
      */
-    
     @State var c1StartSize = 0.2
     @State var c2StartSize = 2.0
     let c1StartConst = 0.2
@@ -57,31 +55,55 @@ struct CircleAnimation: View {
 
     
     var body: some View {
+        /*
+         Geometry structure:
+         
+         Z:
+            Inner Ring
+                overlay black Circle with white shadow
+                        overlay Icon
+         
+            Outer Ring
+         */
+        
         ZStack {
             Circle()
                 .trim(from: 0.0, to: circlePerimeter)
                 .stroke(style: StrokeStyle(lineWidth: 15 * lineWidthIndex, lineCap: .round, lineJoin: .round))
                 //.fill(LinearGradient(gradient: .init(colors: [Color.white , Color.blue.opacity(circlePerimeter+1)]), startPoint: .bottom, endPoint: .top))
-                .fill(Color.white)
-                .rotationEffect(Angle(degrees: Double( c1RotateSpeed * 360 )))
+                .fill(Color.white.opacity(c1Opacity))  //inner circle color
+                .rotationEffect(Angle(degrees: Double( c1RotateSpeed * -60 )))
                 .scaleEffect(c1StartSize)
-                .shadow(color: Color.white, radius: shadowRadius)
+                .shadow(color:
+                            c2Opacity == 0.0 ? Color.white.opacity(0.8) : Color.white.opacity(0.3),
+                        radius:
+                            c2Opacity == 0.0 ? shadowRadius/1.5 : shadowRadius/1.2)  //inner circle
                 //.rotationEffect(Angle(degrees: rotateAngle))
                 .overlay(
                     Circle()
-                        .frame(width: 140, height: 140)
+                        .frame(width: 150, height: 150)
                         .foregroundColor(shadowFirstPhase ? Color.black : Color.clear)
-                        .shadow(color: Color.white, radius: shadowRadius/7)
+                        .shadow(
+                            color:
+                                c2Opacity == 0.0 ?
+                                    c1Opacity == 0.0 ? Color.white.opacity(iconOpacity - 0.7) : Color.white.opacity(iconOpacity - 0.4) :
+                                Color.white.opacity(iconOpacity - 0.3)
+                            , radius:
+                                c2Opacity == 0.0 ?
+                            c1Opacity == 0.0 ? shadowRadius/2.5  : shadowRadius/2  :
+                                shadowRadius/1.2
+                        )
+                              
                         .overlay(
                             Image("routineIcon")
                                 .resizable()
                                 .renderingMode(.template)
-                                .frame(width: 125, height: 125)
+                                .frame(width: 130, height: 130)
                                 //.clipShape(Circle())
                                 .scaledToFit()
                             
-                                .foregroundColor(shadowFirstPhase ? Color.white : Color.clear)
-                                .shadow(color: Color.white, radius: shadowRadius/23)
+                                .foregroundColor(shadowFirstPhase ? Color.white.opacity(iconOpacity) : Color.clear)
+                                .shadow(color: Color.white, radius: shadowRadius/16)
                             /*
                             HStack(spacing: 0) {
                                 Text("R")
@@ -114,86 +136,129 @@ struct CircleAnimation: View {
                         )
                    
                 )
-                .animation(Animation.default, value: c1RotateSpeed)
+                //.animation(Animation.default, value: c1RotateSpeed)
                 .onReceive(timer) { _ in
 
                     if (lineWidthIndex < 1) {
-                        lineWidthIndex += 0.01
+                        t += 0.009
+                        k = (1-cos(pow(t,1.4)))/1.99   // (1-cos(pow(t,1.4))) in [0,2], f(t) [0,20/19]   x = 1.2pi/2 -> f = max
+                        k2 = (1-cos(pow(t,3)/3.4))/1.99
+                        // (1-cos(pow(t,3)/3.4)) in [0,2], /1.99 then f(t) could slightly > 1 to exist if statement
+                        // k2 ends at the same point as k, but increase slower than k
+                        lineWidthIndex = k2
+                        c1Opacity = k
+                        c2Opacity = k
+                        circlePerimeter = k
+                        c1RotateSpeed = 1 + 25*(1.0021432326405575-k) - 0.14276399353842506
+                        c2RotateSpeed = 1 + 30*(1.0021432326405575-k) - 0.17131679224611007
+                        c1StartSize = c1StartConst + k * (c1EndSize - c1StartConst)
+                        c2StartSize = c2StartConst - k * (c2StartConst - c2EndSize)
+
+                        /*
+                        if (k < 1) {
+                            c1RotateSpeed = c1RotateStartSpeed * (1 - k)
+                            c2RotateSpeed = c2RotateStartSpeed * (1 - k)
+                        }
+                        else {
+                            c1RotateSpeed = 1.0
+                            c2RotateSpeed = 1.0
+                        }
+                         */
+                        print(" ------ ")
+                        print(c1RotateSpeed)
+                        print(c2RotateSpeed)
                     }
-                    
-                    if (c1RotateSpeed > 0) {
-                        c1RotateSpeed -= c1RotateRate
-                    }
-                    
-                    if (c1StartSize < c1EndSize) {
-                        c1StartSize += c1SizeRate
-                    }
-                    
-                    if (circlePerimeter >= 1) {
+                    else {
                         shadowRadius += shadowIncreaseRate
                         
                         if (shadowRadius >= maxShadowRadius) {
                             shadowRadius = maxShadowRadius
-                            shadowIncreaseRate = shadowIncreaseRate * -0.1
+                            shadowIncreaseRate = shadowIncreaseRate * -0.15
                             if (shadowFirstPhase){
                                 shadowIncreaseRate = 0
+                                c1Timer += 0.1
+                                c2Timer += 0.1
+                                iconTimer += 0.1
+                                if (iconTimer >= 14) {
+                                    iconOpacity = 0.0
+                                }
+                                if (c1Timer >= 10) {
+                                    c1Opacity = 0.0
+                                    
+                                }
+                                if (c2Timer >= 5.5) {
+                                    c2Opacity = 0.0
+                                }
                             }
                         }
                         
                         if (shadowRadius < 0) {
                             shadowFirstPhase = true
-                            shadowIncreaseRate = shadowIncreaseRate * -3
+                            shadowIncreaseRate = shadowIncreaseRate * -2.5
                         }
-                    } else {
-                        circlePerimeter += c1TrimRate
+                    }
+                    /*
+                    if (c1RotateSpeed > 0) {
+                        c1RotateSpeed -= c1RotateRate
+                    }
+                     */
+                    /*
+                    if (c2StartSize > c2EndSize) {
+                        c2StartSize = (1-cos(t/2)) * (c2StartConst - c2EndSize)
+                        //circlePerimeter += c1TrimRate
+                        
                     }
                     
+                    if (c1StartSize < c1EndSize) {
+                        c1StartSize = (1-cos(t/2)) * (c1EndSize - c1StartConst)
+                        //circlePerimeter += c1TrimRate
+                        
+                    }
+                     *//*else {
+                        circlePerimeter += c1TrimRate
+                    }
+                    */
+                    /*
                     print("--------------------")
                     print(circlePerimeter)
                     print(shadowRadius)
                     print(c1RotateSpeed)
-                    
+                    */
                 }
                 
             Circle()
                 .trim(from: 0.0, to: circlePerimeter)
                 .stroke(style: StrokeStyle(lineWidth: 20 * lineWidthIndex, lineCap: .round, lineJoin: .round))
                 //.fill(LinearGradient(gradient: .init(colors: [Color.white , Color.blue.opacity(circlePerimeter+1) , Color.white]), startPoint: .bottom, endPoint: .top))
-                .fill(Color.white)
+                .fill(Color.white.opacity(c2Opacity))
                 //.rotationEffect(Angle(degrees: Double(-(1 - circlePerimeter) * 360 * 3)))
-                .rotationEffect(Angle(degrees: Double( c2RotateSpeed * 360 )))
+                .rotationEffect(Angle(degrees: Double( c2RotateSpeed * 91 )))
                 .scaleEffect(c2StartSize)
-                .shadow(color: Color.white, radius: shadowRadius)
+                .shadow(color: Color.white.opacity(0.7), radius: shadowRadius)
                 //.rotationEffect(Angle(degrees: rotateAngle))
-                .animation(Animation.default, value: c2RotateSpeed)
+                //.animation(Animation.default, value: c2RotateSpeed)
                 .onReceive(timer) { _ in
+                    /*
                     if (c2RotateSpeed > 0) {
                         c2RotateSpeed -= c2RotateRate
                     }
+                     */
                     
                     
-                    
+                    /*
                     if (c2StartSize > c2EndSize) {
                         c2StartSize -= c2SizeRate
-                    }
-                    
-                    if (circlePerimeter >= 1) {
+                        //circlePerimeter += c2TrimRate
+                        //c2Opacity += c2TrimRate
+                    } else {
                         shadowRadius +=  shadowIncreaseRate
                         if (shadowRadius >= maxShadowRadius) {
                             shadowRadius = maxShadowRadius
-                            shadowIncreaseRate = shadowIncreaseRate * -0.1
-                            if (shadowFirstPhase){
-                                shadowIncreaseRate = 0
-                            }
+                            shadowIncreaseRate = shadowIncreaseRate * -0.1  //decrease
+                            
                         }
-                        
-                        if (shadowRadius < 1) {
-                            shadowFirstPhase = true
-                            shadowIncreaseRate = shadowIncreaseRate * -4
-                        }
-                    } else {
-                        circlePerimeter += c2TrimRate
                     }
+                     */
                     /*
                     print("--------------------")
                     print(circlePerimeter)
