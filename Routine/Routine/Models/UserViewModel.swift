@@ -129,6 +129,9 @@ class UserViewModel: ObservableObject {
                 todaysTasks = tasksOfDate
             }
         }
+        
+        refreshTodaysTasks()
+        refreshCurrentTask()
     }
     
     func inCompleteTask() {
@@ -138,6 +141,10 @@ class UserViewModel: ObservableObject {
                 todaysTasks = tasksOfDate
             }
         }
+        
+        
+        refreshTodaysTasks()
+        refreshCurrentTask()
         
         //todaysTasks.inCompleteTask()
     }

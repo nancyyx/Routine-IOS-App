@@ -36,14 +36,6 @@ struct CircleAnimation: View {
     @State var c2RotateSpeed = 0.0
     let c1RotateStartSpeed = 10.0
     let c2RotateStartSpeed = 10.0
-    /*
-     c2SizeRate, scaling speed rate for c2:
-     
-     (c1EndSize - c1StartSize) / c1SizeRate =
-     (c2StartSize - c2EndSize) / c2SizeRate
-     
-     x = 0.0345
-     */
     @State var c1StartSize = 0.2
     @State var c2StartSize = 2.0
     let c1StartConst = 0.2
@@ -52,7 +44,15 @@ struct CircleAnimation: View {
     let c2EndSize = 0.7
     let c1SizeRate = 0.004
     let c2SizeRate = 0.013
-
+    
+    /*
+     c2SizeRate, scaling speed rate for c2:
+     
+     (c1EndSize - c1StartSize) / c1SizeRate =
+     (c2StartSize - c2EndSize) / c2SizeRate
+     
+     x = 0.0345
+     */
     
     var body: some View {
         /*
@@ -175,7 +175,7 @@ struct CircleAnimation: View {
                         
                         if (shadowRadius >= maxShadowRadius) {
                             shadowRadius = maxShadowRadius
-                            shadowIncreaseRate = shadowIncreaseRate * -0.15
+                            shadowIncreaseRate = shadowIncreaseRate * -0.12
                             if (shadowFirstPhase){
                                 shadowIncreaseRate = 0
                                 c1Timer += 0.1

@@ -24,13 +24,13 @@ struct CurrentDynamicButtonView: View {
     let timer2 = Timer.publish(every: 0.2, on: .main, in:
             .common).autoconnect()
     /*   animation vars */
-
+    
     @State var progressValue: Float = 0.0
     //@State var currentTask: Task
     
     var body: some View {
         
-        VStack(spacing: 20) {
+        VStack(spacing: 0) {
             ZStack {
                 
                 //___________________________ mid button with icon___________________________
@@ -72,33 +72,37 @@ struct CurrentDynamicButtonView: View {
                 
                 //___________________________timer track__________________________________
                 Circle()
-                    .stroke(Color.gray.opacity(0.2), style: StrokeStyle(lineWidth: 23, lineCap: .round, lineJoin: .round))
-                    .frame(maxWidth: 180)
-                    .padding()
+                    .stroke(Color.gray.opacity(0.15), style: StrokeStyle(lineWidth: 23, lineCap: .round, lineJoin: .round))
+                    .scaledToFit()
+                    .frame(maxWidth: 200)
+                    //.padding()
                 
                 // ___________________________timer________________________________________
                 Circle()
                     .trim(from: 0, to: pomodoroModel.progress)
-                    .stroke(Color.cyan, style: StrokeStyle(lineWidth: 15, lineCap: .round, lineJoin: .round))
-                    //.padding()
+                    .stroke(colorScheme == .dark ? Color.white.opacity(0.6) : Color.blue.opacity(0.6), style: StrokeStyle(lineWidth: 15, lineCap: .round, lineJoin: .round))
+                    .scaledToFit()
+                //.padding()
                     .rotationEffect(.init(degrees: -90))
-                    .frame(maxWidth: 180)
+                    .shadow(color:colorScheme == .dark ? Color.white : Color.clear, radius: 5)
+                    .frame(maxWidth: 200)
                 
                 
                 // ___________________________progress bar track___________________________
                 Circle()
                     .stroke(lineWidth: 23)
-                    .opacity(0.20)
-                    .foregroundColor(Color.gray)
-                    .frame(maxWidth: 250, maxHeight: 250)
+                    .scaledToFit()
+                    .foregroundColor(Color.gray.opacity(0.15))
+                    .frame(maxWidth: 260, maxHeight: 260)
                 
                 // ___________________________progress bar__________________________________
                
                     Circle()
                         .trim(from: 0.0, to: CGFloat(min(userViewModel.todaysTasks.completePercentage, 1.0)))
-                        .stroke(colorScheme == .dark ? Color.white.opacity(0.8) : Color.blue.opacity(0.8), style: StrokeStyle(lineWidth: 15, lineCap: .round, lineJoin: .round))
+                        .stroke(colorScheme == .dark ? Color.white : Color.blue.opacity(0.8), style: StrokeStyle(lineWidth: 15, lineCap: .round, lineJoin: .round))
+                        .shadow(color:colorScheme == .dark ? Color.white : Color.clear, radius: 5)
                         .rotationEffect(Angle(degrees: 270))
-                        .frame(maxWidth: 250, maxHeight: 250)
+                        .frame(maxWidth: 260, maxHeight: 260)
                         .animation(.easeInOut, value: 1.5)
     
                 
@@ -152,41 +156,67 @@ struct CurrentDynamicButtonView: View {
                     userViewModel.printTaskMetaData()
                 }
             }
+            .frame(minWidth: 300, maxWidth: 300)
             
-            Button {
-                if pomodoroModel.isStarted {
-                    pomodoroModel.isStarted = false
-                }
-                else {
-                    pomodoroModel.isStarted = true
+            
+            HStack {
+                Button {
+                    userViewModel.inCompleteTask()
+                    
+                } label: {
+                    
+                    //Image("forward.end.circle.fill@10x")
+                    Image("nothingheereerere")
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFill()
+                        .foregroundColor(Color.blue)
+                    
+                    .frame(width: 40, height: 40)
+                    
                 }
                 
-            } label: {
-                Image(systemName: !pomodoroModel.isStarted ? "play" : "pause")
-                //.resizable()
-                    .font(.largeTitle.bold())
-                    .foregroundColor(.black)
-                    .frame(width: 30, height: 20)
-                    .background{
-                        Circle()
-                            .fill(Color("Blue"))
+                Spacer()
+                Button {
+                    if pomodoroModel.isStarted {
+                        pomodoroModel.isStarted = false
                     }
-                    .shadow(color: Color("Blue"), radius: 8, x: 0, y: 0)
+                    else {
+                        pomodoroModel.isStarted = true
+                    }
+                    
+                } label: {
+                    
+                    Image(systemName: !pomodoroModel.isStarted ? "play.circle.fill" : "pause.circle.fill")
+                        .resizable()
+                        .scaledToFill()
+                        .foregroundColor( colorScheme == .dark ? Color.white.opacity(0.6) : Color.blue.opacity(0.6))
+                    
+                    .frame(width: 40, height: 40)
+                    
+                }
+                
+                .padding(.trailing, 2.0)
+                
+                
             }
-             
+            .frame(minWidth:330, maxWidth: 330, minHeight:40, maxHeight: 40)
+            
         }
+        .frame(minHeight: 330, maxHeight: 330)
         
     }
     
     /*
-    func clickIcon() {
-        /*
-         let incrementValue: Float = 1.0 / Float(userViewModel.getTaskNumber())
-         self.progressValue += incrementValue
-         */
-        self.progressValue = Float(userViewModel.getCompletePercentage())
-    }
+     func clickIcon() {
+     /*
+      let incrementValue: Float = 1.0 / Float(userViewModel.getTaskNumber())
+      self.progressValue += incrementValue
+      */
+     self.progressValue = Float(userViewModel.getCompletePercentage())
+     }
      */
+    
 }
 
 struct ProgressBar: View {
@@ -219,8 +249,9 @@ struct CurrentDynamicButtonView_Previews: PreviewProvider {
         //let currentTask = TaskModel("Workout", description: "Today is leg day")
         // let currentTask = Task("Workout",title: "Keto Diet...🍣", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10, time: Date())
         CurrentDynamicButtonView()
+            .preferredColorScheme(.dark)
             .environmentObject(UserViewModel())
-            //.preferredColorScheme(.dark)
+        //.preferredColorScheme(.dark)
             .environmentObject(PomodoroModel())
     }
 }

@@ -29,7 +29,7 @@ struct CurrentView: View {
             }
             if (!userViewModel.todaysTasks.showTodayTasks) {
                 CurrentAddButtonView()
-                    .padding(/*@START_MENU_TOKEN@*/[.leading, .bottom, .trailing], 50.0/*@END_MENU_TOKEN@*/)
+                    //.padding(/*@START_MENU_TOKEN@*/[.leading, .bottom, .trailing], 50.0/*@END_MENU_TOKEN@*/)
                 //userViewModel.updateTaskNumber(taskNumber: 0)
                 
             }
@@ -41,6 +41,7 @@ struct CurrentView: View {
                  //.colorInvert()
                  */
                 CurrentDynamicButtonView()
+                    //.padding(/*@START_MENU_TOKEN@*/[.leading, .bottom, .trailing], 50.0/*@END_MENU_TOKEN@*/)
                     .onReceive(timer, perform: { _ in
                         userViewModel.refreshCurrentTask()
                     })

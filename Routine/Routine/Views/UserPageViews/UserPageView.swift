@@ -25,7 +25,7 @@ struct UserPageView: View {
     
     var body: some View {
         //NavigationView{
-        VStack{
+        VStack(spacing: 0){
             
             
             ScrollView {
