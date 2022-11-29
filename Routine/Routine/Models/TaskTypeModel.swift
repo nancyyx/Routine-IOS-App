@@ -39,7 +39,7 @@ class TaskTypeModel: ObservableObject {
         ]),
         TaskType(id: 2, name: "Housework", taskOfTypes: [
             TaskOfType(id: 0, name: "Clean"),
-            TaskOfType(id: 1, name: "Work"),
+            //TaskOfType(id: 1, name: "Work"),
             TaskOfType(id: 2, name: "Dumping"),
             TaskOfType(id: 3, name: "Laundry")
         ]),

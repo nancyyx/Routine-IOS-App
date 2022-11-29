@@ -172,7 +172,7 @@ struct AddView: View {
                             .frame(height: 40, alignment: .center)
                             .padding()
                             
-                            TextField("Description", text: $textFieldTitle)
+                            TextField("Enter description here", text: $textFieldTitle)
                                 .padding(.horizontal)
                                 .font(.body)
                                 .frame(height: 30)

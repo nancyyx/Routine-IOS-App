@@ -148,7 +148,7 @@ struct CurrentDynamicButtonView: View {
                     userViewModel.completeTask()
                     pomodoroModel.stopTimer()
                     pomodoroModel.minute = 1
-                    userViewModel.addTaskToOneDate(type: "General", title: "Break", inputDate: Date(), hour: hour, min: minute, second: second)
+                    userViewModel.addTaskToOneDate(type: "Break", title: "Take a break!", inputDate: Date(), hour: hour, min: minute, second: second)
                     pomodoroModel.startTimer()
                     pomodoroModel.addNewTimer = true
                     
