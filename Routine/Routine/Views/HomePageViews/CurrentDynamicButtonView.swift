@@ -39,7 +39,7 @@ struct CurrentDynamicButtonView: View {
                     .frame(width: 100, height: 100)
                     .foregroundColor( colorScheme == .dark ? Color.white : Color.clear)
                 //.shadow(color: colorScheme == .dark ? Color.white.opacity(whiteOpacity*5) : Color.clear, radius:  whiteOpacity*30)
-                    .shadow(color: colorScheme == .dark ? Color.white.opacity(0.7) : Color.red, radius: 8 + 5 * sin(t), x: sin(t)*2, y: -sin(2*t)*2)
+                    .shadow(color: colorScheme == .dark ? Color.white.opacity(0.7) : Color.white, radius: 8 + 5 * sin(t), x: sin(t)*2, y: -sin(2*t)*2)
                     .overlay(
                         Button{
                             print("Image tapped!")
@@ -148,7 +148,7 @@ struct CurrentDynamicButtonView: View {
                     userViewModel.completeTask()
                     pomodoroModel.stopTimer()
                     pomodoroModel.minute = 1
-                    userViewModel.addTaskToOneDate(type: "Pomodoro Clock", title: "Break", inputDate: Date(), hour: hour, min: minute, second: second)
+                    userViewModel.addTaskToOneDate(type: "General", title: "Break", inputDate: Date(), hour: hour, min: minute, second: second)
                     pomodoroModel.startTimer()
                     pomodoroModel.addNewTimer = true
                     

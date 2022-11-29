@@ -8,15 +8,6 @@
 import SwiftUI
 import UIKit
 
-/*
-struct TestApp:App {
-    var body: some Scene {
-        WindowGroup {
-            EditPageView()
-        }
-    }
-}
-*/
 struct ImagePickerView: UIViewControllerRepresentable {
     @Binding var selectedImage: UIImage?
     @Environment(\.presentationMode) var isPresented

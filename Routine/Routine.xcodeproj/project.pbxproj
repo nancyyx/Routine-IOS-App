@@ -33,6 +33,7 @@
 		DC7BF0A62928A58700FF9E07 /* CircleSPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7BF0A52928A58700FF9E07 /* CircleSPin.swift */; };
 		DCB00D5A29186F0900E7C158 /* EditPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA41E0FC28F9F12F00B76AEF /* EditPageView.swift */; };
 		DCB00D5E2918792700E7C158 /* UserCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB00D5D2918792700E7C158 /* UserCalendarViewModel.swift */; };
+		DCF1B06029357EEB00533AAE /* TaskTypeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF1B05F29357EEB00533AAE /* TaskTypeModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,7 @@
 		DC7BF09F29287E6900FF9E07 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		DC7BF0A52928A58700FF9E07 /* CircleSPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleSPin.swift; sourceTree = "<group>"; };
 		DCB00D5D2918792700E7C158 /* UserCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCalendarViewModel.swift; sourceTree = "<group>"; };
+		DCF1B05F29357EEB00533AAE /* TaskTypeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTypeModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 				DC1FF5D228FACDC900E7F52B /* PomodoroModel.swift */,
 				DC3457AC28F7FD8D0077359F /* DateValue.swift */,
 				DCB00D5D2918792700E7C158 /* UserCalendarViewModel.swift */,
+				DCF1B05F29357EEB00533AAE /* TaskTypeModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				DC7BF09A29248F1200FF9E07 /* LaunchScreenView.swift in Sources */,
 				DCB00D5A29186F0900E7C158 /* EditPageView.swift in Sources */,
 				DC7BF0A029287E6A00FF9E07 /* ImagePickerView.swift in Sources */,
+				DCF1B06029357EEB00533AAE /* TaskTypeModel.swift in Sources */,
 				DC7BF09C2924952300FF9E07 /* CircleAnimation.swift in Sources */,
 				DC018ECC28E96B200044ACBE /* ContentView.swift in Sources */,
 				DC018EF628EA3F220044ACBE /* SettingView.swift in Sources */,
@@ -331,7 +335,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -385,7 +389,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -405,6 +409,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Routine/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need the camera permission";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -434,6 +439,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Routine/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need the camera permission";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

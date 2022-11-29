@@ -6,7 +6,57 @@
 //
 
 import SwiftUI
+/*
 enum TaskTypes: String, CaseIterable, Identifiable {
+    case Workout
+    case Drink
+    case Smile
+    case Read
+    
+    var id: Self { self }
+}
+ 
+
+enum Catergory: String, CaseIterable, Identifiable {
+    case General
+    case SelfImprovement
+    case Housework
+    case Health
+    case Economics
+    
+    var id: Self { self }
+}
+ */
+
+enum DefaultType: String, CaseIterable, Identifiable {
+    case General
+    var id: Self { self }
+}
+
+enum Economics: String, CaseIterable, Identifiable {
+    case Pay
+    case Stock
+    var id: Self { self }
+}
+
+enum Health: String, CaseIterable, Identifiable {
+    case Dining
+    case Drink
+    case Sleep
+    case Workout
+    case Hospital
+    
+    var id: Self { self }
+}
+
+enum Housework: String, CaseIterable, Identifiable {
+    case Clean
+    case Laundry
+    
+    var id: Self { self }
+}
+
+enum SelfImprovement: String, CaseIterable, Identifiable {
     case Workout
     case Drink
     case Smile
@@ -18,20 +68,25 @@ enum TaskTypes: String, CaseIterable, Identifiable {
 struct AddView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject var todaysTasks: TaskMetaData
+
     @Environment(\.colorScheme) var colorScheme
     //@State var textFieldType: String
-    @State var textFieldTitle: String
+    @State var textFieldTitle = "Description of the task."
     @State var startingDate = Date()
     @State var endingDate = Date()
     @State var durationDate = Date()
     @State var durationHour = 0
     @State var durationMin = 0
     @State var durationSec = 10
+    @State var selectedCatergoryIndex = 0
+    
+    @ObservedObject var taskTypeModel = TaskTypeModel()
     
     var selectHour = [Int](0..<24)
     var selectMin = [Int](0..<60)
     var selectSec = [Int](0..<60)
     
+    var catergory = ["Default", "SelfImprovement", "Housework", "Health", "Economics"]
     //var taskDurationRange = Calendar.current.date(byAdding: .hour, value: , to: Date())!
     var tabBarview: CustomTabView?
     
@@ -39,7 +94,7 @@ struct AddView: View {
     
 
     
-    @State private var selectedType: String = TaskTypes.Workout.rawValue.capitalized
+    @State private var selectedType: String = DefaultType.General.rawValue
 
     var body: some View {
         GeometryReader { geometry in
@@ -68,35 +123,38 @@ struct AddView: View {
                             
                         }
                     }*/
+                    
                     Form {
-                        
-                        
-                        
                         Section(header: Text("Task Info")) {
-                            
-                            
-                            
                             /*
-                            TextField("Task Type", text: $textFieldType)
-                                .padding(.horizontal)
-                                .frame(height: 30)
-                                .cornerRadius(10)
+                            Picker("Task Type ", selection: $taskTypeModel.selectedTaskType content: {
+                                ForEach(0..<catergory.count,  content: { index in
+                                    Text(catergory[index])
+                                    
+                                })
+                            })
                              */
+                            Picker(selection: $taskTypeModel.selectedTaskType, label: Text("Type")){
+                                ForEach(0 ..< taskTypeModel.taskTypeNames.count){ index in
+                                    Text(self.taskTypeModel.taskTypeNames[index])
+                                }
+                            }
+                            
                             
                             ScrollView(.horizontal) {
                                 LazyHStack {
-                                    
-                                    ForEach(TaskTypes.allCases) { ts in
+                                    ForEach( 0 ..< taskTypeModel.taskOfTypeNamesCount) { ts in
                                         Button {
-                                            selectedType = ts.rawValue.capitalized
+                                            self.taskTypeModel.selectedTaskOfType = ts
+                                            selectedType = self.taskTypeModel.taskOfTypeNames[ts]
                                         } label: {
                                             Circle()
                                                 .stroke(lineWidth: 3)
-                                                .shadow(color: selectedType == ts.rawValue.capitalized ?  Color.white : Color.clear, radius: 2)
-                                                .foregroundColor(selectedType == ts.rawValue.capitalized ?  (colorScheme == .dark ? Color.white : Color.blue) : Color.black.opacity(0.1))
+                                                .shadow(color: taskTypeModel.selectedTaskOfType == ts ?  Color.white : Color.clear, radius: 2)
+                                                .foregroundColor(taskTypeModel.selectedTaskOfType == ts ?  (colorScheme == .dark ? Color.white : Color.blue) : Color.black.opacity(0.1))
                                                 .frame(width: 35, height: 35.0)
                                                 .overlay(
-                                                    Image(ts.rawValue.capitalized)
+                                                    Image(taskTypeModel.taskOfTypeNames[ts])
                                                         .resizable()
                                                         .renderingMode(.template)
                                                         .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
@@ -108,6 +166,7 @@ struct AddView: View {
                                         .padding(3.0)
                                         
                                     }
+                                    .id(taskTypeModel.id)
                                 }
                             }
                             .frame(height: 40, alignment: .center)
