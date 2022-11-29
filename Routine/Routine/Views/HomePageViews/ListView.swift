@@ -16,7 +16,7 @@ struct ListView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("TODO LIST")
+                Text("REMAINS")
                     .font(.title)
                     .fontWeight(.semibold)
                     .padding()

@@ -18,10 +18,18 @@ class UserViewModel: ObservableObject {
     @Published var sup: String = "I love 996"
     // @Published var noTasksToday: Bool = true
     //@Published var number = 0
-    @Published var currentTask: Task = Task("Workout",title: "Keto Diet...🍣", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10, time: Date())
+    @Published var currentTask: Task = Task("nothinghere",title: "Keto Diet...🍣", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10, time: Date())
     @Published var todaysTasks: TaskMetaData = TaskMetaData()
     
     @Published var tasksOfYear: [TaskMetaData] = []
+    /*
+    init() {
+        addTaskToOneDate(type: "Workout", title: "Workout with everybody in this class", inputDate: Date().addingTimeInterval(35.0), hour: 0, min: 0, second: 10)
+        addTaskToOneDate(type: "Dumping", title: "Dump your android phone", inputDate: Date().addingTimeInterval(50.0), hour: 0, min: 0, second: 5)
+        addTaskToOneDate(type: "Laundry", title: "Wash your neighbor's shoes", inputDate: Date().addingTimeInterval(55.0), hour: 0, min: 0, second: 3)
+        addTaskToOneDate(type: "Hospital", title: "Visit doctor everyday", inputDate: Date().addingTimeInterval(59.0), hour: 0, min: 0, second: 3)
+    }
+     */
     
     func setInfo(name: String, wasup: String) {
         userName = name
@@ -80,12 +88,14 @@ class UserViewModel: ObservableObject {
              
              }
              
+             if (inputDate.onlyDate == Date().onlyDate) {
+                 refreshTodaysTasks()
+                 refreshCurrentTask()
+             }
              */
+            refreshTodaysTasks()
+            refreshCurrentTask()
             
-            if (inputDate.onlyDate == Date().onlyDate) {
-                refreshTodaysTasks()
-                refreshCurrentTask()
-            }
             
             
         }

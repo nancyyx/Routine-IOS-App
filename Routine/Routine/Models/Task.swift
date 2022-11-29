@@ -106,6 +106,8 @@ class TaskMetaData: Identifiable, ObservableObject {
     @Published var endTime: Date
     @Published var completePercentage: Double
     
+    @EnvironmentObject var userViewModel: UserViewModel
+    
     init() {
         self.tasks = [ Task("Workout",title: "Keto Diet...🍣", startingHour: 8, startingMin: 0, hour: 0, min: 0, second: 10, time: Date())]
         self.taskDate = Date()
@@ -137,17 +139,34 @@ class TaskMetaData: Identifiable, ObservableObject {
      */
     
     func addTask(newTask: Task)->Bool {
+        print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        print("new task: ", newTask.type, " starting at", newTask.time.formatted(), "| ending at: ", newTask.endTime.formatted())
+        print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        
+        tasks.forEach { onetask in
+            print(onetask.type, " starting at", onetask.time.formatted(), "| ending at: ", onetask.endTime.formatted())
+        }
+        print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        let newTaskEndTime = newTask.time.addingTimeInterval(Double(newTask.hour * 3600 + newTask.min * 60 + newTask.second * 1))
+        
         for index in tasks.indices {
             let endTime = tasks[index].time.addingTimeInterval(Double(tasks[index].hour * 3600 + tasks[index].min * 60 + tasks[index].second * 1))
-            let newTaskEndTime = newTask.time.addingTimeInterval(Double(newTask.hour * 3600 + newTask.min * 60 + newTask.second * 1))
+            
             if (newTask.time > endTime) {
                 if (index + 1 < tasks.count) {   // if there's next task in this day
+                    print("Task 145. There's next task")
+                    print(tasks[index+1].type)
                     if (newTaskEndTime < tasks[index + 1].time) {    // check if the new task's end time is less than the start time of next task
+                        
+                        print("Task 153. new task's end < next task's start, insert ")
                         tasks.insert(newTask, at: index + 1)
                         showTodayTasks = true
                         refreshCompletePercentage()
                         return true
                     }
+                    print("Task 159.")
                 }
                 else {
                     tasks.append(newTask)
@@ -156,7 +175,11 @@ class TaskMetaData: Identifiable, ObservableObject {
                     return true
                 }
             }
+            
+            
+            
         }
+    
         return false
     }
     

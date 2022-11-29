@@ -20,6 +20,7 @@ struct CurrentDynamicButtonView: View {
     @State var rotate2 = 5
     @State var degree2 = 150
     @State var t = 0.0
+    @State var now = Date()
     
     let timer2 = Timer.publish(every: 0.2, on: .main, in:
             .common).autoconnect()
@@ -57,7 +58,7 @@ struct CurrentDynamicButtonView: View {
                                     //clickIcon()
                                     if pomodoroModel.isStarted {
                                         pomodoroModel.stopTimer()
-                                        pomodoroModel.minute = 1
+                                        pomodoroModel.second = 30
                                         print("Break Time!")
                                         pomodoroModel.startTimer()
                                         pomodoroModel.addNewTimer = true
@@ -112,18 +113,29 @@ struct CurrentDynamicButtonView: View {
             .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()){
                 _ in
                 if (userViewModel.todaysTasks.showTodayTasks) {
-                    let calendar = Calendar.current
+                    //let calendar = Calendar.current
                     let date = Date()
-                    let hour = calendar.component(.hour, from: date)
-                    let minute = calendar.component(.minute, from: date)
+                    now = date
+                    //let hour = calendar.component(.hour, from: date)
+                    //let minute = calendar.component(.minute, from: date)
                     pomodoroModel.hour = userViewModel.currentTask.hour
                     pomodoroModel.minute = userViewModel.currentTask.min
                     pomodoroModel.second = userViewModel.currentTask.second
                     
+                    /*
                     if hour == userViewModel.currentTask.startingHour && (minute == userViewModel.currentTask.startingMin || minute == userViewModel.currentTask.startingMin + 1) && pomodoroModel.isStarted == false && pomodoroModel.staticTotalSeconds == 0 {
                         print("start")
                         pomodoroModel.startTimer()
                     }
+                     */
+                
+                    if date >= userViewModel.currentTask.time && pomodoroModel.isStarted == false && pomodoroModel.staticTotalSeconds == 0 {
+                        print("start")
+                        print("current time:                ", date.formatted())
+                        print("current task: ", userViewModel.currentTask.type,"starting time: ", userViewModel.currentTask.time)
+                        pomodoroModel.startTimer()
+                    }
+                    
                 }
                 if (pomodoroModel.isStarted) {
                     pomodoroModel.updateTimer()
@@ -140,15 +152,22 @@ struct CurrentDynamicButtonView: View {
                     userViewModel.printTaskMetaData()
                 }
                 Button("Start Relax Time", role: .cancel) {
+                    /*
                     let calendar = Calendar.current
                     let date = Date()
                     let hour = calendar.component(.hour, from: date)
                     let minute = calendar.component(.minute, from: date)
                     let second = calendar.component(.second, from: date)
+                     */
                     userViewModel.completeTask()
                     pomodoroModel.stopTimer()
-                    pomodoroModel.minute = 1
-                    userViewModel.addTaskToOneDate(type: "Break", title: "Take a break!", inputDate: Date(), hour: hour, min: minute, second: second)
+                    pomodoroModel.second = 10
+                    /*
+                     Previous code added a super long break,
+                    Break  starting at 11/28/2022, 8:05 PM | ending at:  11/29/2022, 4:11 PM
+                    that I cannot add a new task after the break. Now the break is set to 10 second for demo
+                     */
+                    userViewModel.addTaskToOneDate(type: "Break", title: "Take a break!", inputDate: Date(), hour: 0    , min: 0, second: 10)
                     pomodoroModel.startTimer()
                     pomodoroModel.addNewTimer = true
                     
@@ -161,7 +180,7 @@ struct CurrentDynamicButtonView: View {
             
             HStack {
                 Button {
-                    userViewModel.inCompleteTask()
+                    //userViewModel.inCompleteTask()
                     
                 } label: {
                     
@@ -190,7 +209,9 @@ struct CurrentDynamicButtonView: View {
                     Image(systemName: !pomodoroModel.isStarted ? "play.circle.fill" : "pause.circle.fill")
                         .resizable()
                         .scaledToFill()
-                        .foregroundColor( colorScheme == .dark ? Color.white.opacity(0.6) : Color.blue.opacity(0.6))
+                        .foregroundColor(
+                            now < userViewModel.currentTask.time && pomodoroModel.isStarted == false && pomodoroModel.staticTotalSeconds == 0 ? Color.clear  :
+                            colorScheme == .dark ? Color.white.opacity(0.6) : Color.blue.opacity(0.6))
                     
                     .frame(width: 40, height: 40)
                     
